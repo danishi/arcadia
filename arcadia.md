@@ -39,6 +39,18 @@ Every statement in a proposal deliverable must trace to either:
 - An RFP requirement (by section/item number)
 - A reference document (by file path in `docs/rfp_reference/`)
 - An Architecture Decision Record (ADR) with documented rationale
+- An organization data source (by ID in `org-data/` -- e.g., SVC-001, REF-003, WP-002)
+
+### 1.6 Dual-axis Information Architecture
+
+Proposals require two orthogonal axes of information. ARCADIA manages both explicitly:
+
+| Axis | Source | Lifecycle | Location |
+|------|--------|-----------|----------|
+| **Customer/RFP** | RFP documents, QA, meetings | Per-project | `docs/` in each project |
+| **Organization** | Rate cards, service specs, whitepapers, credentials | Cross-project | `arcadia/org-data/` |
+
+Skills resolve information from both axes: `estimation-advisor` combines org rate cards with RFP scope; `proposal-writer` merges org credentials/services with RFP requirements.
 
 ---
 
@@ -172,18 +184,37 @@ ARCADIA defines four core skills. Each is a directory under `skills/` with a `SK
 
 Skills are project-local (`.claude/skills/`) and travel with the repository.
 
+Skills reference two data sources:
+- **Project data**: `docs/` (RFP, architecture plans, meeting notes)
+- **Organization data**: `arcadia/org-data/` (rate cards, service catalog, whitepapers, company profile)
+
 ---
 
-## 6. MCP Integration
+## 6. Organization Data (`org-data/`)
 
-### Required (all projects)
+Reusable, cross-project information about the proposing organization:
+
+| File | Content | Referenced by |
+|------|---------|--------------|
+| `rate-card.md` | Role-based unit prices, discount policy, cost basis | `estimation-advisor` |
+| `service-catalog.md` | Service specs, differentiators, sizing estimates | `proposal-writer`, `estimation-advisor` |
+| `company-profile.md` | Company info, credentials, case studies | `proposal-writer` |
+| `whitepapers/index.md` | Technical paper index with topic tags | `proposal-writer`, `estimation-advisor` |
+
+Setup procedure: `guides/01-kickoff.md` Step 1.5. Detail: `org-data/README.md`.
+
+---
+
+### MCP Integration
+
+#### Required (all projects)
 
 | MCP Server | Purpose |
 |------------|---------|
 | `context7` | Library/framework documentation lookup |
 | `drawio` | Architecture diagram generation and editing |
 
-### Recommended (by platform)
+#### Recommended (by platform)
 
 | MCP Server | When to Use |
 |------------|-------------|
@@ -193,7 +224,7 @@ Skills are project-local (`.claude/skills/`) and travel with the repository.
 
 ---
 
-## 7. File Naming Conventions
+## 8. File Naming Conventions
 
 | Pattern | Example | Usage |
 |---------|---------|-------|
