@@ -1,0 +1,33 @@
+// ============================================================================
+// layout.tsx — ルートレイアウト
+// ============================================================================
+// {{CLIENT_NAME}} はプロジェクト固有のクライアント名に置換する。
+// Sidebar + メインコンテンツ領域の 2 カラムレイアウト。
+// ============================================================================
+
+import type { Metadata } from "next";
+import "./globals.css";
+import { Sidebar } from "@/components/sidebar";
+
+export const metadata: Metadata = {
+  // {{CLIENT_NAME}} — プロジェクト固有のタイトルに置換
+  title: "データ分析基盤デモ",
+  description: "次世代データプラットフォーム デモアプリケーション",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="ja">
+      <body className="antialiased">
+        <div className="flex h-screen">
+          <Sidebar />
+          <main className="flex-1 overflow-auto">{children}</main>
+        </div>
+      </body>
+    </html>
+  );
+}

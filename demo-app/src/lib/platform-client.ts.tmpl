@@ -1,0 +1,83 @@
+// ============================================================================
+// platform-client.ts — 汎用プラットフォーム接続クライアント
+// ============================================================================
+// 環境変数を通じて任意のデータプラットフォームに接続するための抽象化レイヤー。
+// PLATFORM_TYPE を切り替えることで各種プラットフォームに対応。
+// 未接続時は mock-data.ts によるフォールバックが自動的に有効になる。
+// ============================================================================
+
+export type PlatformType = "databricks" | "snowflake" | "bigquery" | "custom";
+
+export interface PlatformConfig {
+  /** プラットフォーム種別 */
+  type: PlatformType;
+  /** 接続先ホスト URL */
+  host: string | undefined;
+  /** 認証トークン */
+  token: string | undefined;
+  /** ウェアハウス/コンピュート ID */
+  warehouseId: string | undefined;
+  /** プロジェクト/ワークスペース ID */
+  projectId: string | undefined;
+  /** AI エンドポイント URL */
+  aiEndpoint: string | undefined;
+  /** AI スペース/ルーム ID */
+  aiSpaceId: string | undefined;
+}
+
+/**
+ * 環境変数からプラットフォーム設定を取得する。
+ * .env.local に以下を設定:
+ *   PLATFORM_TYPE=databricks|snowflake|bigquery|custom
+ *   PLATFORM_HOST=https://...
+ *   PLATFORM_TOKEN=dapi...
+ *   PLATFORM_WAREHOUSE_ID=...
+ *   PLATFORM_PROJECT_ID=...
+ *   AI_ENDPOINT=https://...
+ *   AI_SPACE_ID=...
+ */
+export function getPlatformConfig(): PlatformConfig {
+  return {
+    type: (process.env.PLATFORM_TYPE || "custom") as PlatformType,
+    host: process.env.PLATFORM_HOST,
+    token: process.env.PLATFORM_TOKEN,
+    warehouseId: process.env.PLATFORM_WAREHOUSE_ID,
+    projectId: process.env.PLATFORM_PROJECT_ID,
+    aiEndpoint: process.env.AI_ENDPOINT,
+    aiSpaceId: process.env.AI_SPACE_ID,
+  };
+}
+
+/**
+ * プラットフォームが正しく設定されているかを判定する。
+ * host と token の両方が設定されている場合に true を返す。
+ * false の場合はモックデータへフォールバックする。
+ */
+export function isPlatformConfigured(): boolean {
+  const config = getPlatformConfig();
+  return Boolean(config.host && config.token);
+}
+
+/**
+ * プラットフォーム API への汎用 fetch ラッパー。
+ * 認証ヘッダーを自動付与する。
+ */
+export async function platformFetch(
+  path: string,
+  options: RequestInit = {}
+): Promise<Response> {
+  const config = getPlatformConfig();
+  if (!config.host || !config.token) {
+    throw new Error("プラットフォームが設定されていません。環境変数を確認してください。");
+  }
+
+  const url = `${config.host}${path}`;
+  return fetch(url, {
+    ...options,
+    headers: {
+      Authorization: `Bearer ${config.token}`,
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+}

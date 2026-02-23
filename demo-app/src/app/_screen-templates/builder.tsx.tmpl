@@ -1,0 +1,436 @@
+// ============================================================================
+// builder.tsx — Builder 型画面テンプレート
+// ============================================================================
+// ノードベースのビジュアルビルダー画面のスケルトン。
+// 左: ノードパレット、中央: キャンバス、右: プロパティパネル。
+// 使用方法: src/app/journey/page.tsx にコピーして編集してください。
+// ============================================================================
+
+"use client";
+
+import { useState, useCallback } from "react";
+import { cn, generateId } from "@/lib/utils";
+import { StatusBadge } from "@/components/ui/status-badge";
+
+// ─── 型定義 ─────────────────────────────────────────────────────────────────
+
+type NodeType = "trigger" | "action" | "condition" | "wait" | "end";
+
+type BuilderNode = {
+  id: string;
+  type: NodeType;
+  label: string;
+  x: number;
+  y: number;
+  config: Record<string, string>;
+  connections: string[];
+};
+
+// ─── ノードパレット定義 ─────────────────────────────────────────────────────
+
+const nodeTypeConfig: Record<
+  NodeType,
+  { label: string; icon: string; color: string; description: string }
+> = {
+  trigger: {
+    label: "トリガー",
+    icon: "⚡",
+    color: "bg-success/20 text-success border-success/30",
+    description: "ジャーニーの開始条件",
+  },
+  action: {
+    label: "アクション",
+    icon: "▶",
+    color: "bg-primary/20 text-primary border-primary/30",
+    description: "実行する処理",
+  },
+  condition: {
+    label: "条件分岐",
+    icon: "◇",
+    color: "bg-warning/20 text-warning border-warning/30",
+    description: "条件による振り分け",
+  },
+  wait: {
+    label: "待機",
+    icon: "⏳",
+    color: "bg-info/20 text-info border-info/30",
+    description: "指定時間の待機",
+  },
+  end: {
+    label: "終了",
+    icon: "■",
+    color: "bg-error/20 text-error border-error/30",
+    description: "ジャーニーの終了",
+  },
+};
+
+// ─── 初期ノード（デモ用） ───────────────────────────────────────────────────
+
+const initialNodes: BuilderNode[] = [
+  {
+    id: "node-1",
+    type: "trigger",
+    label: "新規登録",
+    x: 100,
+    y: 150,
+    config: { event: "user_registered" },
+    connections: ["node-2"],
+  },
+  {
+    id: "node-2",
+    type: "wait",
+    label: "3日間待機",
+    x: 350,
+    y: 150,
+    config: { duration: "3d" },
+    connections: ["node-3"],
+  },
+  {
+    id: "node-3",
+    type: "condition",
+    label: "初回購入済み？",
+    x: 600,
+    y: 150,
+    config: { field: "purchase_count", operator: ">=", value: "1" },
+    connections: ["node-4", "node-5"],
+  },
+  {
+    id: "node-4",
+    type: "action",
+    label: "お礼メール送信",
+    x: 850,
+    y: 80,
+    config: { channel: "email", template: "thank_you" },
+    connections: [],
+  },
+  {
+    id: "node-5",
+    type: "action",
+    label: "リマインド通知",
+    x: 850,
+    y: 250,
+    config: { channel: "push", template: "reminder" },
+    connections: [],
+  },
+];
+
+// ─── ページ本体 ─────────────────────────────────────────────────────────────
+
+export default function BuilderPage() {
+  const [nodes, setNodes] = useState<BuilderNode[]>(initialNodes);
+  const [selectedNodeId, setSelectedNodeId] = useState<string | null>("node-1");
+  const [draggedType, setDraggedType] = useState<NodeType | null>(null);
+
+  const selectedNode = nodes.find((n) => n.id === selectedNodeId) ?? null;
+
+  // ノードをキャンバスに追加
+  const addNode = useCallback(
+    (type: NodeType, x: number, y: number) => {
+      const config = nodeTypeConfig[type];
+      const newNode: BuilderNode = {
+        id: generateId("node"),
+        type,
+        label: config.label,
+        x,
+        y,
+        config: {},
+        connections: [],
+      };
+      setNodes((prev) => [...prev, newNode]);
+      setSelectedNodeId(newNode.id);
+    },
+    []
+  );
+
+  // ノードのプロパティを更新
+  const updateNodeConfig = useCallback(
+    (nodeId: string, key: string, value: string) => {
+      setNodes((prev) =>
+        prev.map((n) =>
+          n.id === nodeId
+            ? { ...n, config: { ...n.config, [key]: value } }
+            : n
+        )
+      );
+    },
+    []
+  );
+
+  // ノードを削除
+  const removeNode = useCallback(
+    (nodeId: string) => {
+      setNodes((prev) =>
+        prev
+          .filter((n) => n.id !== nodeId)
+          .map((n) => ({
+            ...n,
+            connections: n.connections.filter((c) => c !== nodeId),
+          }))
+      );
+      if (selectedNodeId === nodeId) setSelectedNodeId(null);
+    },
+    [selectedNodeId]
+  );
+
+  return (
+    <div className="flex flex-col h-full">
+      {/* ツールバー */}
+      <div className="flex items-center justify-between px-6 py-3 border-b border-border bg-surface">
+        <div>
+          <h1 className="text-lg font-bold">ジャーニービルダー</h1>
+          <p className="text-xs text-text-muted">
+            ノードをドラッグ&ドロップしてジャーニーを構築
+          </p>
+        </div>
+        <div className="flex gap-2">
+          <button className="px-4 py-2 rounded-lg text-xs font-medium bg-surface-alt text-text-muted hover:text-text transition-colors">
+            リセット
+          </button>
+          <button className="px-4 py-2 rounded-lg text-xs font-medium bg-surface-alt text-text-muted hover:text-text transition-colors">
+            プレビュー
+          </button>
+          <button className="px-4 py-2 rounded-lg text-xs font-medium bg-primary text-white hover:bg-primary-dark transition-colors">
+            保存
+          </button>
+        </div>
+      </div>
+
+      <div className="flex-1 flex min-h-0">
+        {/* 左: ノードパレット */}
+        <div className="w-56 shrink-0 border-r border-border bg-surface p-4 overflow-y-auto">
+          <h2 className="text-xs font-bold text-text-muted uppercase tracking-wider mb-3">
+            ノードパレット
+          </h2>
+          <div className="space-y-2">
+            {(Object.entries(nodeTypeConfig) as [NodeType, typeof nodeTypeConfig[NodeType]][]).map(
+              ([type, config]) => (
+                <div
+                  key={type}
+                  draggable
+                  onDragStart={() => setDraggedType(type)}
+                  onDragEnd={() => setDraggedType(null)}
+                  className={cn(
+                    "p-3 rounded-lg border cursor-grab active:cursor-grabbing transition-colors hover:shadow-sm",
+                    config.color
+                  )}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="text-base">{config.icon}</span>
+                    <span className="text-xs font-bold">{config.label}</span>
+                  </div>
+                  <p className="text-[10px] opacity-70 mt-1">
+                    {config.description}
+                  </p>
+                </div>
+              )
+            )}
+          </div>
+        </div>
+
+        {/* 中央: キャンバス */}
+        <div
+          className="flex-1 relative bg-surface-alt overflow-auto"
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={(e) => {
+            if (!draggedType) return;
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            addNode(draggedType, x, y);
+          }}
+        >
+          {/* グリッド背景 */}
+          <svg className="absolute inset-0 w-full h-full pointer-events-none">
+            <defs>
+              <pattern
+                id="grid"
+                width="20"
+                height="20"
+                patternUnits="userSpaceOnUse"
+              >
+                <path
+                  d="M 20 0 L 0 0 0 20"
+                  fill="none"
+                  stroke="var(--color-border)"
+                  strokeWidth="0.5"
+                />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+
+            {/* 接続線 */}
+            {nodes.map((node) =>
+              node.connections.map((targetId) => {
+                const target = nodes.find((n) => n.id === targetId);
+                if (!target) return null;
+                return (
+                  <line
+                    key={`${node.id}-${targetId}`}
+                    x1={node.x + 70}
+                    y1={node.y + 25}
+                    x2={target.x}
+                    y2={target.y + 25}
+                    stroke="var(--color-border)"
+                    strokeWidth="2"
+                    strokeDasharray="6 4"
+                    className="animate-flow-dot"
+                  />
+                );
+              })
+            )}
+          </svg>
+
+          {/* ノード */}
+          {nodes.map((node) => {
+            const config = nodeTypeConfig[node.type];
+            const isSelected = selectedNodeId === node.id;
+            return (
+              <div
+                key={node.id}
+                className={cn(
+                  "absolute w-[140px] p-3 rounded-lg border-2 cursor-pointer transition-shadow",
+                  config.color,
+                  isSelected
+                    ? "shadow-lg ring-2 ring-primary/30"
+                    : "hover:shadow-md"
+                )}
+                style={{ left: node.x, top: node.y }}
+                onClick={() => setSelectedNodeId(node.id)}
+              >
+                <div className="flex items-center gap-1.5">
+                  <span className="text-sm">{config.icon}</span>
+                  <span className="text-xs font-bold truncate">
+                    {node.label}
+                  </span>
+                </div>
+                <p className="text-[10px] opacity-60 mt-1 truncate">
+                  {Object.values(node.config).join(", ") || "未設定"}
+                </p>
+              </div>
+            );
+          })}
+
+          {/* キャンバスが空の場合のガイド */}
+          {nodes.length === 0 && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <p className="text-text-muted text-sm">
+                左のパレットからノードをドラッグ&ドロップしてください
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* 右: プロパティパネル */}
+        <div className="w-72 shrink-0 border-l border-border bg-surface p-4 overflow-y-auto">
+          <h2 className="text-xs font-bold text-text-muted uppercase tracking-wider mb-3">
+            プロパティ
+          </h2>
+          {selectedNode ? (
+            <div className="space-y-4">
+              {/* ノード種別 */}
+              <div>
+                <label className="text-[10px] font-bold text-text-muted block mb-1">
+                  種別
+                </label>
+                <StatusBadge
+                  status={
+                    selectedNode.type === "trigger"
+                      ? "active"
+                      : selectedNode.type === "end"
+                      ? "completed"
+                      : "pending"
+                  }
+                  label={nodeTypeConfig[selectedNode.type].label}
+                  size="md"
+                />
+              </div>
+
+              {/* ラベル */}
+              <div>
+                <label className="text-[10px] font-bold text-text-muted block mb-1">
+                  ラベル
+                </label>
+                <input
+                  type="text"
+                  value={selectedNode.label}
+                  onChange={(e) =>
+                    setNodes((prev) =>
+                      prev.map((n) =>
+                        n.id === selectedNode.id
+                          ? { ...n, label: e.target.value }
+                          : n
+                      )
+                    )
+                  }
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-surface-alt text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+                />
+              </div>
+
+              {/* 設定値 */}
+              <div>
+                <label className="text-[10px] font-bold text-text-muted block mb-1">
+                  設定
+                </label>
+                {Object.entries(selectedNode.config).map(([key, value]) => (
+                  <div key={key} className="flex gap-2 mb-2">
+                    <input
+                      type="text"
+                      value={key}
+                      readOnly
+                      className="w-24 px-2 py-1.5 rounded border border-border bg-surface-alt text-xs text-text-muted"
+                    />
+                    <input
+                      type="text"
+                      value={value}
+                      onChange={(e) =>
+                        updateNodeConfig(selectedNode.id, key, e.target.value)
+                      }
+                      className="flex-1 px-2 py-1.5 rounded border border-border bg-surface-alt text-xs focus:outline-none focus:ring-2 focus:ring-primary/30"
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {/* 接続先 */}
+              <div>
+                <label className="text-[10px] font-bold text-text-muted block mb-1">
+                  接続先
+                </label>
+                {selectedNode.connections.length > 0 ? (
+                  <ul className="space-y-1">
+                    {selectedNode.connections.map((connId) => {
+                      const target = nodes.find((n) => n.id === connId);
+                      return (
+                        <li
+                          key={connId}
+                          className="text-xs text-text-muted flex items-center gap-1.5"
+                        >
+                          <span className="text-[10px]">→</span>
+                          {target?.label ?? connId}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                ) : (
+                  <p className="text-xs text-text-muted">接続なし</p>
+                )}
+              </div>
+
+              {/* 削除ボタン */}
+              <button
+                onClick={() => removeNode(selectedNode.id)}
+                className="w-full px-3 py-2 rounded-lg text-xs font-medium bg-error/10 text-error hover:bg-error/20 transition-colors"
+              >
+                このノードを削除
+              </button>
+            </div>
+          ) : (
+            <p className="text-xs text-text-muted">
+              キャンバス上のノードを選択すると、ここにプロパティが表示されます
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

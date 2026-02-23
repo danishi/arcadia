@@ -1,0 +1,136 @@
+// ============================================================================
+// sidebar.tsx — サイドバーナビゲーション
+// ============================================================================
+// {{PLATFORM_NAME}} と {{CLIENT_NAME}} はプロジェクト固有値に置換する。
+// {{DEMO_SECTIONS}} はナビゲーションセクション定義に展開する。
+// ============================================================================
+
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+type NavItem = {
+  href: string;
+  label: string;
+  icon: string;
+};
+
+type NavSection = {
+  title: string;
+  badge?: string;
+  items: NavItem[];
+};
+
+// --- ナビゲーション定義（プロジェクトに合わせて編集） -----------------------
+// {{DEMO_SECTIONS}} を以下の形式で展開してください:
+const sections: NavSection[] = [
+  {
+    title: "",
+    items: [{ href: "/", label: "ホーム", icon: "⌂" }],
+  },
+  {
+    title: "Phase 1",
+    items: [
+      { href: "/dashboard", label: "ダッシュボード", icon: "📊" },
+      { href: "/analysis", label: "データ分析", icon: "🔍" },
+      { href: "/scenario", label: "シナリオ管理", icon: "📋" },
+    ],
+  },
+  {
+    title: "Phase 2",
+    badge: "NEXT",
+    items: [
+      { href: "/journey", label: "ジャーニービルダー", icon: "🗺" },
+      { href: "/engagement", label: "エンゲージメント", icon: "💬" },
+      { href: "/realtime", label: "リアルタイム", icon: "⚡" },
+    ],
+  },
+];
+
+export function Sidebar() {
+  const pathname = usePathname();
+
+  return (
+    <aside className="w-64 bg-secondary text-white flex flex-col shrink-0">
+      {/* ブランドヘッダー */}
+      <div className="p-5 border-b border-white/10">
+        <div className="flex items-center gap-2 mb-1">
+          <div className="w-6 h-6 rounded bg-primary flex items-center justify-center text-[10px] font-bold">
+            {/* {{PLATFORM_NAME}} のアイコン略称 */}
+            AP
+          </div>
+          <span className="text-xs font-bold tracking-wide text-white/70">
+            {/* {{PLATFORM_NAME}} */}
+            データプラットフォーム
+          </span>
+        </div>
+        <h1 className="text-sm font-bold leading-tight mt-2">
+          {/* {{CLIENT_NAME}} プロジェクト名 */}
+          分析基盤デモ
+        </h1>
+        <p className="text-[10px] text-white/40 mt-0.5">
+          {/* {{DEMO_CONCEPT}} の短縮版 */}
+          次世代データプラットフォーム
+        </p>
+      </div>
+
+      {/* ナビゲーション */}
+      <nav className="flex-1 p-3 overflow-y-auto">
+        {sections.map((section, si) => (
+          <div key={si} className={si > 0 ? "mt-4" : ""}>
+            {section.title && (
+              <div className="flex items-center gap-2 px-3 mb-1.5">
+                <span className="text-[10px] font-bold text-white/40 uppercase tracking-wider">
+                  {section.title}
+                </span>
+                {section.badge && (
+                  <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-primary text-white">
+                    {section.badge}
+                  </span>
+                )}
+              </div>
+            )}
+            <ul className="space-y-0.5">
+              {section.items.map((item, ii) => {
+                const isActive = pathname === item.href;
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors relative ${
+                        isActive
+                          ? "bg-white/10 text-white"
+                          : "text-white/60 hover:bg-white/5 hover:text-white/90"
+                      }`}
+                    >
+                      {isActive && (
+                        <span className="absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-r bg-primary" />
+                      )}
+                      <span className="text-xs w-4 text-center opacity-70">
+                        {item.icon}
+                      </span>
+                      <span>{item.label}</span>
+                    </Link>
+                    {si > 0 && ii < section.items.length - 1 && (
+                      <div className="flex justify-center py-0.5 text-white/20 text-[10px]">
+                        ↓
+                      </div>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
+      </nav>
+
+      {/* フッター */}
+      <div className="p-4 border-t border-white/10">
+        <div className="text-[10px] text-white/30 text-center">
+          ARCADIA Demo App
+        </div>
+      </div>
+    </aside>
+  );
+}

@@ -1,0 +1,147 @@
+// ============================================================================
+// dashboard.tsx — Dashboard 型画面テンプレート
+// ============================================================================
+// KPI タイル、パイプラインステータス一覧、チャート表示を組み合わせた
+// ダッシュボード画面のスケルトン。
+// 使用方法: src/app/dashboard/page.tsx にコピーして編集してください。
+// ============================================================================
+
+"use client";
+
+import { useState } from "react";
+import { KpiTile } from "@/components/ui/kpi-tile";
+import { DataTable, type ColumnDef } from "@/components/ui/data-table";
+import { ChartWrapper } from "@/components/ui/chart-wrapper";
+import { StatusBadge, type StatusType } from "@/components/ui/status-badge";
+import { kpiMetrics, pipelines } from "@/lib/mock-data";
+
+// --- ステータスフィルター ---------------------------------------------------
+type FilterOption = "all" | "healthy" | "delayed" | "error";
+
+const filterOptions: { value: FilterOption; label: string }[] = [
+  { value: "all", label: "すべて" },
+  { value: "healthy", label: "正常" },
+  { value: "delayed", label: "遅延" },
+  { value: "error", label: "エラー" },
+];
+
+// --- パイプラインテーブル定義 -----------------------------------------------
+const pipelineColumns: ColumnDef[] = [
+  { key: "source", label: "データソース" },
+  { key: "destination", label: "送信先" },
+  {
+    key: "status",
+    label: "ステータス",
+    render: (value) => (
+      <StatusBadge status={value as StatusType} />
+    ),
+  },
+  { key: "lastSync", label: "最終同期" },
+  {
+    key: "recordsPerDay",
+    label: "処理件数/日",
+    align: "right",
+  },
+  {
+    key: "qualityScore",
+    label: "品質スコア",
+    align: "right",
+    render: (value) => (
+      <span className={Number(value) >= 95 ? "text-success" : "text-warning"}>
+        {String(value)}%
+      </span>
+    ),
+  },
+];
+
+// --- チャートデータ（モック） -----------------------------------------------
+const chartData = [
+  { label: "月", value: 12500000 },
+  { label: "火", value: 14200000 },
+  { label: "水", value: 13800000 },
+  { label: "木", value: 15100000 },
+  { label: "金", value: 11900000 },
+  { label: "土", value: 8200000 },
+  { label: "日", value: 7500000 },
+];
+
+// --- ページ本体 -------------------------------------------------------------
+export default function DashboardPage() {
+  const [filter, setFilter] = useState<FilterOption>("all");
+
+  const filteredPipelines =
+    filter === "all"
+      ? pipelines
+      : pipelines.filter((p) => p.status === filter);
+
+  return (
+    <div className="p-8 max-w-7xl mx-auto space-y-6">
+      {/* ページヘッダー */}
+      <div>
+        <h1 className="text-xl font-bold">データ連携ダッシュボード</h1>
+        <p className="text-sm text-text-muted mt-1">
+          パイプラインの稼働状況とデータ品質をリアルタイムに監視
+        </p>
+      </div>
+
+      {/* KPI タイル */}
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {kpiMetrics.map((kpi) => (
+          <KpiTile
+            key={kpi.id}
+            label={kpi.label}
+            value={kpi.value}
+            suffix={kpi.suffix}
+            changePercent={kpi.changePercent}
+            trend={kpi.trend}
+            icon={kpi.icon}
+          />
+        ))}
+      </section>
+
+      {/* チャート表示エリア */}
+      <section>
+        <h2 className="text-sm font-bold text-text-muted mb-3">
+          週間データ処理量
+        </h2>
+        <ChartWrapper
+          data={chartData}
+          defaultType="bar"
+          valueLabel="処理件数"
+          height={280}
+        />
+      </section>
+
+      {/* パイプライン一覧 */}
+      <section>
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-sm font-bold text-text-muted">
+            パイプラインステータス
+          </h2>
+          <div className="flex gap-1">
+            {filterOptions.map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => setFilter(opt.value)}
+                className={`px-3 py-1 rounded-md text-xs font-medium transition-colors ${
+                  filter === opt.value
+                    ? "bg-primary text-white"
+                    : "bg-surface-alt text-text-muted hover:text-text"
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="bg-surface rounded-xl border border-border">
+          <DataTable
+            columns={pipelineColumns}
+            rows={filteredPipelines as unknown as Record<string, unknown>[]}
+            emptyMessage="該当するパイプラインがありません"
+          />
+        </div>
+      </section>
+    </div>
+  );
+}

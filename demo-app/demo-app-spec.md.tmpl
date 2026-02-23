@@ -1,0 +1,134 @@
+# デモアプリ仕様書
+
+## コンセプト
+
+{{DEMO_CONCEPT}}
+
+---
+
+## 技術スタック
+
+| カテゴリ | 技術 | バージョン | 用途 |
+|----------|------|-----------|------|
+| フレームワーク | Next.js (App Router) | ^15.1.0 | SSR / ルーティング / API Route |
+| UI ライブラリ | React | ^19.0.0 | コンポーネント構築 |
+| 型システム | TypeScript (strict) | ^5.7.0 | 型安全性 |
+| スタイリング | Tailwind CSS 4 | ^4.0.0 | ユーティリティファーストCSS |
+| チャート | Recharts | ^3.7.0 | データ可視化 |
+| アニメーション | Framer Motion | ^12.33.0 | UI アニメーション |
+| 日付処理 | date-fns | ^4.1.0 | 日付フォーマット |
+
+---
+
+## 画面一覧
+
+| パス | 名称 | パターン | フェーズ | 概要 |
+|------|------|---------|----------|------|
+| `/` | ホーム | - | 共通 | プロジェクト概要 / KPI サマリ / 画面ナビゲーション |
+| `/dashboard` | ダッシュボード | Dashboard 型 | Phase 1 | KPI タイル / パイプライン一覧 / チャート表示 |
+| `/analysis` | データ分析 | Chat 型 | Phase 1 | AI 対話 / テーブル・グラフ結果表示 |
+| `/scenario` | シナリオ管理 | Dashboard 型 | Phase 1 | シナリオ一覧 / 施策提案 |
+| `/journey` | ジャーニービルダー | Builder 型 | Phase 2 | ノードベースのジャーニー設計 |
+| `/engagement` | エンゲージメント | Dashboard 型 | Phase 2 | エンゲージメント分析 |
+| `/realtime` | リアルタイム | Dashboard 型 | Phase 2 | ライブデータモニタリング |
+
+### 画面パターン
+
+- **Dashboard 型** (`_screen-templates/dashboard.tsx.tmpl`): KPI タイル + データテーブル + チャート
+- **Chat 型** (`_screen-templates/chat.tsx.tmpl`): AI 対話 + 結果表示 (テーブル/グラフ切替)
+- **Builder 型** (`_screen-templates/builder.tsx.tmpl`): ノードパレット + キャンバス + プロパティパネル
+
+---
+
+## デザインシステム
+
+### カラーパレット
+
+| トークン名 | 用途 | デフォルト値 |
+|-----------|------|-------------|
+| `--color-primary` | メインアクション | `#3b82f6` |
+| `--color-primary-dark` | ホバー / 強調 | `#2563eb` |
+| `--color-secondary` | サイドバー / ヘッダー背景 | `#1e293b` |
+| `--color-accent` | アクセント | `#8b5cf6` |
+| `--color-bg` | ページ背景 | `#f8f9fa` |
+| `--color-surface` | カード / パネル背景 | `#ffffff` |
+| `--color-surface-alt` | ストライプ行 / 代替背景 | `#f1f5f9` |
+| `--color-text` | 本文テキスト | `#1e293b` |
+| `--color-text-muted` | 補助テキスト | `#6b7280` |
+| `--color-border` | ボーダー / 区切り線 | `#e5e7eb` |
+| `--color-success` | 成功 / 正常 | `#10b981` |
+| `--color-warning` | 警告 / 注意 | `#f59e0b` |
+| `--color-error` | エラー / 異常 | `#ef4444` |
+| `--color-info` | 情報 / リンク | `#3b82f6` |
+
+### タイポグラフィ
+
+- 本文: `Inter`, `Hiragino Sans`, `Noto Sans JP`, sans-serif
+- サイズ: Tailwind のデフォルトスケール
+- UIテキスト: 日本語
+
+---
+
+## モックデータモデル
+
+| 型名 | 説明 | 主要フィールド |
+|------|------|---------------|
+| `Pipeline` | データ連携パイプライン | source, destination, status, recordsPerDay, qualityScore |
+| `ChatMessage` | AI 対話メッセージ | role, content, timestamp, table?, chart? |
+| `KpiMetric` | KPI メトリクス | label, value, suffix, changePercent, trend |
+| `TableRecord` | 汎用テーブルレコード | `[key: string]: string \| number \| boolean \| null` |
+
+---
+
+## プラットフォーム接続
+
+### 環境変数
+
+| 変数名 | 説明 | 必須 |
+|--------|------|------|
+| `PLATFORM_TYPE` | プラットフォーム種別 (`databricks` / `snowflake` / `bigquery` / `custom`) | - |
+| `PLATFORM_HOST` | 接続先ホスト URL | * |
+| `PLATFORM_TOKEN` | 認証トークン | * |
+| `PLATFORM_WAREHOUSE_ID` | ウェアハウス / コンピュート ID | - |
+| `PLATFORM_PROJECT_ID` | プロジェクト / ワークスペース ID | - |
+| `AI_ENDPOINT` | AI エンドポイント URL | - |
+| `AI_SPACE_ID` | AI スペース / ルーム ID | - |
+
+> `PLATFORM_HOST` と `PLATFORM_TOKEN` が未設定の場合、自動的にモックデータへフォールバックする。
+
+---
+
+## 共通 UI コンポーネント
+
+| コンポーネント | ファイル | 用途 |
+|---------------|---------|------|
+| `KpiTile` | `components/ui/kpi-tile.tsx` | KPI 表示カード |
+| `DataTable` | `components/ui/data-table.tsx` | ソート対応データテーブル |
+| `ChartWrapper` | `components/ui/chart-wrapper.tsx` | Recharts ラッパー（棒/折れ線/円） |
+| `ChatMessage` | `components/ui/chat-message.tsx` | チャットメッセージ表示 |
+| `StatusBadge` | `components/ui/status-badge.tsx` | ステータスバッジ |
+
+---
+
+## 実装優先度
+
+| 優先度 | 対象 | 理由 |
+|--------|------|------|
+| P0 | ホーム画面 + サイドバー | 全画面の起点、第一印象 |
+| P0 | Dashboard 型画面 | 最も利用頻度の高いパターン |
+| P1 | Chat 型画面 | AI 連携のデモ価値が高い |
+| P1 | モックデータ充実 | プラットフォーム未接続でも動作保証 |
+| P2 | Builder 型画面 | 実装コストが高いが差別化要素 |
+| P2 | プラットフォーム実接続 | デモ環境構築後に対応 |
+| P3 | アニメーション / 演出強化 | 最終仕上げ |
+
+---
+
+## テンプレート変数一覧
+
+| 変数名 | 説明 | 使用箇所 |
+|--------|------|---------|
+| `{{DEMO_CONCEPT}}` | デモのコンセプト文 | page.tsx, demo-app-spec.md |
+| `{{CLIENT_NAME}}` | クライアント名 | layout.tsx, page.tsx, sidebar.tsx |
+| `{{PLATFORM_NAME}}` | プラットフォーム製品名 | sidebar.tsx |
+| `{{DEMO_SECTIONS}}` | ナビゲーションセクション定義 | sidebar.tsx |

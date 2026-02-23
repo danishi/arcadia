@@ -1,0 +1,271 @@
+# 提案戦略書：{{CLIENT_NAME}} {{PROJECT_NAME}}
+
+> **提出期限: {{SUBMISSION_DEADLINE}}** ／ **プレゼン: {{PRESENTATION_DATE}}** ／ 採否通知: {{RESULT_NOTIFICATION_DATE}}
+>
+> **関連文書**: [提案回答チェックリスト](./proposal-items-checklist.md) | [アーキテクチャ方針書](./architecture-plan/architecture-policy.md) | [見積方針書](./estimation-policy.md)
+>
+> **アーキテクチャ図面**: [{{PHASE_1_NAME}}論理構成図](./architecture-plan/logical-architecture-ph1.drawio) | [{{PHASE_1_NAME}}物理構成図](./architecture-plan/physical-architecture-ph1.drawio)
+
+---
+
+## 1. 案件概要とRFP解析
+
+### 1.1 プロジェクト背景と目的
+
+<!-- RFP本紙から抽出。以下のポイントを記載する:
+  - なぜ今回のプロジェクトが発生したか（EoSL、事業戦略転換等）
+  - クライアントが達成したい目標
+  - 必達目標（期限、性能目標等）
+-->
+
+- **背景**: {{PROJECT_BACKGROUND}}
+- **目的**: {{PROJECT_OBJECTIVE}}
+- **必達目標**:
+  - {{MILESTONE_1_NAME}}: **{{MILESTONE_1_DATE}}**
+  - {{MILESTONE_2_NAME}}: **{{MILESTONE_2_DATE}}**
+  - {{KEY_PERFORMANCE_TARGET}}: **{{PERFORMANCE_TARGET_VALUE}}**
+
+### 1.2 現状の課題（As-Is）と目指す姿（To-Be）
+
+<!-- 3-6行のAs-Is/To-Be対比を記載。RFP本紙の課題記述を基に、
+     提案製品でどう解決するかを対応付ける -->
+
+| 分類 | 現状の課題（As-Is） | 目指す姿（To-Be） |
+|------|-------------------|------------------|
+| **データ鮮度** | {{ASIS_FRESHNESS}} | {{TOBE_FRESHNESS}} |
+| **データ活用** | {{ASIS_UTILIZATION}} | {{TOBE_UTILIZATION}} |
+| **開発・運用** | {{ASIS_DEVELOPMENT}} | {{TOBE_DEVELOPMENT}} |
+| **インフラ** | {{ASIS_INFRASTRUCTURE}} | {{TOBE_INFRASTRUCTURE}} |
+| **チャネル** | {{ASIS_CHANNEL}} | {{TOBE_CHANNEL}} |
+| **外部連携** | {{ASIS_EXTERNAL}} | {{TOBE_EXTERNAL}} |
+
+### 1.3 スコープとフェーズ
+
+#### {{PHASE_1_NAME}}（〜{{PHASE_1_DEADLINE}}）-- 必須提案
+
+<!-- Ph1で対応する主要スコープを箇条書きで列挙 -->
+
+- {{PHASE_1_SCOPE_ITEM_1}}
+- {{PHASE_1_SCOPE_ITEM_2}}
+- {{PHASE_1_SCOPE_ITEM_3}}
+- データ連携: {{PHASE_1_DATA_INTEGRATION_APPROACH}}
+
+#### {{PHASE_2_NAME}}（{{PHASE_2_START}}以降）-- 参考価格・実現可能性提示
+
+<!-- Ph2で対応する拡張スコープ -->
+
+- {{PHASE_2_SCOPE_ITEM_1}}
+- {{PHASE_2_SCOPE_ITEM_2}}
+- {{PHASE_2_SCOPE_ITEM_3}}
+
+### 1.4 RFP主要課題と{{PLATFORM_NAME}}マッピング
+
+<!-- RFPから抽出した主要課題に対して、提案製品の対応策をマッピングする。
+     課題数はRFPに応じて増減する（5-15程度が典型） -->
+
+| # | 解決すべき課題 | Ph | {{PLATFORM_NAME}}対応策 |
+|---|--------------|---|----------------------|
+| 1 | {{CHALLENGE_1}} | {{CHALLENGE_1_PHASE}} | {{CHALLENGE_1_SOLUTION}} |
+| 2 | {{CHALLENGE_2}} | {{CHALLENGE_2_PHASE}} | {{CHALLENGE_2_SOLUTION}} |
+| 3 | {{CHALLENGE_3}} | {{CHALLENGE_3_PHASE}} | {{CHALLENGE_3_SOLUTION}} |
+| 4 | {{CHALLENGE_4}} | {{CHALLENGE_4_PHASE}} | {{CHALLENGE_4_SOLUTION}} |
+| 5 | {{CHALLENGE_5}} | {{CHALLENGE_5_PHASE}} | {{CHALLENGE_5_SOLUTION}} |
+
+### 1.5 重要数値（ビジネス基礎）
+
+<!-- RFP本紙およびQA回答から抽出される定量データ。
+     見積・アーキテクチャ設計の基礎となる数値を整理する -->
+
+- 顧客数/口座数: **{{CUSTOMER_COUNT}}**
+- DB容量: 約**{{DATA_VOLUME}}**
+- 日次バッチジョブ: 約**{{DAILY_BATCH_COUNT}}**
+- データ鮮度目標: **{{FRESHNESS_TARGET}}**
+- チャネル: {{CHANNEL_LIST}}（{{CHANNEL_COUNT}}チャネル）
+- IF数: {{INTERFACE_COUNT}}処理フロー
+- 接続システム: 社内**{{INTERNAL_SYSTEM_COUNT}}**＋社外**{{EXTERNAL_SYSTEM_COUNT}}**
+- クラウド基盤: **{{CLOUD_PROVIDER}} {{CLOUD_REGION}}**を前提
+
+---
+
+## 2. 提案に向けた戦略（Win Strategy）
+
+### 2.1 基本方針
+
+<!-- 提案の根幹となるメッセージを1-2文で定義する。
+     「なぜ{{PLATFORM_NAME}}なのか」を一言で説明できるフレーズ -->
+
+競合他社（{{COMPETITOR_1}}, {{COMPETITOR_2}}）に対し、**「{{WIN_STRATEGY_HEADLINE}}」**を訴求する。
+
+#### 差別化の柱
+
+<!-- 3-5本の差別化の柱を定義。各柱は:
+  - 1語のキーワード
+  - 具体的な内容（技術要素を含む）
+  - 競合との差分 -->
+
+| 柱 | 内容 | 競合との差 |
+|---|------|----------|
+| **{{DIFFERENTIATOR_1_NAME}}** | {{DIFFERENTIATOR_1_CONTENT}} | {{DIFFERENTIATOR_1_VS_COMPETITOR}} |
+| **{{DIFFERENTIATOR_2_NAME}}** | {{DIFFERENTIATOR_2_CONTENT}} | {{DIFFERENTIATOR_2_VS_COMPETITOR}} |
+| **{{DIFFERENTIATOR_3_NAME}}** | {{DIFFERENTIATOR_3_CONTENT}} | {{DIFFERENTIATOR_3_VS_COMPETITOR}} |
+| **{{DIFFERENTIATOR_4_NAME}}** | {{DIFFERENTIATOR_4_CONTENT}} | {{DIFFERENTIATOR_4_VS_COMPETITOR}} |
+
+#### 通底するキーメッセージ
+
+<!-- RFP全項目を通じて一貫して訴求する4つのキーワード -->
+
+| キーワード | 訴求内容 | 主に関連するRFP項目 |
+|-----------|---------|-------------------|
+| **{{KEY_MESSAGE_1}}** | {{KEY_MESSAGE_1_CONTENT}} | {{KEY_MESSAGE_1_RFP_SECTIONS}} |
+| **{{KEY_MESSAGE_2}}** | {{KEY_MESSAGE_2_CONTENT}} | {{KEY_MESSAGE_2_RFP_SECTIONS}} |
+| **{{KEY_MESSAGE_3}}** | {{KEY_MESSAGE_3_CONTENT}} | {{KEY_MESSAGE_3_RFP_SECTIONS}} |
+| **{{KEY_MESSAGE_4}}** | {{KEY_MESSAGE_4_CONTENT}} | {{KEY_MESSAGE_4_RFP_SECTIONS}} |
+
+#### レイヤー別キーメッセージ
+
+<!-- 評価者の立場別にメッセージを調整 -->
+
+| 対象 | キーメッセージ |
+|------|-------------|
+| **IT部門** | {{KEY_MSG_IT}} |
+| **業務部門** | {{KEY_MSG_BUSINESS}} |
+| **経営層** | {{KEY_MSG_EXECUTIVE}} |
+
+### 2.2 競合分析と差別化
+
+> **方針**: {{COMPETITIVE_STRATEGY_STATEMENT}}
+
+<!-- 競合製品/ベンダーとの比較マトリクスを作成。
+     評価軸はRFPの重点項目に合わせて設定する -->
+
+| 評価軸 | {{COMPETITOR_1}} | {{COMPETITOR_2}} | **{{PLATFORM_NAME}}（当社提案）** |
+|--------|-----------------|-----------------|-------------------------------|
+| 移行リスク | {{COMP1_MIGRATION}} | {{COMP2_MIGRATION}} | **{{OURS_MIGRATION}}** |
+| リアルタイム性 | {{COMP1_REALTIME}} | {{COMP2_REALTIME}} | **{{OURS_REALTIME}}** |
+| AI/ML統合 | {{COMP1_AI}} | {{COMP2_AI}} | **{{OURS_AI}}** |
+| 内製化 | {{COMP1_INHOUSE}} | {{COMP2_INHOUSE}} | **{{OURS_INHOUSE}}** |
+| 外部連携 | {{COMP1_EXTERNAL}} | {{COMP2_EXTERNAL}} | **{{OURS_EXTERNAL}}** |
+| コスト柔軟性 | {{COMP1_COST}} | {{COMP2_COST}} | **{{OURS_COST}}** |
+| ベンダーロックイン | {{COMP1_LOCKIN}} | {{COMP2_LOCKIN}} | **{{OURS_LOCKIN}}** |
+
+### 2.3 領域別戦略
+
+<!-- RFP対象の各領域ごとに詳細戦略を記載。
+     領域数・名称はRFPに応じて調整する -->
+
+#### A. {{DOMAIN_A_NAME}}
+
+**基本方針**: {{DOMAIN_A_STRATEGY}}
+
+**移行戦略**:
+
+- {{DOMAIN_A_MIGRATION_APPROACH}}
+- {{DOMAIN_A_MIGRATION_TOOLING}}
+
+**内製化支援**:
+
+| RFP要件 | {{PLATFORM_NAME}}ソリューション | 効果 |
+|---------|------------------------------|------|
+| {{INHOUSE_REQ_1}} | {{INHOUSE_SOL_1}} | {{INHOUSE_EFFECT_1}} |
+| {{INHOUSE_REQ_2}} | {{INHOUSE_SOL_2}} | {{INHOUSE_EFFECT_2}} |
+
+**データ連携方式**:
+
+| 現行方式 | {{PHASE_1_NAME}}対応策 | {{PHASE_2_NAME}}以降 |
+|---------|---------------------|-------------------|
+| {{CURRENT_ETL_1}} | {{PH1_ETL_1}} | {{PH2_ETL_1}} |
+| {{CURRENT_ETL_2}} | {{PH1_ETL_2}} | {{PH2_ETL_2}} |
+
+#### B. {{DOMAIN_B_NAME}}
+
+**基本方針**: {{DOMAIN_B_STRATEGY}}
+
+**提案構成**:
+
+- {{DOMAIN_B_COMPONENT_1}}
+- {{DOMAIN_B_COMPONENT_2}}
+- {{DOMAIN_B_COMPONENT_3}}
+
+---
+
+## 3. 提案書構成案
+
+<!-- RFP指定の提案書構成要件に基づき、分冊構成を定義する -->
+
+### 3.1 分冊定義
+
+| Vol | ファイル名 | 含む章 | 枚数 | 主題 |
+|:---:|----------|:-----:|:---:|------|
+| 1 | {{VOL1_FILENAME}} | {{VOL1_CHAPTERS}} | {{VOL1_PAGES}} | {{VOL1_THEME}} |
+| 2 | {{VOL2_FILENAME}} | {{VOL2_CHAPTERS}} | {{VOL2_PAGES}} | {{VOL2_THEME}} |
+| 3 | {{VOL3_FILENAME}} | {{VOL3_CHAPTERS}} | {{VOL3_PAGES}} | {{VOL3_THEME}} |
+| 4 | {{VOL4_FILENAME}} | {{VOL4_CHAPTERS}} | {{VOL4_PAGES}} | {{VOL4_THEME}} |
+| 5 | {{VOL5_FILENAME}} | {{VOL5_CHAPTERS}} | {{VOL5_PAGES}} | {{VOL5_THEME}} |
+| 6 | {{VOL6_FILENAME}} | {{VOL6_CHAPTERS}} | {{VOL6_PAGES}} | {{VOL6_THEME}} |
+| | **合計** | | **約{{TOTAL_PAGES}}枚** | |
+
+### 3.2 章構成
+
+| 章 | タイトル | RFP対応 | Vol | 枚数 | 概要 |
+|:--:|---------|--------|:---:|:---:|------|
+| 0 | 表紙・目次 | -- | 1 | 2 | 表紙＋目次 |
+| 1 | エグゼクティブサマリー | 全体 | 1 | {{CH1_PAGES}} | {{CH1_SUMMARY}} |
+| 2 | 会社紹介 | -- | 1 | {{CH2_PAGES}} | {{CH2_SUMMARY}} |
+| 3 | 提案コンセプト | {{CH3_RFP}} | 1 | {{CH3_PAGES}} | {{CH3_SUMMARY}} |
+| 4 | 要件対応方針 | {{CH4_RFP}} | 1 | {{CH4_PAGES}} | {{CH4_SUMMARY}} |
+| 5 | システム構成 | {{CH5_RFP}} | 2 | {{CH5_PAGES}} | {{CH5_SUMMARY}} |
+| 6 | データ連携・移行 | {{CH6_RFP}} | 2 | {{CH6_PAGES}} | {{CH6_SUMMARY}} |
+| 7 | スケジュール | {{CH7_RFP}} | 3 | {{CH7_PAGES}} | {{CH7_SUMMARY}} |
+| 8 | 開発体制 | {{CH8_RFP}} | 3 | {{CH8_PAGES}} | {{CH8_SUMMARY}} |
+| 9 | 作業内容・成果物 | {{CH9_RFP}} | 3 | {{CH9_PAGES}} | {{CH9_SUMMARY}} |
+| 10 | 費用見積 | {{CH10_RFP}} | 4 | {{CH10_PAGES}} | {{CH10_SUMMARY}} |
+| 11 | 導入実績 | {{CH11_RFP}} | 4 | {{CH11_PAGES}} | {{CH11_SUMMARY}} |
+| 12 | PJ管理手法 | {{CH12_RFP}} | 5 | {{CH12_PAGES}} | {{CH12_SUMMARY}} |
+| 13 | 品質管理 | {{CH13_RFP}} | 5 | {{CH13_PAGES}} | {{CH13_SUMMARY}} |
+| 14 | 教育訓練 | {{CH14_RFP}} | 5 | {{CH14_PAGES}} | {{CH14_SUMMARY}} |
+| 15 | 制限事項 | {{CH15_RFP}} | 6 | {{CH15_PAGES}} | {{CH15_SUMMARY}} |
+| 16 | 法務・契約 | {{CH16_RFP}} | 6 | {{CH16_PAGES}} | {{CH16_SUMMARY}} |
+| 17 | デモ | -- | 6 | {{CH17_PAGES}} | {{CH17_SUMMARY}} |
+| 18 | Appendix | -- | 6 | {{CH18_PAGES}} | {{CH18_SUMMARY}} |
+
+### 3.3 提案回答に必要な成果物一覧
+
+<!-- RFPが求める提出物の全量リスト -->
+
+| # | 成果物 | 形式 | 格納先 | ステータス |
+|---|--------|------|--------|-----------|
+| 1 | 提案書 | {{PROPOSAL_FORMAT}} | {{PROPOSAL_PATH}} | 未着手/作成中/完了 |
+| 2 | 要件回答シート | XLSX | {{REQUIREMENTS_SHEET_PATH}} | |
+| 3 | 見積回答シート | XLSX | {{ESTIMATION_SHEET_PATH}} | |
+| 4 | {{DELIVERABLE_4_NAME}} | {{DELIVERABLE_4_FORMAT}} | {{DELIVERABLE_4_PATH}} | |
+
+---
+
+## 4. QA・議事録サマリ
+
+<!-- クライアントとのQAやキックオフ会議から得られた重要情報を時系列で記録 -->
+
+### 4.1 主要QA回答
+
+| QA# | 質問 | 回答要旨 | 提案への影響 |
+|-----|------|---------|------------|
+| {{QA_NUMBER}} | {{QA_QUESTION}} | {{QA_ANSWER}} | {{QA_IMPACT}} |
+
+### 4.2 会議・議事録サマリ
+
+| 日付 | 会議名 | 主要決定事項 |
+|------|--------|------------|
+| {{MEETING_DATE}} | {{MEETING_NAME}} | {{MEETING_DECISIONS}} |
+
+---
+
+## 5. 次のアクション
+
+<!-- 提案戦略書の内容を受けて実行すべきタスク -->
+
+| # | アクション | 担当 | 期限 | ステータス |
+|---|-----------|------|------|-----------|
+| 1 | アーキテクチャ方針書の作成 | {{ASSIGNEE}} | {{DUE_DATE}} | 未着手/進行中/完了 |
+| 2 | 見積方針書の作成 | | | |
+| 3 | デモアプリの設計 | | | |
+| 4 | 提案書執筆開始 | | | |

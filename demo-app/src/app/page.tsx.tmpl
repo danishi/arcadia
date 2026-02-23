@@ -1,0 +1,210 @@
+// ============================================================================
+// page.tsx — ホーム画面スケルトン
+// ============================================================================
+// {{DEMO_CONCEPT}} {{CLIENT_NAME}} はプロジェクト固有値に置換する。
+// プロジェクト概要、画面一覧ナビゲーション、KPI サマリを表示する。
+// ============================================================================
+
+"use client";
+
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { kpiMetrics } from "@/lib/mock-data";
+import { formatNumber } from "@/lib/utils";
+import { KpiTile } from "@/components/ui/kpi-tile";
+
+// --- プロジェクト固有の差別化ポイント（編集してください） -------------------
+const differentiators = [
+  {
+    title: "リアルタイムデータ処理",
+    description: "ストリーミング処理でデータを即座に分析可能",
+    icon: "⚡",
+  },
+  {
+    title: "AI 統合分析",
+    description: "自然言語でデータを問い合わせ、施策を自動提案",
+    icon: "✦",
+  },
+  {
+    title: "統合データ基盤",
+    description: "分散したデータソースを一元管理し品質を保証",
+    icon: "⬡",
+  },
+  {
+    title: "セルフサービス",
+    description: "エンジニア不要でビジネスユーザーが直接分析",
+    icon: "⚙",
+  },
+];
+
+// --- 画面一覧（Phase 1） ---------------------------------------------------
+const ph1Features = [
+  {
+    href: "/dashboard",
+    title: "データ連携ダッシュボード",
+    description: "パイプラインの稼働状況をリアルタイムに可視化",
+    icon: "📊",
+  },
+  {
+    href: "/analysis",
+    title: "対話型データ分析",
+    description: "自然言語でデータを分析し、テーブルやグラフで表示",
+    icon: "🔍",
+  },
+  {
+    href: "/scenario",
+    title: "シナリオ管理",
+    description: "AI が最適な施策シナリオを自動で提案・管理",
+    icon: "📋",
+  },
+];
+
+// --- 画面一覧（Phase 2） ---------------------------------------------------
+const ph2Features = [
+  {
+    href: "/journey",
+    title: "ジャーニービルダー",
+    description: "顧客ジャーニーを視覚的に設計・最適化",
+    icon: "🗺",
+  },
+  {
+    href: "/engagement",
+    title: "エンゲージメント",
+    description: "リアルタイムパーソナライゼーションで顧客接点を強化",
+    icon: "💬",
+  },
+  {
+    href: "/realtime",
+    title: "リアルタイムモニター",
+    description: "全チャネルの配信状況をライブで監視",
+    icon: "⚡",
+  },
+];
+
+// --- アニメーション付き数値 -------------------------------------------------
+function AnimatedNumber({ target, suffix }: { target: number; suffix?: string }) {
+  const [current, setCurrent] = useState(0);
+  useEffect(() => {
+    const duration = 800;
+    const start = performance.now();
+    const step = (now: number) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCurrent(Math.floor(target * eased));
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [target]);
+  return (
+    <>
+      {formatNumber(current)}
+      {suffix}
+    </>
+  );
+}
+
+// --- ページ本体 -------------------------------------------------------------
+export default function HomePage() {
+  return (
+    <div className="p-8 max-w-7xl mx-auto space-y-8">
+      {/* ヘッダー */}
+      <div>
+        <h1 className="text-2xl font-bold text-text">
+          {/* {{DEMO_CONCEPT}} */}
+          次世代データプラットフォーム
+        </h1>
+        <p className="text-text-muted mt-1">
+          {/* {{CLIENT_NAME}} 向けデモアプリケーション */}
+          データ分析から施策実行までをシームレスに
+        </p>
+      </div>
+
+      {/* KPI サマリ */}
+      <section>
+        <h2 className="text-sm font-bold text-text-muted uppercase tracking-wider mb-4">
+          主要指標
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {kpiMetrics.map((kpi) => (
+            <KpiTile
+              key={kpi.id}
+              label={kpi.label}
+              value={kpi.value}
+              suffix={kpi.suffix}
+              changePercent={kpi.changePercent}
+              trend={kpi.trend}
+              icon={kpi.icon}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* 差別化ポイント */}
+      <section>
+        <h2 className="text-sm font-bold text-text-muted uppercase tracking-wider mb-4">
+          主な特長
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {differentiators.map((d) => (
+            <div
+              key={d.title}
+              className="bg-surface rounded-xl border border-border p-5 hover:shadow-md transition-shadow"
+            >
+              <div className="text-2xl mb-3">{d.icon}</div>
+              <h3 className="font-bold text-sm mb-1">{d.title}</h3>
+              <p className="text-xs text-text-muted">{d.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 画面一覧 — Phase 1 */}
+      <section>
+        <h2 className="text-sm font-bold text-text-muted uppercase tracking-wider mb-4">
+          Phase 1 基盤機能
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {ph1Features.map((f) => (
+            <Link
+              key={f.href}
+              href={f.href}
+              className="group bg-surface rounded-xl border border-border p-5 hover:border-primary hover:shadow-md transition-all"
+            >
+              <div className="text-2xl mb-3">{f.icon}</div>
+              <h3 className="font-bold text-sm mb-1 group-hover:text-primary transition-colors">
+                {f.title}
+              </h3>
+              <p className="text-xs text-text-muted">{f.description}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* 画面一覧 — Phase 2 */}
+      <section>
+        <h2 className="text-sm font-bold text-text-muted uppercase tracking-wider mb-4">
+          Phase 2 拡張機能
+          <span className="ml-2 text-[9px] font-bold px-1.5 py-0.5 rounded bg-primary text-white">
+            NEXT
+          </span>
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {ph2Features.map((f) => (
+            <Link
+              key={f.href}
+              href={f.href}
+              className="group bg-surface rounded-xl border border-border p-5 hover:border-primary hover:shadow-md transition-all opacity-80 hover:opacity-100"
+            >
+              <div className="text-2xl mb-3">{f.icon}</div>
+              <h3 className="font-bold text-sm mb-1 group-hover:text-primary transition-colors">
+                {f.title}
+              </h3>
+              <p className="text-xs text-text-muted">{f.description}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}

@@ -1,0 +1,237 @@
+# アーキテクチャ方針書：{{CLIENT_NAME}} {{PROJECT_NAME}}
+
+> **関連文書**: [提案戦略書](../proposal-strategy.md) | [見積方針書](../estimation-policy.md)
+>
+> **図面一覧**: [{{PHASE_1_NAME}}論理構成図](./logical-architecture-ph1.drawio) | [{{PHASE_1_NAME}}物理構成図](./physical-architecture-ph1.drawio) | [{{PHASE_2_NAME}}論理構成図](./logical-architecture-ph2.drawio) | [{{PHASE_2_NAME}}物理構成図](./physical-architecture-ph2.drawio)
+
+---
+
+## 1. アーキテクチャ原則
+
+### 1.1 設計原則
+
+<!-- P-01 から順番に設計原則を定義する。
+     各原則はRFP要件に紐づけること。
+     典型的な原則例を示すが、プロジェクトごとにカスタマイズすること -->
+
+| # | 原則 | 説明 | 根拠（RFP対応箇所） |
+|---|------|------|---------------------|
+| P-01 | **国内データ保管** | データの保管・処理をすべて国内リージョンで完結 | {{P01_RFP_REF}} |
+| P-02 | **レイヤードアーキテクチャ** | 段階的なデータ品質向上の多層構造を採用 | {{P02_RFP_REF}} |
+| P-03 | **オープンフォーマット** | 標準的なデータフォーマットでベンダーロックインを回避 | {{P03_RFP_REF}} |
+| P-04 | **内製化ファースト** | GUI/ローコードツールを優先し、開発コスト削減を実現 | {{P04_RFP_REF}} |
+| P-05 | **段階的移行** | フェーズ分離で移行リスクを最小化 | {{P05_RFP_REF}} |
+| P-06 | **SaaS活用・従量課金** | オートスケールで固定費を変動費化 | {{P06_RFP_REF}} |
+| P-07 | **金融グレードセキュリティ** | アクセス制御、暗号化、監査ログで規制に準拠 | {{P07_RFP_REF}} |
+
+### 1.2 アーキテクチャ決定記録（ADR）
+
+<!-- ADR（Architecture Decision Records）はアーキテクチャの重要決定を記録する。
+     決定事項ごとにADR番号を付与し、選択肢・決定・理由を明記する。
+     以下はADRテンプレート。プロジェクトで必要な数だけ追加すること -->
+
+| ADR# | 決定事項 | 選択肢 | 決定 | 理由 |
+|------|---------|--------|------|------|
+| ADR-001 | {{ADR001_TITLE}} | {{ADR001_OPTIONS}} | **{{ADR001_DECISION}}** | {{ADR001_RATIONALE}} |
+| ADR-002 | {{ADR002_TITLE}} | {{ADR002_OPTIONS}} | **{{ADR002_DECISION}}** | {{ADR002_RATIONALE}} |
+| ADR-003 | {{ADR003_TITLE}} | {{ADR003_OPTIONS}} | **{{ADR003_DECISION}}** | {{ADR003_RATIONALE}} |
+| ADR-004 | {{ADR004_TITLE}} | {{ADR004_OPTIONS}} | **{{ADR004_DECISION}}** | {{ADR004_RATIONALE}} |
+| ADR-005 | {{ADR005_TITLE}} | {{ADR005_OPTIONS}} | **{{ADR005_DECISION}}** | {{ADR005_RATIONALE}} |
+
+#### ADR詳細テンプレート
+
+<!-- 重要なADRは詳細形式で記録する。以下をコピーして使用 -->
+
+```
+### ADR-001: {{ADR001_TITLE}}
+
+**ステータス**: 承認 / 提案中 / 却下
+**日付**: {{ADR_DATE}}
+**決定者**: {{ADR_DECIDER}}
+
+#### コンテキスト
+{{ADR_CONTEXT}}
+
+#### 検討した選択肢
+
+| # | 選択肢 | メリット | デメリット |
+|---|--------|---------|----------|
+| 1 | {{OPTION_1}} | {{OPTION_1_PROS}} | {{OPTION_1_CONS}} |
+| 2 | {{OPTION_2}} | {{OPTION_2_PROS}} | {{OPTION_2_CONS}} |
+| 3 | {{OPTION_3}} | {{OPTION_3_PROS}} | {{OPTION_3_CONS}} |
+
+#### 決定
+**{{ADR_DECISION}}** を採用する。
+
+#### 理由
+{{ADR_RATIONALE_DETAIL}}
+
+#### 結果
+{{ADR_CONSEQUENCES}}
+
+#### 代替案が却下された理由
+{{ADR_REJECTED_ALTERNATIVES}}
+```
+
+---
+
+## 2. インフラストラクチャ・アーキテクチャ
+
+### 2.1 クラウドインフラ構成
+
+<!-- クラウドプロバイダーの構成をテキストダイアグラムで記述。
+     詳細な図面は DrawIO（drawio MCP）で作成する -->
+
+```
+{{CLOUD_PROVIDER}} {{CLOUD_REGION}}（主系）
+├── VPC: {{VPC_NAME}} ({{VPC_CIDR}})
+│   ├── Private Subnet (コントロールプレーン通信用)
+│   │   └── NAT Gateway → Internet Gateway（制限付き）
+│   ├── Private Subnet (データプレーン)
+│   │   ├── {{PLATFORM_NAME}} コンピュートリソース
+│   │   └── データ処理パイプライン
+│   └── Private Subnet (プライベート接続)
+│       ├── オブジェクトストレージ エンドポイント
+│       └── {{PLATFORM_NAME}} プライベート接続
+│
+├── オブジェクトストレージ
+│   ├── {{BUCKET_LANDING}}     ← データ受信先
+│   ├── {{BUCKET_RAW}}         ← Raw層データ
+│   ├── {{BUCKET_CURATED}}     ← 加工済データ
+│   ├── {{BUCKET_ANALYTICS}}   ← 分析用データ
+│   ├── {{BUCKET_STAGING}}     ← ワーク/一時データ
+│   ├── {{BUCKET_ARCHIVE}}     ← アーカイブデータ
+│   ├── {{BUCKET_EXCHANGE}}    ← システム間データ交換用
+│   ├── {{BUCKET_OUTBOUND}}    ← 仕向ファイル出力先
+│   ├── {{BUCKET_AUDIT}}       ← 監査ログ長期保存
+│   └── {{BUCKET_BACKUP}}      ← バックアップ先
+│
+├── アプリケーション基盤
+│   └── {{APP_PLATFORM_DESCRIPTION}}
+│
+├── IAM / セキュリティ
+│   ├── 暗号化キー管理 -- {{ENCRYPTION_STANDARD}}
+│   ├── サービスロール一覧は別途定義
+│   └── API操作ログ
+│
+└── 監視・運用
+    ├── メトリクス / アラーム
+    └── ログ → 長期保存
+
+{{CLOUD_PROVIDER}} {{DR_REGION}}（DR/バックアップ）
+├── クロスリージョンレプリケーション先
+└── [必要時] DR環境（フェイルオーバー用）
+```
+
+### 2.2 {{PLATFORM_NAME}} ワークスペース/環境構成
+
+| 環境 | 用途 | データカタログ | コンピュート |
+|------|------|-------------|------------|
+| **{{ENV_PROD_NAME}}** | 本番環境 | {{ENV_PROD_CATALOG}} | {{ENV_PROD_COMPUTE}} |
+| **{{ENV_DEV_NAME}}** | 開発・検証 | {{ENV_DEV_CATALOG}} | {{ENV_DEV_COMPUTE}} |
+| **{{ENV_STG_NAME}}** | ステージング | {{ENV_STG_CATALOG}} | {{ENV_STG_COMPUTE}} |
+
+### 2.3 環境分離戦略
+
+<!-- 本番/開発/ステージング間のデータ分離・アクセス制御方針を記述 -->
+
+| 方針 | 内容 |
+|------|------|
+| **データ分離** | {{DATA_ISOLATION_POLICY}} |
+| **アクセス制御** | {{ACCESS_CONTROL_POLICY}} |
+| **ネットワーク分離** | {{NETWORK_ISOLATION_POLICY}} |
+
+---
+
+## 3. データアーキテクチャ
+
+### 3.1 データレイヤー構成
+
+<!-- Medallionアーキテクチャ等のレイヤード構造を定義。
+     レイヤー名・役割は現行システムの構造を参考に設定する -->
+
+| レイヤー | 現行対応 | 役割 | データ形式 | 保持期間 |
+|---------|---------|------|----------|---------|
+| **{{LAYER_1_NAME}}** (Raw/Landing) | {{LAYER_1_CURRENT}} | {{LAYER_1_ROLE}} | {{LAYER_1_FORMAT}} | {{LAYER_1_RETENTION}} |
+| **{{LAYER_2_NAME}}** (Cleansed) | {{LAYER_2_CURRENT}} | {{LAYER_2_ROLE}} | {{LAYER_2_FORMAT}} | {{LAYER_2_RETENTION}} |
+| **{{LAYER_3_NAME}}** (Curated) | {{LAYER_3_CURRENT}} | {{LAYER_3_ROLE}} | {{LAYER_3_FORMAT}} | {{LAYER_3_RETENTION}} |
+| **{{LAYER_4_NAME}}** (Analytics) | {{LAYER_4_CURRENT}} | {{LAYER_4_ROLE}} | {{LAYER_4_FORMAT}} | {{LAYER_4_RETENTION}} |
+
+### 3.2 データフロー概要
+
+```
+[源泉システム]
+    ↓ ({{DATA_INGESTION_METHOD}})
+[{{LAYER_1_NAME}}] ← Raw取込、スキーマ変換なし
+    ↓ (品質チェック・クレンジング)
+[{{LAYER_2_NAME}}] ← 型変換、重複排除、NULL処理
+    ↓ (ビジネスロジック適用)
+[{{LAYER_3_NAME}}] ← 集計、結合、ビジネスKPI算出
+    ↓ (分析用最適化)
+[{{LAYER_4_NAME}}] ← BI/分析/ML用の最適化ビュー
+```
+
+### 3.3 データガバナンス
+
+| 機能 | 実現方法 |
+|------|---------|
+| **データカタログ** | {{DATA_CATALOG_APPROACH}} |
+| **データリネージ** | {{DATA_LINEAGE_APPROACH}} |
+| **データ品質** | {{DATA_QUALITY_APPROACH}} |
+| **アクセス制御** | {{DATA_ACCESS_CONTROL}} |
+| **暗号化** | {{DATA_ENCRYPTION}} |
+| **監査ログ** | {{DATA_AUDIT_LOG}} |
+
+---
+
+## 4. セキュリティアーキテクチャ
+
+### 4.1 セキュリティ要件マッピング
+
+| # | セキュリティ要件 | 実現方式 | 対応コンポーネント |
+|---|----------------|---------|-----------------|
+| S-01 | 国内データ保管 | {{SEC_01_APPROACH}} | {{SEC_01_COMPONENT}} |
+| S-02 | 通信暗号化 | {{SEC_02_APPROACH}} | {{SEC_02_COMPONENT}} |
+| S-03 | 保存データ暗号化 | {{SEC_03_APPROACH}} | {{SEC_03_COMPONENT}} |
+| S-04 | アクセス制御 | {{SEC_04_APPROACH}} | {{SEC_04_COMPONENT}} |
+| S-05 | 監査ログ | {{SEC_05_APPROACH}} | {{SEC_05_COMPONENT}} |
+| S-06 | ネットワーク分離 | {{SEC_06_APPROACH}} | {{SEC_06_COMPONENT}} |
+| S-07 | AIガバナンス | {{SEC_07_APPROACH}} | {{SEC_07_COMPONENT}} |
+
+### 4.2 認証・認可
+
+| 項目 | 方式 |
+|------|------|
+| **ユーザー認証** | {{AUTH_METHOD}} |
+| **サービス間認証** | {{SERVICE_AUTH_METHOD}} |
+| **権限管理** | {{AUTHORIZATION_METHOD}} |
+| **セキュリティ区画** | {{SECURITY_ZONE_POLICY}} |
+
+---
+
+## 5. 可用性・DR
+
+| 項目 | 目標 | 実現方式 |
+|------|------|---------|
+| **SLA** | {{SLA_TARGET}} | {{SLA_APPROACH}} |
+| **RPO** | {{RPO_TARGET}} | {{RPO_APPROACH}} |
+| **RTO** | {{RTO_TARGET}} | {{RTO_APPROACH}} |
+| **バックアップ** | {{BACKUP_POLICY}} | {{BACKUP_APPROACH}} |
+| **DR** | {{DR_POLICY}} | {{DR_APPROACH}} |
+
+---
+
+## 6. 図面一覧
+
+<!-- DrawIO MCPで作成する図面の一覧。
+     各図面は arcadia/templates/docs/architecture-plan/ 配下に格納 -->
+
+| # | 図面名 | ファイル | ステータス | 概要 |
+|---|--------|---------|-----------|------|
+| 1 | {{PHASE_1_NAME}}論理構成図 | `logical-architecture-ph1.drawio` | 未作成/作成済 | 論理的なシステム構成（コンポーネント間の関係） |
+| 2 | {{PHASE_1_NAME}}物理構成図 | `physical-architecture-ph1.drawio` | | 物理的なインフラ配置（リージョン、VPC、サブネット） |
+| 3 | {{PHASE_2_NAME}}論理構成図 | `logical-architecture-ph2.drawio` | | {{PHASE_2_NAME}}拡張後の論理構成 |
+| 4 | {{PHASE_2_NAME}}物理構成図 | `physical-architecture-ph2.drawio` | | {{PHASE_2_NAME}}拡張後の物理構成 |
+| 5 | 現行基盤構成図 | `current-system.drawio` | | 移行元の現行システム構成 |
+| 6 | データフロー図 | `data-flow.drawio` | | エンドツーエンドのデータフロー |
+| 7 | ネットワーク構成図 | `network-architecture.drawio` | | VPC、サブネット、セキュリティグループの詳細 |

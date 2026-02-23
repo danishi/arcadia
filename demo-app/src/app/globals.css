@@ -1,0 +1,93 @@
+/* ============================================================================
+ * globals.css — デザイントークン & グローバルスタイル
+ * ============================================================================
+ * カラーパレットは CSS 変数で定義。プロジェクトに合わせて値を変更してください。
+ *   --color-primary    : ブランドカラー（メインアクション）
+ *   --color-primary-dark: ブランドカラー（ホバー・強調）
+ *   --color-secondary  : サイドバー・ヘッダー等の背景
+ *   --color-accent     : アクセントカラー
+ *   --color-bg         : ページ背景
+ *   --color-surface    : カード・パネル背景
+ *   --color-surface-alt: 代替背景（ストライプ行等）
+ *   --color-text       : 本文テキスト
+ *   --color-text-muted : 補助テキスト
+ *   --color-border     : ボーダー・区切り線
+ *   --color-success    : 成功・正常
+ *   --color-warning    : 警告・注意
+ *   --color-error      : エラー・異常
+ *   --color-info       : 情報・リンク
+ *   --color-primary-ghost: プライマリの薄い背景
+ * ============================================================================ */
+
+@import "tailwindcss";
+
+@theme inline {
+  --color-primary: #3b82f6;
+  --color-primary-dark: #2563eb;
+  --color-secondary: #1e293b;
+  --color-accent: #8b5cf6;
+  --color-bg: #f8f9fa;
+  --color-surface: #ffffff;
+  --color-text: #1e293b;
+  --color-text-muted: #6b7280;
+  --color-border: #e5e7eb;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+  --color-surface-alt: #f1f5f9;
+  --color-primary-ghost: #eff6ff;
+}
+
+@layer base {
+  body {
+    font-family: "Inter", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+    background: var(--color-bg);
+    color: var(--color-text);
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slide-in-left {
+    from { opacity: 0; transform: translateX(-12px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes pulse-live {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  @keyframes count-up {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes flow-dot {
+    0% { stroke-dashoffset: 20; }
+    100% { stroke-dashoffset: 0; }
+  }
+}
+
+@utility animate-fade-in {
+  animation: fade-in 150ms ease-out both;
+}
+
+@utility animate-slide-in {
+  animation: slide-in-left 200ms ease-out both;
+}
+
+@utility animate-pulse-live {
+  animation: pulse-live 2s ease-in-out infinite;
+}
+
+@utility animate-count-up {
+  animation: count-up 800ms ease-out both;
+}
+
+@utility animate-flow-dot {
+  animation: flow-dot 1s linear infinite;
+}

@@ -1,0 +1,228 @@
+// ============================================================================
+// chat.tsx — Chat 型画面テンプレート
+// ============================================================================
+// AI 対話インターフェース。メッセージ表示、入力フォーム、
+// 結果表示エリア（テーブル / グラフ切替）を備えたチャット画面のスケルトン。
+// 使用方法: src/app/analysis/page.tsx にコピーして編集してください。
+// ============================================================================
+
+"use client";
+
+import { useState, useRef, useEffect } from "react";
+import { ChatMessage } from "@/components/ui/chat-message";
+import { ChartWrapper } from "@/components/ui/chart-wrapper";
+import { DataTable, type ColumnDef } from "@/components/ui/data-table";
+import { chatHistory, sampleQueries, type ChatMessage as ChatMessageType } from "@/lib/mock-data";
+import { generateId } from "@/lib/utils";
+
+// --- 結果表示モード ---------------------------------------------------------
+type ResultView = "table" | "chart";
+
+// --- ページ本体 -------------------------------------------------------------
+export default function ChatPage() {
+  const [messages, setMessages] = useState<ChatMessageType[]>(chatHistory);
+  const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [resultView, setResultView] = useState<ResultView>("table");
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // 新メッセージ追加時に自動スクロール
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  // メッセージ送信
+  const handleSend = async (text?: string) => {
+    const query = text || input.trim();
+    if (!query) return;
+
+    // ユーザーメッセージを追加
+    const userMessage: ChatMessageType = {
+      id: generateId("msg"),
+      role: "user",
+      content: query,
+      timestamp: new Date().toISOString(),
+    };
+    setMessages((prev) => [...prev, userMessage]);
+    setInput("");
+    setIsLoading(true);
+
+    // モック応答を生成（実際の実装では API Route を呼び出す）
+    await new Promise((r) => setTimeout(r, 1500));
+
+    const assistantMessage: ChatMessageType = {
+      id: generateId("msg"),
+      role: "assistant",
+      content: `「${query}」について分析しました。以下が結果です。`,
+      timestamp: new Date().toISOString(),
+      table: {
+        columns: ["項目", "値", "前期比"],
+        rows: [
+          ["指標A", "12,500", "+15.2%"],
+          ["指標B", "8,300", "+8.7%"],
+          ["指標C", "5,100", "+3.1%"],
+        ],
+      },
+      chart: {
+        type: "bar",
+        data: [
+          { label: "指標A", value: 12500 },
+          { label: "指標B", value: 8300 },
+          { label: "指標C", value: 5100 },
+        ],
+        label: "値",
+      },
+    };
+    setMessages((prev) => [...prev, assistantMessage]);
+    setIsLoading(false);
+  };
+
+  // 最新のアシスタントメッセージから結果データを取得
+  const latestResult = [...messages]
+    .reverse()
+    .find((m) => m.role === "assistant" && (m.table || m.chart));
+
+  // テーブル表示用のカラム定義
+  const resultColumns: ColumnDef[] = latestResult?.table
+    ? latestResult.table.columns.map((col, i) => ({
+        key: String(i),
+        label: col,
+        align: i > 0 ? ("right" as const) : ("left" as const),
+      }))
+    : [];
+
+  const resultRows =
+    latestResult?.table?.rows.map((row) =>
+      Object.fromEntries(row.map((cell, i) => [String(i), cell]))
+    ) ?? [];
+
+  return (
+    <div className="flex flex-col h-full">
+      {/* ページヘッダー */}
+      <div className="p-6 pb-0">
+        <h1 className="text-xl font-bold">対話型データ分析</h1>
+        <p className="text-sm text-text-muted mt-1">
+          自然言語でデータを分析。質問を入力すると AI が回答します。
+        </p>
+      </div>
+
+      <div className="flex-1 flex gap-4 p-6 min-h-0">
+        {/* チャットエリア */}
+        <div className="flex-1 flex flex-col bg-surface rounded-xl border border-border min-w-0">
+          {/* メッセージ表示 */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-3">
+            {messages.map((msg) => (
+              <ChatMessage key={msg.id} message={msg} />
+            ))}
+            {isLoading && (
+              <div className="mr-auto bg-surface-alt rounded-xl px-4 py-3 max-w-[80%]">
+                <div className="flex gap-1">
+                  <span className="w-2 h-2 rounded-full bg-text-muted animate-pulse-live" />
+                  <span className="w-2 h-2 rounded-full bg-text-muted animate-pulse-live [animation-delay:200ms]" />
+                  <span className="w-2 h-2 rounded-full bg-text-muted animate-pulse-live [animation-delay:400ms]" />
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* サンプルクエリ */}
+          <div className="px-4 py-2 border-t border-border">
+            <div className="flex gap-2 overflow-x-auto pb-1">
+              {sampleQueries.map((q, i) => (
+                <button
+                  key={i}
+                  onClick={() => handleSend(q)}
+                  className="shrink-0 px-3 py-1.5 rounded-full text-xs bg-surface-alt text-text-muted hover:bg-primary-ghost hover:text-primary transition-colors"
+                >
+                  {q}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* 入力フォーム */}
+          <div className="p-4 border-t border-border">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSend();
+              }}
+              className="flex gap-2"
+            >
+              <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="データについて質問してください..."
+                className="flex-1 px-4 py-2.5 rounded-lg border border-border bg-surface-alt text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                disabled={isLoading}
+              />
+              <button
+                type="submit"
+                disabled={isLoading || !input.trim()}
+                className="px-5 py-2.5 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                送信
+              </button>
+            </form>
+          </div>
+        </div>
+
+        {/* 結果表示エリア */}
+        <div className="w-96 shrink-0 flex flex-col bg-surface rounded-xl border border-border">
+          <div className="p-4 border-b border-border">
+            <div className="flex items-center justify-between">
+              <h2 className="text-sm font-bold">分析結果</h2>
+              <div className="flex gap-1">
+                <button
+                  onClick={() => setResultView("table")}
+                  className={`px-3 py-1 rounded-md text-xs font-medium transition-colors ${
+                    resultView === "table"
+                      ? "bg-primary text-white"
+                      : "bg-surface-alt text-text-muted"
+                  }`}
+                >
+                  テーブル
+                </button>
+                <button
+                  onClick={() => setResultView("chart")}
+                  className={`px-3 py-1 rounded-md text-xs font-medium transition-colors ${
+                    resultView === "chart"
+                      ? "bg-primary text-white"
+                      : "bg-surface-alt text-text-muted"
+                  }`}
+                >
+                  グラフ
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="flex-1 overflow-auto p-4">
+            {latestResult ? (
+              resultView === "table" && latestResult.table ? (
+                <DataTable columns={resultColumns} rows={resultRows} />
+              ) : latestResult.chart ? (
+                <ChartWrapper
+                  data={latestResult.chart.data}
+                  defaultType={latestResult.chart.type}
+                  switchable={false}
+                  valueLabel={latestResult.chart.label}
+                  height={250}
+                />
+              ) : (
+                <p className="text-sm text-text-muted text-center py-8">
+                  表示できるデータがありません
+                </p>
+              )
+            ) : (
+              <p className="text-sm text-text-muted text-center py-8">
+                質問を入力すると分析結果がここに表示されます
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

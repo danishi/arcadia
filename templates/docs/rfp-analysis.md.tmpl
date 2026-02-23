@@ -1,0 +1,187 @@
+# RFP解析結果：{{CLIENT_NAME}} {{PROJECT_NAME}}
+
+> **作成日**: {{CREATED_DATE}}
+> **RFP受領日**: {{RFP_RECEIVED_DATE}}
+> **提出期限**: {{SUBMISSION_DEADLINE}}
+> **プレゼン日**: {{PRESENTATION_DATE}}（該当する場合）
+>
+> **関連文書**: [提案戦略書](./proposal-strategy.md) | [アーキテクチャ方針書](./architecture-plan/architecture-policy.md) | [見積方針書](./estimation-policy.md)
+
+---
+
+## 1. RFP概要
+
+| 項目 | 値 |
+|------|---|
+| **クライアント** | {{CLIENT_NAME}} |
+| **案件名** | {{PROJECT_NAME}} |
+| **提案主体** | {{PROPOSER_NAME}} |
+| **共同提案** | {{CO_PROPOSER_NAME}}（該当する場合） |
+| **提案製品** | {{PLATFORM_NAME}} |
+| **RFP提出期限** | {{SUBMISSION_DEADLINE}} |
+| **プレゼン日** | {{PRESENTATION_DATE}} |
+| **採否通知予定** | {{RESULT_NOTIFICATION_DATE}} |
+| **対象システム** | {{TARGET_SYSTEM_DESCRIPTION}} |
+
+---
+
+## 2. 解析結果サマリ
+
+<!-- Claude Codeが01-kickoff時にRFP本紙を読み込み、以下のテーブルを自動生成する -->
+
+### 2.1 主要要件一覧
+
+| # | 要件カテゴリ | 要件概要 | 優先度 | フェーズ | 備考 |
+|---|-------------|---------|--------|---------|------|
+| 1 | {{REQUIREMENT_CATEGORY}} | {{REQUIREMENT_SUMMARY}} | {{PRIORITY}} | {{PHASE}} | {{NOTES}} |
+| 2 | | | | | |
+| 3 | | | | | |
+
+<!-- 要件は以下の分類で整理する:
+  - 機能要件（データ基盤、分析、チャネル連携等）
+  - 非機能要件（性能、可用性、セキュリティ等）
+  - インターフェース要件
+  - 提案書構成要件
+  - デモ要件
+  - 数値条件
+-->
+
+---
+
+## 3. As-Is / To-Be
+
+### 3.1 As-Is（現行システム構成）
+
+| 分類 | 現行システム | バージョン/状態 | 課題 |
+|------|------------|----------------|------|
+| **データ基盤** | {{CURRENT_DWH_PRODUCT}} | {{CURRENT_DWH_VERSION}} | {{CURRENT_DWH_ISSUES}} |
+| **分析ツール** | {{CURRENT_ANALYTICS_TOOL}} | {{CURRENT_ANALYTICS_VERSION}} | {{CURRENT_ANALYTICS_ISSUES}} |
+| **データ連携** | {{CURRENT_ETL_TOOL}} | {{CURRENT_ETL_VERSION}} | {{CURRENT_ETL_ISSUES}} |
+| **クラウド基盤** | {{CURRENT_CLOUD_PROVIDER}} | {{CURRENT_CLOUD_REGION}} | {{CURRENT_CLOUD_ISSUES}} |
+| **その他** | {{CURRENT_OTHER_SYSTEM}} | | {{CURRENT_OTHER_ISSUES}} |
+
+> **EoSL情報**: {{EOSL_DESCRIPTION}}（例: 現行基盤が{{EOSL_DATE}}にEoSLを迎える）
+
+### 3.2 To-Be（提案後の構成）
+
+| 分類 | 提案ソリューション | 主要コンポーネント | 効果 |
+|------|------------------|-------------------|------|
+| **データ基盤** | {{PLATFORM_NAME}} | {{PLATFORM_COMPONENTS}} | {{PLATFORM_EFFECTS}} |
+| **分析ツール** | {{PROPOSED_ANALYTICS}} | {{ANALYTICS_COMPONENTS}} | {{ANALYTICS_EFFECTS}} |
+| **データ連携** | {{PROPOSED_ETL}} | {{ETL_COMPONENTS}} | {{ETL_EFFECTS}} |
+| **クラウド基盤** | {{PROPOSED_CLOUD}} | {{CLOUD_COMPONENTS}} | {{CLOUD_EFFECTS}} |
+| **その他** | {{PROPOSED_OTHER}} | | {{OTHER_EFFECTS}} |
+
+### 3.3 As-Is / To-Be 対比
+
+| 分類 | 現状の課題（As-Is） | 目指す姿（To-Be） |
+|------|-------------------|------------------|
+| **データ鮮度** | {{ASIS_DATA_FRESHNESS}} | {{TOBE_DATA_FRESHNESS}} |
+| **データ活用** | {{ASIS_DATA_UTILIZATION}} | {{TOBE_DATA_UTILIZATION}} |
+| **開発・運用** | {{ASIS_DEVELOPMENT}} | {{TOBE_DEVELOPMENT}} |
+| **インフラ** | {{ASIS_INFRASTRUCTURE}} | {{TOBE_INFRASTRUCTURE}} |
+| **コスト** | {{ASIS_COST}} | {{TOBE_COST}} |
+| **セキュリティ** | {{ASIS_SECURITY}} | {{TOBE_SECURITY}} |
+
+---
+
+## 4. 要件分類
+
+### 4.1 カテゴリ A: 機能要件（{{PHASE_1_NAME}}）
+
+| # | 要件ID | 要件概要 | 対応方針 | 充足 | 備考 |
+|---|--------|---------|---------|------|------|
+| 1 | {{REQ_ID}} | {{REQ_SUMMARY}} | {{REQ_APPROACH}} | {{REQ_STATUS}} | {{REQ_NOTES}} |
+
+### 4.2 カテゴリ B: 機能要件（{{PHASE_2_NAME}}）
+
+| # | 要件ID | 要件概要 | 対応方針 | 充足 | 備考 |
+|---|--------|---------|---------|------|------|
+| 1 | | | | | |
+
+### 4.3 カテゴリ C: 非機能要件
+
+| # | 要件ID | 分類 | 要件概要 | 対応方針 | 充足 | 備考 |
+|---|--------|-----|---------|---------|------|------|
+| 1 | | 性能 | | | | |
+| 2 | | 可用性 | | | | |
+| 3 | | セキュリティ | | | | |
+| 4 | | 運用保守 | | | | |
+| 5 | | 移行性 | | | | |
+
+### 4.4 カテゴリ D: インターフェース要件
+
+| # | IF ID | 接続先システム | 方向 | 現行方式 | 提案方式 | フェーズ |
+|---|-------|--------------|------|---------|---------|---------|
+| 1 | | | 受信/送信 | | | |
+
+> **接続システム数**: 社内 {{INTERNAL_SYSTEM_COUNT}} システム ＋ 社外 {{EXTERNAL_SYSTEM_COUNT}} システム
+> **処理フロー数**: {{PROCESS_FLOW_COUNT}} 処理フロー
+
+### 4.5 カテゴリ E: 提案書構成要件
+
+| # | RFPセクション | 要求内容 | 対応状況 |
+|---|-------------|---------|---------|
+| 1 | {{RFP_SECTION_ID}} | {{RFP_SECTION_REQUIREMENT}} | {{RFP_SECTION_STATUS}} |
+
+### 4.6 カテゴリ F: デモ要件
+
+| # | デモ項目 | 目的 | 対応方針 |
+|---|---------|------|---------|
+| 1 | {{DEMO_ITEM}} | {{DEMO_PURPOSE}} | {{DEMO_APPROACH}} |
+
+### 4.7 カテゴリ G: 数値条件
+
+| # | 数値項目 | RFP記載値 | 提案値 | 根拠 |
+|---|---------|----------|--------|------|
+| 1 | {{METRIC_NAME}} | {{METRIC_RFP_VALUE}} | {{METRIC_PROPOSED_VALUE}} | {{METRIC_RATIONALE}} |
+
+---
+
+## 5. 重要数値（ビジネス基礎）
+
+<!-- RFP本紙およびQA回答から抽出される定量データ -->
+
+| 項目 | 値 | 出典 |
+|------|---|------|
+| 顧客数/口座数 | {{CUSTOMER_COUNT}} | {{SOURCE}} |
+| データ容量 | {{DATA_VOLUME}} | |
+| 日次バッチジョブ数 | {{DAILY_BATCH_COUNT}} | |
+| データ鮮度目標 | {{FRESHNESS_TARGET}} | |
+| チャネル数 | {{CHANNEL_COUNT}} | |
+| IF数 | {{INTERFACE_COUNT}} | |
+| 接続システム数 | {{CONNECTED_SYSTEM_COUNT}} | |
+| 現行基盤バージョン | {{CURRENT_PLATFORM_VERSION}} | |
+| クラウド基盤 | {{CLOUD_PLATFORM}} リージョン: {{CLOUD_REGION}} | |
+| SLA目標 | {{SLA_TARGET}} | |
+| 顧客ID体系 | {{CUSTOMER_ID_SCHEME}} | |
+
+---
+
+## 6. リスク・懸念事項
+
+| # | リスク | 影響度 | 発生確率 | 対応策 | 備考 |
+|---|--------|-------|---------|--------|------|
+| 1 | {{RISK_DESCRIPTION}} | 高/中/低 | 高/中/低 | {{RISK_MITIGATION}} | {{RISK_NOTES}} |
+| 2 | スケジュール制約 | | | | |
+| 3 | 移行リスク | | | | |
+| 4 | 技術リスク | | | | |
+| 5 | 契約・法務リスク | | | | |
+
+---
+
+## 7. QA管理
+
+### 7.1 質問事項一覧
+
+| QA# | 質問内容 | 回答 | 提案への影響 | ステータス |
+|-----|---------|------|------------|-----------|
+| 1 | {{QA_QUESTION}} | {{QA_ANSWER}} | {{QA_IMPACT}} | 回答済/未回答 |
+
+### 7.2 追加確認事項
+
+<!-- RFP解析中に生じた不明点・確認事項を記録 -->
+
+| # | 確認事項 | 優先度 | ステータス |
+|---|---------|--------|-----------|
+| 1 | {{CLARIFICATION_ITEM}} | 高/中/低 | 未確認/確認済 |

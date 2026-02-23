@@ -1,0 +1,164 @@
+# ARCADIA Data Platform - BigQuery Implementation (Stub)
+
+> **Status**: Stub - BigQuery 固有スクリプトは今後の ARCADIA 拡張で対応予定。
+> 現在は Databricks 実装を参照し、以下のマッピングテーブルに基づいて手動で置き換えてください。
+
+## Databricks -> BigQuery マッピング
+
+| カテゴリ | Databricks | BigQuery | 備考 |
+|---------|-----------|----------|------|
+| **カタログ** | Unity Catalog | GCP Project | プロジェクト単位 |
+| **スキーマ** | Unity Catalog Schema | BigQuery Dataset | `CREATE SCHEMA` |
+| **Landing Zone** | Unity Catalog Volume | Cloud Storage (GCS) | `gs://bucket/path` |
+| **テーブル形式** | Delta Lake | BigQuery Native / Iceberg | Managed tables |
+| **Raw取込** | COPY INTO | LOAD DATA / bq load | `LOAD DATA INTO` |
+| **増分取込** | Auto Loader | Pub/Sub -> Dataflow / Scheduled | Event-driven |
+| **増分更新** | MERGE INTO (Delta) | MERGE INTO | ほぼ同一構文 |
+| **パイプライン** | DLT | Dataform | SQL-based DAG |
+| **データ品質** | DLT Expectations | Dataform Assertions | SQL checks |
+| **パーティション** | Liquid Clustering | Partition + Clustering | 明示的指定 |
+| **SQL実行** | Serverless SQL Warehouse | On-demand / Slot Reservation | コストモデル異なる |
+| **自然言語分析** | Genie Space | Gemini in BigQuery | Preview |
+| **ダッシュボード** | AI/BI Dashboard | Looker / Connected Sheets | Looker推奨 |
+| **ML** | Mosaic AI / MLflow | Vertex AI / BQML | `CREATE MODEL` |
+| **ガバナンス** | Unity Catalog ACL | IAM / Column-level Security | `GRANT` + IAM |
+
+## 環境変数
+
+| 変数名 | 説明 | 例 |
+|--------|------|-----|
+| `GCP_PROJECT_ID` | GCP プロジェクトID | `my-project-123` |
+| `BQ_LOCATION` | データセットリージョン | `asia-northeast1` |
+| `GCS_BUCKET` | ランディングゾーン用バケット | `my-project-data-landing` |
+| `GOOGLE_APPLICATION_CREDENTIALS` | サービスアカウントキー | `/path/to/key.json` |
+
+## スクリプト置換ガイド
+
+### 01_setup_infrastructure
+
+```sql
+-- Databricks:
+-- CREATE CATALOG IF NOT EXISTS ...
+-- CREATE SCHEMA IF NOT EXISTS ...
+-- CREATE VOLUME IF NOT EXISTS ...
+
+-- BigQuery equivalent:
+CREATE SCHEMA IF NOT EXISTS `{{GCP_PROJECT_ID}}.bronze`
+    OPTIONS (location = '{{BQ_LOCATION}}');
+CREATE SCHEMA IF NOT EXISTS `{{GCP_PROJECT_ID}}.silver`
+    OPTIONS (location = '{{BQ_LOCATION}}');
+CREATE SCHEMA IF NOT EXISTS `{{GCP_PROJECT_ID}}.gold`
+    OPTIONS (location = '{{BQ_LOCATION}}');
+
+-- Landing zone: Create GCS bucket via gsutil
+-- gsutil mb -l {{BQ_LOCATION}} gs://{{PROJECT_SLUG}}-data-landing/
+```
+
+### 03_bronze_ingestion
+
+```sql
+-- Databricks COPY INTO -> BigQuery LOAD DATA
+LOAD DATA INTO `{{GCP_PROJECT_ID}}.bronze.raw_customers`
+FROM FILES (
+    format = 'CSV',
+    uris = ['gs://{{PROJECT_SLUG}}-data-landing/customers/*.csv'],
+    skip_leading_rows = 1
+);
+
+-- Or via bq CLI:
+-- bq load --source_format=CSV --autodetect \
+--   {{GCP_PROJECT_ID}}:bronze.raw_customers \
+--   gs://{{PROJECT_SLUG}}-data-landing/customers/*.csv
+```
+
+### 04_silver_transform
+
+```sql
+-- MERGE INTO syntax is nearly identical
+MERGE INTO `{{GCP_PROJECT_ID}}.silver.customers` AS tgt
+USING (
+    SELECT DISTINCT * FROM `{{GCP_PROJECT_ID}}.bronze.raw_customers`
+    WHERE customer_id IS NOT NULL
+) AS src
+ON tgt.customer_id = src.customer_id
+WHEN MATCHED THEN UPDATE SET ...
+WHEN NOT MATCHED THEN INSERT ...;
+```
+
+### 05_gold_aggregate / 06_setup_analytics
+
+```sql
+-- CREATE OR REPLACE TABLE ... AS SELECT ...
+-- SQL syntax differences to note:
+--   MODE() -> APPROX_TOP_COUNT(..., 1)
+--   COLLECT_SET() -> ARRAY_AGG(DISTINCT ...)
+--   PERCENTILE_APPROX() -> APPROX_QUANTILES(..., 100)[OFFSET(50)]
+--   DATEDIFF() -> DATE_DIFF(..., DAY)
+--   DATE_TRUNC('MONTH', col) -> DATE_TRUNC(col, MONTH)
+--   current_timestamp() -> CURRENT_TIMESTAMP()
+
+-- Partitioning (BigQuery-specific):
+CREATE OR REPLACE TABLE `{{GCP_PROJECT_ID}}.gold.daily_summary`
+PARTITION BY transaction_date
+CLUSTER BY channel
+AS SELECT ...;
+```
+
+## Dataform パイプライン（本番推奨）
+
+```javascript
+// definitions/silver/customers.sqlx
+config {
+    type: "incremental",
+    schema: "silver",
+    uniqueKey: ["customer_id"],
+    bigquery: {
+        partitionBy: "registration_date"
+    }
+}
+
+SELECT DISTINCT
+    customer_id,
+    name,
+    email,
+    CAST(birth_date AS DATE) AS birth_date,
+    gender,
+    region,
+    CAST(registration_date AS DATE) AS registration_date,
+    segment,
+    status,
+    CURRENT_TIMESTAMP() AS _load_timestamp
+FROM ${ref("bronze", "raw_customers")}
+WHERE customer_id IS NOT NULL
+```
+
+## BQML モデル例
+
+```sql
+-- Customer churn prediction
+CREATE OR REPLACE MODEL `{{GCP_PROJECT_ID}}.gold.churn_model`
+OPTIONS (
+    model_type = 'LOGISTIC_REG',
+    input_label_cols = ['is_churned']
+) AS
+SELECT
+    total_balance,
+    tx_count_12m,
+    web_page_views_90d,
+    campaigns_opened,
+    CASE WHEN status = 'dormant' THEN 1 ELSE 0 END AS is_churned
+FROM `{{GCP_PROJECT_ID}}.gold.customer_360`
+WHERE status IN ('active', 'dormant');
+```
+
+## 今後の対応予定
+
+- [ ] BigQuery 固有の `.py.tmpl` スクリプト群の作成 (Python Client Library)
+- [ ] Dataform プロジェクトテンプレート (SQLX)
+- [ ] Looker ダッシュボードテンプレート (LookML)
+- [ ] Vertex AI パイプラインとの連携テンプレート
+- [ ] BigQuery Scheduled Queries によるオーケストレーション
+
+---
+
+*Generated by ARCADIA Framework - Phase F: Data Platform Templates (BigQuery Stub)*
