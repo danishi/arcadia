@@ -42,6 +42,7 @@ src/                                    # Demo app (Next.js App Router + TypeScr
 platform/                               # Platform setup scripts
 .claude/skills/                         # Project-local skills
 demo-app-spec.md                        # Demo app specification
+arcadia/org-data/                       # Organization-specific data (rate cards, services, etc.)
 ```
 
 ---
@@ -51,8 +52,8 @@ demo-app-spec.md                        # Demo app specification
 | Name | Purpose |
 |------|---------|
 | **rfp-auditor** | RFP requirement compliance checking (`.claude/skills/rfp-auditor/`) |
-| **proposal-writer** | Proposal document drafting assistance |
-| **estimation-advisor** | Cost estimation and WBS generation |
+| **proposal-writer** | Proposal document drafting assistance (references `arcadia/org-data/`) |
+| **estimation-advisor** | Cost estimation and WBS generation (references `arcadia/org-data/rate-card.md`) |
 | **demo-builder** | Demo app scaffolding and mock data |
 | **example-skills** | Frontend design, document co-authoring, web app testing, PDF/PPTX/DOCX/XLSX generation |
 | **document-skills** | Document generation skills (same family as example-skills) |

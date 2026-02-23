@@ -11,6 +11,7 @@ This guide walks you through initializing a new RFP response project using ARCAD
 - [ ] Git installed
 - [ ] RFP documents available (PDF/Word/Excel/Markdown)
 - [ ] Client and project information ready
+- [ ] Organization data prepared (`arcadia/org-data/` -- see Step 1.5)
 
 ---
 
@@ -59,6 +60,32 @@ mkdir -p docs/rfp_reference \
   arcadia/                              # ARCADIA framework (reference)
   demo-app-spec.md                      # Demo app specification
 ```
+
+---
+
+## Step 1.5: Prepare Organization Data
+
+ARCADIA の提案・見積スキルは、RFP（顧客側の情報）に加えて**自社固有の情報**も参照する。
+`arcadia/org-data/` 配下のファイルを自社の情報で整備する。
+
+```bash
+# org-data の各ファイルを自社情報で編集
+vi arcadia/org-data/rate-card.md          # 人月単価（ロール別・値引基準）
+vi arcadia/org-data/service-catalog.md    # 自社サービスカタログ
+vi arcadia/org-data/company-profile.md    # 会社概要・導入実績
+vi arcadia/org-data/whitepapers/index.md  # ホワイトペーパー索引
+```
+
+| ファイル | 内容 | 必須 | 参照先スキル |
+|---------|------|:---:|-------------|
+| `rate-card.md` | 人月単価、原価率、値引基準 | Yes | estimation-advisor |
+| `service-catalog.md` | サービス仕様、差別化ポイント | Yes | proposal-writer |
+| `company-profile.md` | 会社概要、導入実績、資格 | Yes | proposal-writer |
+| `whitepapers/index.md` | 技術資料の索引 | No | proposal-writer, estimation-advisor |
+
+> **初回のみ**: org-data は組織で一度整備すれば、以降のプロジェクトで再利用できる。
+> 四半期ごとに単価・実績を更新することを推奨する。
+> 詳細は `arcadia/org-data/README.md` を参照。
 
 ---
 
