@@ -23,16 +23,9 @@ GitHub 上で ARCADIA テンプレートリポジトリの **「Use this templat
 # 作成したリポジトリをクローン
 git clone https://github.com/your-org/{{PROJECT_SLUG}}.git
 cd {{PROJECT_SLUG}}
-
-# プロジェクト用ディレクトリを追加
-mkdir -p docs/rfp_reference \
-         docs/rfp_answer_output/architecture-plan \
-         docs/rfp_answer_output/migration-plan \
-         docs/minutes \
-         RFP_answer \
-         src \
-         platform
 ```
+
+> **Note**: ディレクトリ構造の作成は Step 2 の `/project:setup` コマンドが自動で行います。手動で作成する必要はありません。
 
 ### Standard Directory Structure
 
@@ -89,35 +82,37 @@ vi arcadia/org-data/whitepapers/index.md  # ホワイトペーパー索引
 
 ## Step 2: Interactive Variable Setup with Claude Code
 
-Start Claude Code and have it generate your project configuration.
+Start Claude Code and run the setup command:
 
 ```
 claude
 ```
 
-Then instruct:
+Then run the `/project:setup` command with project information:
 
 ```
-.claude/CLAUDE.md.tmpl を読んで、以下の情報でプロジェクトのCLAUDE.mdを生成して:
-
-- クライアント名: [client name]
-- 提案主体: [your company]
-- 共同提案: [partner companies]
-- 案件概要: [project description]
-- 提案製品: [product name]
-- プラットフォーム: [platform name]
-- クラウド: [AWS/Azure/GCP]
-- 提出期限: [YYYY-MM-DD]
-- プレゼン日: [YYYY-MM-DD]
-- 現行システム: [systems being replaced]
-- デモコンセプト: [one-liner for demo app]
+/project:setup
+クライアント名: ABC銀行
+提案主体: XYZ株式会社
+案件概要: 次世代DWH・MAプラットフォーム刷新
+提案製品: Snowflake Data Cloud
+プラットフォーム: Snowflake
+プラットフォーム種別: Cloud Data Warehouse
+クラウド: AWS
+提出期限: 2026-03-15
+プレゼン日: 2026-03-20
+現行システム: Teradata + SAS
+デモコンセプト: SQLなしで、データと会話しよう
 ```
+
+> **Note**: 引数なしで `/project:setup` を実行すると、対話的に各項目を確認します。
 
 Claude Code will:
-1. Read the template from `.claude/CLAUDE.md.tmpl`
-2. Replace all `{{VARIABLE}}` placeholders with your values
-3. Write the result to `.claude/CLAUDE.md`
-4. Generate `.claude/settings.json` from `.claude/settings.json.tmpl`
+1. Create the standard directory structure (`docs/`, `RFP_answer/`, `src/`, etc.)
+2. Read the template from `.claude/CLAUDE.md.tmpl` and generate `.claude/CLAUDE.md`
+3. Generate `.claude/settings.json` from `.claude/settings.json.tmpl`
+4. Generate `.mcp.json`, `.gitignore`, `.env.example`
+5. Place document templates in `docs/rfp_answer_output/` with project variables applied
 
 ### Variable Quick Reference
 
@@ -283,11 +278,12 @@ Use the generic baseline and add platform-specific configurations manually.
 
 ## Next Steps
 
-After completing kickoff:
+After completing kickoff (`/project:setup`):
 
-1. **Start Phase 1 (Research):** `guides/02-research.md を読んでRFP解析を開始して`
-2. **Review generated files:** Check `.claude/CLAUDE.md` and `.claude/settings.json`
-3. **Configure MCP:** Add platform-specific MCP servers to settings.json
+1. **Review generated files:** `/project:setup` が生成したファイル一覧を確認する
+2. **Place RFP documents:** Step 3 に従い RFP ドキュメントを配置する
+3. **Start Phase 1 (Research):** `guides/02-research.md を読んでRFP解析を開始して`
+4. **Configure MCP:** 必要に応じて `.mcp.json` にAPIキーやプラットフォーム固有のMCPサーバーを追加する
 
 ---
 
