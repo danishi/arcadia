@@ -152,5 +152,5 @@ Phase完了の判定基準:
 Phase 4完了後:
 
 ```
-arcadia/guides/06-proposal.md を読んでPhase 5（提案書作成）を開始して
+guides/06-proposal.md を読んでPhase 5（提案書作成）を開始して
 ```

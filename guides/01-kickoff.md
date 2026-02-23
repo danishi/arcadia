@@ -1,6 +1,6 @@
 # Project Kickoff Guide
 
-This guide walks you through initializing a new RFP response project using ARCADIA and Claude Code.
+This guide walks you through initializing a new RFP response project using the ARCADIA テンプレートリポジトリ and Claude Code.
 
 ---
 
@@ -14,25 +14,23 @@ This guide walks you through initializing a new RFP response project using ARCAD
 
 ---
 
-## Step 1: Create Repository and Copy ARCADIA
+## Step 1: テンプレートからリポジトリを作成
+
+GitHub 上で ARCADIA テンプレートリポジトリの **「Use this template」** ボタンをクリックし、新しいプロジェクトリポジトリを作成します。
 
 ```bash
-# Create project repository
-mkdir {{PROJECT_SLUG}} && cd {{PROJECT_SLUG}}
-git init
+# 作成したリポジトリをクローン
+git clone https://github.com/your-org/{{PROJECT_SLUG}}.git
+cd {{PROJECT_SLUG}}
 
-# Copy ARCADIA framework
-cp -r /path/to/arcadia ./arcadia
-
-# Create standard directory structure
+# プロジェクト用ディレクトリを追加
 mkdir -p docs/rfp_reference \
          docs/rfp_answer_output/architecture-plan \
          docs/rfp_answer_output/migration-plan \
          docs/minutes \
          RFP_answer \
          src \
-         platform \
-         .claude/skills
+         platform
 ```
 
 ### Standard Directory Structure
@@ -53,10 +51,10 @@ mkdir -p docs/rfp_reference \
   src/                                  # Demo app (Next.js)
   platform/                             # Platform setup scripts
   .claude/
-    CLAUDE.md                           # Project instructions (generated)
-    settings.json                       # Claude Code settings (generated)
-    skills/                             # Project-local skills
-  arcadia/                              # ARCADIA framework (reference)
+    CLAUDE.md                           # Project instructions (generated from .tmpl)
+    settings.json                       # Claude Code settings (generated from .tmpl)
+    skills/                             # Skills (included from template)
+  guides/                               # ARCADIA phase guides (included from template)
   demo-app-spec.md                      # Demo app specification
 ```
 
@@ -73,7 +71,7 @@ claude
 Then instruct:
 
 ```
-arcadia/.claude/CLAUDE.md.tmpl を読んで、以下の情報でプロジェクトのCLAUDE.mdを生成して:
+.claude/CLAUDE.md.tmpl を読んで、以下の情報でプロジェクトのCLAUDE.mdを生成して:
 
 - クライアント名: [client name]
 - 提案主体: [your company]
@@ -89,10 +87,10 @@ arcadia/.claude/CLAUDE.md.tmpl を読んで、以下の情報でプロジェク�
 ```
 
 Claude Code will:
-1. Read the template from `arcadia/.claude/CLAUDE.md.tmpl`
+1. Read the template from `.claude/CLAUDE.md.tmpl`
 2. Replace all `{{VARIABLE}}` placeholders with your values
 3. Write the result to `.claude/CLAUDE.md`
-4. Generate `.claude/settings.json` from `arcadia/.claude/settings.json.tmpl`
+4. Generate `.claude/settings.json` from `.claude/settings.json.tmpl`
 
 ### Variable Quick Reference
 
@@ -194,7 +192,7 @@ Choose the data platform that matches your proposal. This determines which platf
 ### Option A: Databricks
 
 ```
-arcadia/data-platform/databricks/ の設定をプロジェクトに適用して
+data-platform/databricks/ の設定をプロジェクトに適用して
 ```
 
 | Setting | Value |
@@ -208,7 +206,7 @@ arcadia/data-platform/databricks/ の設定をプロジェクトに適用して
 ### Option B: Snowflake
 
 ```
-arcadia/data-platform/snowflake/ の設定をプロジェクトに適用して
+data-platform/snowflake/ の設定をプロジェクトに適用して
 ```
 
 | Setting | Value |
@@ -221,7 +219,7 @@ arcadia/data-platform/snowflake/ の設定をプロジェクトに適用して
 ### Option C: BigQuery
 
 ```
-arcadia/data-platform/bigquery/ の設定をプロジェクトに適用して
+data-platform/bigquery/ の設定をプロジェクトに適用して
 ```
 
 | Setting | Value |
@@ -235,7 +233,7 @@ arcadia/data-platform/bigquery/ の設定をプロジェクトに適用して
 ### Option D: Other / Generic
 
 ```
-arcadia/data-platform/generic/ の設定をプロジェクトに適用して
+data-platform/common/ の設定をプロジェクトに適用して
 ```
 
 Use the generic baseline and add platform-specific configurations manually.
@@ -246,10 +244,9 @@ Use the generic baseline and add platform-specific configurations manually.
 
 After completing kickoff:
 
-1. **Start Phase 1 (Research):** `arcadia/guides/02-research.md を読んでRFP解析を開始して`
+1. **Start Phase 1 (Research):** `guides/02-research.md を読んでRFP解析を開始して`
 2. **Review generated files:** Check `.claude/CLAUDE.md` and `.claude/settings.json`
-3. **Set up skills:** Copy skill templates from `arcadia/skills/` to `.claude/skills/`
-4. **Configure MCP:** Add platform-specific MCP servers to settings.json
+3. **Configure MCP:** Add platform-specific MCP servers to settings.json
 
 ---
 

@@ -142,9 +142,9 @@ Phase完了の判定基準:
 Phase 2完了後、以下のフェーズに分岐して進行可能:
 
 ```
-arcadia/guides/04-design.md を読んでPhase 3（アーキテクチャ設計）を開始して
+guides/04-design.md を読んでPhase 3（アーキテクチャ設計）を開始して
 ```
 
 ```
-arcadia/guides/07-demo.md を読んでPhase 6（デモ開発）を並行で開始して
+guides/07-demo.md を読んでPhase 6（デモ開発）を並行で開始して
 ```
