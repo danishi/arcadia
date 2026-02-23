@@ -52,11 +52,16 @@ RFP・議事録・既存資料・既存ソースなど、揃わないインプ�
       proposal-writer/                 # Proposal drafting skill
       estimation-advisor/              # Estimation assistant skill
       demo-builder/                    # Demo app scaffolding skill
-  data-platform/
-    databricks/                        # Databricks-specific configurations
-    snowflake/                         # Snowflake-specific configurations
-    bigquery/                          # BigQuery-specific configurations
-    common/                            # Platform-agnostic baseline
+  platform/
+    cloud/                             # Cloud infrastructure templates
+      aws/                             # AWS-specific infrastructure
+      gcp/                             # GCP-specific infrastructure
+      other/                           # Other providers (Azure, etc.)
+    data/                              # Data platform templates
+      databricks/                      # Databricks-specific configurations
+      snowflake/                       # Snowflake-specific configurations
+      bigquery/                        # BigQuery-specific configurations
+      common/                          # Platform-agnostic baseline
   templates/                           # Proposal & documentation templates
   demo-app/                            # Next.js demo app boilerplate
 ```
