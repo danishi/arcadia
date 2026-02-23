@@ -1,6 +1,8 @@
 # ARCADIA Design Philosophy
 
-**AI-driven RFP Craft and Delivery Intelligence Architecture**
+**AI-driven Requirement Comprehension & Automated Deliverable Integration Architecture**
+
+> 断片的なインプットから、提案のすべてをAIが組み上げる
 
 ---
 

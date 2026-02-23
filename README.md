@@ -1,8 +1,17 @@
-# ARCADIA
+<p align="center">
+  <img src="assets/banner.png" alt="ARCADIA" width="100%" />
+</p>
 
-**AI-driven RFP Craft and Delivery Intelligence Architecture**
+<h1 align="center">ARCADIA</h1>
 
-RFP対応のインプット（RFP資料、現行システム情報、議事録等）からアウトプット（提案書、見積、WBS、デモアプリ）までを、人 + Claude Code + MCP + Skills のセミオートで一貫生産するテンプレートリポジトリ。
+<p align="center">
+  <strong>AI-driven Requirement Comprehension & Automated Deliverable Integration Architecture</strong><br/>
+  断片的なインプットから、提案のすべてをAIが組み上げる
+</p>
+
+---
+
+RFP・議事録・既存資料・既存ソースなど、揃わないインプットからでも、提案書・システムアーキテクチャ・WBS/スケジュール・見積・デモアプリを、人 + Claude Code + MCP + Skills のセミオートで一貫生産するテンプレートリポジトリ。
 
 > **本リポジトリはテンプレートリポジトリです。** GitHub の「Use this template」ボタンから新しいプロジェクトリポジトリを作成して使用してください。
 
