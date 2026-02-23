@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.png" alt="ARCADIA" width="100%" />
+  <img src="assets/hero-banner.png" alt="ARCADIA" width="100%" />
 </p>
 
 <h1 align="center">ARCADIA</h1>
