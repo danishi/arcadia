@@ -214,12 +214,26 @@ Claude Code will:
 
 ## Platform Selection Guide
 
-Choose the data platform that matches your proposal. This determines which platform-specific configurations, skills, and MCP servers to enable.
+プラットフォームは **クラウドインフラ** と **データ基盤** の2軸で選定する。
 
-### Option A: Databricks
+### Step A: Cloud Provider Selection
 
 ```
-data-platform/databricks/ の設定をプロジェクトに適用して
+platform/cloud/ を参照して、クラウドプロバイダーを選定して
+```
+
+| Option | Guide | Template Variable |
+|--------|-------|------------------|
+| **AWS** | `platform/cloud/aws/README.md` | `{{CLOUD_PROVIDER}}` = `AWS` |
+| **GCP** | `platform/cloud/gcp/README.md` | `{{CLOUD_PROVIDER}}` = `GCP` |
+| **Other** | `platform/cloud/other/README.md` | `{{CLOUD_PROVIDER}}` = (provider name) |
+
+### Step B: Data Platform Selection
+
+#### Option B-1: Databricks
+
+```
+platform/data/databricks/ の設定をプロジェクトに適用して
 ```
 
 | Setting | Value |
@@ -230,10 +244,10 @@ data-platform/databricks/ の設定をプロジェクトに適用して
 | MCP | aws-knowledge (if on AWS) |
 | Demo env vars | DATABRICKS_HOST, DATABRICKS_TOKEN, DATABRICKS_WAREHOUSE_ID |
 
-### Option B: Snowflake
+#### Option B-2: Snowflake
 
 ```
-data-platform/snowflake/ の設定をプロジェクトに適用して
+platform/data/snowflake/ の設定をプロジェクトに適用して
 ```
 
 | Setting | Value |
@@ -243,10 +257,10 @@ data-platform/snowflake/ の設定をプロジェクトに適用して
 | Skills | (add Snowflake-specific skills) |
 | Demo env vars | SNOWFLAKE_ACCOUNT, SNOWFLAKE_USER, SNOWFLAKE_WAREHOUSE |
 
-### Option C: BigQuery
+#### Option B-3: BigQuery
 
 ```
-data-platform/bigquery/ の設定をプロジェクトに適用して
+platform/data/bigquery/ の設定をプロジェクトに適用して
 ```
 
 | Setting | Value |
@@ -257,10 +271,10 @@ data-platform/bigquery/ の設定をプロジェクトに適用して
 | MCP | google-developer-knowledge |
 | Demo env vars | GCP_PROJECT_ID, BQ_DATASET |
 
-### Option D: Other / Generic
+#### Option B-4: Other / Generic
 
 ```
-data-platform/common/ の設定をプロジェクトに適用して
+platform/data/common/ の設定をプロジェクトに適用して
 ```
 
 Use the generic baseline and add platform-specific configurations manually.
