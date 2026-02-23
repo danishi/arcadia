@@ -134,8 +134,8 @@ Phase完了の判定基準:
 
 ## Next Step
 
-Phase 1完了後、`arcadia/guides/03-strategy.md` に進む:
+Phase 1完了後、`guides/03-strategy.md` に進む:
 
 ```
-arcadia/guides/03-strategy.md を読んでPhase 2（戦略策定）を開始して
+guides/03-strategy.md を読んでPhase 2（戦略策定）を開始して
 ```

@@ -160,11 +160,11 @@ Phase完了の判定基準:
 Phase 5完了後:
 
 ```
-arcadia/guides/08-review.md を読んでPhase 7（品質チェック）を開始して
+guides/08-review.md を読んでPhase 7（品質チェック）を開始して
 ```
 
 Phase 5と並行して:
 
 ```
-arcadia/guides/07-demo.md を読んでPhase 6（デモ開発）の状況を確認して
+guides/07-demo.md を読んでPhase 6（デモ開発）の状況を確認して
 ```

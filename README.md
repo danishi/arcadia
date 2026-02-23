@@ -2,7 +2,9 @@
 
 **AI-driven RFP Craft and Delivery Intelligence Architecture**
 
-RFP対応のインプット（RFP資料、現行システム情報、議事録等）からアウトプット（提案書、見積、WBS、デモアプリ）までを、人 + Claude Code + MCP + Skills のセミオートで一貫生産するフレームワーク。
+RFP対応のインプット（RFP資料、現行システム情報、議事録等）からアウトプット（提案書、見積、WBS、デモアプリ）までを、人 + Claude Code + MCP + Skills のセミオートで一貫生産するテンプレートリポジトリ。
+
+> **本リポジトリはテンプレートリポジトリです。** GitHub の「Use this template」ボタンから新しいプロジェクトリポジトリを作成して使用してください。
 
 ---
 
@@ -20,32 +22,34 @@ RFP対応のインプット（RFP資料、現行システム情報、議事録�
 ## Directory Structure
 
 ```
-arcadia/
-  README.md                      # This file
-  arcadia.md                     # Design philosophy & template variable reference
+{{PROJECT_SLUG}}/                      # "Use this template" で生成したリポジトリ
+  README.md                            # This file
+  arcadia.md                           # Design philosophy & template variable reference
   guides/
-    00-overview.md               # 7-phase workflow overview
-    01-kickoff.md                # Interactive project initialization guide
-    02-research.md               # (Phase 1) RFP analysis guide
-    03-strategy.md               # (Phase 2) Win strategy guide
-    04-design.md                 # (Phase 3) Architecture & migration planning
-    05-estimation.md             # (Phase 4) Cost estimation guide
-    06-proposal.md               # (Phase 5) Proposal document creation
-    07-demo.md                   # (Phase 6) Demo app development
-    08-review.md                 # (Phase 7) Quality check & RFP compliance
+    00-overview.md                     # 7-phase workflow overview
+    01-kickoff.md                      # Interactive project initialization guide
+    02-research.md                     # (Phase 1) RFP analysis guide
+    03-strategy.md                     # (Phase 2) Win strategy guide
+    04-design.md                       # (Phase 3) Architecture & migration planning
+    05-estimation.md                   # (Phase 4) Cost estimation guide
+    06-proposal.md                     # (Phase 5) Proposal document creation
+    07-demo.md                         # (Phase 6) Demo app development
+    08-review.md                       # (Phase 7) Quality check & RFP compliance
   .claude/
-    CLAUDE.md.tmpl               # Claude Code project instructions template
-    settings.json.tmpl           # Claude Code settings template
-  skills/
-    rfp-auditor/                 # RFP requirement checker skill (template)
-    proposal-writer/             # Proposal drafting skill (template)
-    estimation-advisor/          # Estimation assistant skill (template)
-    demo-builder/                # Demo app scaffolding skill (template)
+    CLAUDE.md.tmpl                     # Claude Code project instructions template
+    settings.json.tmpl                 # Claude Code settings template
+    skills/
+      rfp-auditor/                     # RFP requirement checker skill
+      proposal-writer/                 # Proposal drafting skill
+      estimation-advisor/              # Estimation assistant skill
+      demo-builder/                    # Demo app scaffolding skill
   data-platform/
-    databricks/                  # Databricks-specific configurations
-    snowflake/                   # Snowflake-specific configurations
-    bigquery/                    # BigQuery-specific configurations
-    generic/                     # Platform-agnostic baseline
+    databricks/                        # Databricks-specific configurations
+    snowflake/                         # Snowflake-specific configurations
+    bigquery/                          # BigQuery-specific configurations
+    common/                            # Platform-agnostic baseline
+  templates/                           # Proposal & documentation templates
+  demo-app/                            # Next.js demo app boilerplate
 ```
 
 ---
@@ -70,20 +74,22 @@ arcadia/
 
 - [Claude Code](https://docs.anthropic.com/en/docs/claude-code) installed and configured
 - MCP servers: `context7`, `drawio` (minimum)
-- Git repository initialized
 
-### Initialize a New Project
+### 1. テンプレートからリポジトリを作成
+
+GitHub 上で本リポジトリの **「Use this template」** ボタンをクリックし、新しいプロジェクトリポジトリを作成します。
 
 ```bash
-# 1. Create your project repository
-mkdir my-rfp-project && cd my-rfp-project
-git init
+# 作成したリポジトリをクローン
+git clone https://github.com/your-org/{{PROJECT_SLUG}}.git
+cd {{PROJECT_SLUG}}
+```
 
-# 2. Copy ARCADIA framework
-cp -r /path/to/arcadia ./arcadia
+### 2. Claude Code でプロジェクトを初期化
 
-# 3. Start Claude Code and run:
-#    "arcadia/guides/01-kickoff.md を読んでプロジェクトを初期化して"
+```bash
+# Claude Code を起動して:
+#   "guides/01-kickoff.md を読んでプロジェクトを初期化して"
 claude
 ```
 

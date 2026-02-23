@@ -162,11 +162,11 @@ Phase完了の判定基準:
 Phase 3の成果物が揃ったら:
 
 ```
-arcadia/guides/05-estimation.md を読んでPhase 4（見積）を開始して
+guides/05-estimation.md を読んでPhase 4（見積）を開始して
 ```
 
 Phase 3と並行して:
 
 ```
-arcadia/guides/07-demo.md を読んでPhase 6（デモ開発）を並行で開始して
+guides/07-demo.md を読んでPhase 6（デモ開発）を並行で開始して
 ```

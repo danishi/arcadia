@@ -171,7 +171,7 @@ Phase完了の判定基準:
 Phase 6のデモが動作確認できたら:
 
 ```
-arcadia/guides/08-review.md を読んでPhase 7（品質チェック）を開始して
+guides/08-review.md を読んでPhase 7（品質チェック）を開始して
 ```
 
 Phase 5（提案書）へスクリーンショットを提供:

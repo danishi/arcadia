@@ -23,7 +23,7 @@ ARCADIA does not aim for full automation. RFP responses require human judgment f
 
 ### 1.3 Platform Independence
 
-All templates use `{{VARIABLE}}` syntax. No file in the `arcadia/` directory references a specific data platform, cloud provider, or product name. Platform-specific configurations live in `data-platform/{platform}/`.
+All templates use `{{VARIABLE}}` syntax. No template file references a specific data platform, cloud provider, or product name. Platform-specific configurations live in `data-platform/{platform}/`.
 
 ### 1.4 Claude Code-native
 
