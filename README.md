@@ -19,12 +19,12 @@ RFP・議事録・既存資料・既存ソースなど、揃わないインプ�
 
 ## Why ARCADIA?
 
-| Challenge | ARCADIA's Answer |
-|-----------|-----------------|
-| RFP response is labor-intensive and error-prone | Semi-automated pipeline from analysis to deliverables |
-| Knowledge is siloed in individuals | Structured docs + Claude Code as persistent context |
-| Quality varies across proposals | Reproducible 7-phase workflow with built-in checks |
-| Platform lock-in in templates | Template variables (`{{PLATFORM_NAME}}` etc.) for any stack |
+| 課題 | ARCADIA のアプローチ |
+|------|---------------------|
+| RFP 対応が属人的で工数がかかる | 分析から成果物までのセミオートパイプライン |
+| ナレッジが個人に閉じている | 構造化ドキュメント + Claude Code による永続コンテキスト |
+| 提案品質にばらつきがある | 再現可能な 7 フェーズワークフローとビルトインチェック |
+| テンプレートがプラットフォーム固定 | テンプレート変数（`{{PLATFORM_NAME}}` 等）であらゆるスタックに対応 |
 
 ---
 
@@ -32,53 +32,55 @@ RFP・議事録・既存資料・既存ソースなど、揃わないインプ�
 
 ```
 {{PROJECT_SLUG}}/                      # "Use this template" で生成したリポジトリ
-  README.md                            # This file
-  arcadia.md                           # Design philosophy & template variable reference
+  README.md                            # 本ファイル
+  arcadia.md                           # 設計思想・テンプレート変数リファレンス
   guides/
-    00-overview.md                     # 7-phase workflow overview
-    01-kickoff.md                      # Interactive project initialization guide
-    02-research.md                     # (Phase 1) RFP analysis guide
-    03-strategy.md                     # (Phase 2) Win strategy guide
-    04-design.md                       # (Phase 3) Architecture & migration planning
-    05-estimation.md                   # (Phase 4) Cost estimation guide
-    06-proposal.md                     # (Phase 5) Proposal document creation
-    07-demo.md                         # (Phase 6) Demo app development
-    08-review.md                       # (Phase 7) Quality check & RFP compliance
+    00-overview.md                     # 7 フェーズワークフロー概要
+    01-kickoff.md                      # プロジェクト初期化ガイド
+    02-research.md                     # (Phase 1) RFP 分析ガイド
+    03-strategy.md                     # (Phase 2) 提案戦略ガイド
+    04-design.md                       # (Phase 3) アーキテクチャ・移行計画
+    05-estimation.md                   # (Phase 4) 見積ガイド
+    06-proposal.md                     # (Phase 5) 提案書作成
+    07-demo.md                         # (Phase 6) デモアプリ開発
+    08-review.md                       # (Phase 7) 品質チェック・RFP 準拠確認
   .claude/
-    CLAUDE.md.tmpl                     # Claude Code project instructions template
-    settings.json.tmpl                 # Claude Code settings template
+    CLAUDE.md.tmpl                     # Claude Code プロジェクト指示テンプレート
+    settings.json.tmpl                 # Claude Code 設定テンプレート
+    commands/
+      setup.md                         # /project:setup カスタムコマンド（初期セットアップ）
     skills/
-      rfp-auditor/                     # RFP requirement checker skill
-      proposal-writer/                 # Proposal drafting skill
-      estimation-advisor/              # Estimation assistant skill
-      demo-builder/                    # Demo app scaffolding skill
+      rfp-auditor/                     # RFP 要件チェック Skill
+      proposal-writer/                 # 提案書ドラフト Skill
+      estimation-advisor/              # 見積支援 Skill
+      demo-builder/                    # デモアプリ生成 Skill
   platform/
-    cloud/                             # Cloud infrastructure templates
-      aws/                             # AWS-specific infrastructure
-      gcp/                             # GCP-specific infrastructure
-      other/                           # Other providers (Azure, etc.)
-    data/                              # Data platform templates
-      databricks/                      # Databricks-specific configurations
-      snowflake/                       # Snowflake-specific configurations
-      bigquery/                        # BigQuery-specific configurations
-      common/                          # Platform-agnostic baseline
-  templates/                           # Proposal & documentation templates
-  demo-app/                            # Next.js demo app boilerplate
+    cloud/                             # クラウドインフラテンプレート
+      aws/                             # AWS 固有設定
+      gcp/                             # GCP 固有設定
+      other/                           # その他プロバイダー（Azure 等）
+    data/                              # データ基盤テンプレート
+      databricks/                      # Databricks 固有設定
+      snowflake/                       # Snowflake 固有設定
+      bigquery/                        # BigQuery 固有設定
+      common/                          # プラットフォーム共通ベースライン
+  templates/                           # 提案・ドキュメントテンプレート
+  demo-app/                            # Next.js デモアプリボイラープレート
 ```
 
 ---
 
 ## 7 Phases at a Glance
 
-| # | Phase | Description | Key Deliverables | Human/AI |
-|---|-------|------------|-----------------|----------|
-| 1 | **Research** | RFP analysis, reference doc cataloging | docs-catalog.md, requirements checklist | 20/80 |
-| 2 | **Strategy** | Win strategy, scope definition | proposal-strategy.md, scope matrix | 60/40 |
-| 3 | **Design** | Architecture, migration planning | Architecture diagrams, ADRs, migration plan | 40/60 |
-| 4 | **Estimation** | Effort & cost calculation | estimation-policy.md, cost breakdown sheets | 50/50 |
-| 5 | **Proposal** | Document authoring (multi-volume) | PPTX volumes, Excel answer sheets | 40/60 |
-| 6 | **Demo** | Demo app + data platform setup | Working web app, platform scripts | 20/80 |
-| 7 | **Review** | RFP compliance verification | Audit report, gap analysis | 10/90 |
+| # | Phase | 内容 | 主な成果物 | 人/AI |
+|---|-------|------|-----------|-------|
+| 1 | **Research** | RFP 分析、参考資料カタログ作成 | docs-catalog.md、要件チェックリスト | 20/80 |
+| 2 | **Strategy** | 提案戦略策定、スコープ定義 | proposal-strategy.md、スコープマトリクス | 60/40 |
+| 3 | **Design** | アーキテクチャ設計、移行計画 | アーキテクチャ図、ADR、移行計画 | 40/60 |
+| 4 | **Estimation** | 工数・コスト算出 | estimation-policy.md、コスト内訳 | 50/50 |
+| 5 | **Proposal** | 提案書作成（複数巻） | PPTX 提案書、Excel 回答シート | 40/60 |
+| 6 | **Demo** | デモアプリ + データ基盤構築 | Web アプリ、プラットフォームスクリプト | 20/80 |
+| 7 | **Review** | RFP 準拠確認、品質保証 | 監査レポート、ギャップ分析 | 10/90 |
 
 ---
 
@@ -86,8 +88,8 @@ RFP・議事録・既存資料・既存ソースなど、揃わないインプ�
 
 ### Prerequisites
 
-- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) installed and configured
-- MCP servers: `context7`, `drawio` (minimum)
+- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) がインストール・設定済みであること
+- MCP サーバー: `context7`、`drawio`（最低限）
 
 ### 1. テンプレートからリポジトリを作成
 
@@ -99,34 +101,79 @@ git clone https://github.com/your-org/{{PROJECT_SLUG}}.git
 cd {{PROJECT_SLUG}}
 ```
 
-### 2. Claude Code でプロジェクトを初期化
+### 2. `/project:setup` カスタムコマンドでプロジェクトを初期化
+
+Claude Code を起動し、**`/project:setup` カスタムコマンド**を実行します。
 
 ```bash
-# Claude Code を起動して:
-#   "guides/01-kickoff.md を読んでプロジェクトを初期化して"
+# Claude Code を起動
 claude
 ```
 
-Claude Code will walk you through an interactive setup:
+```
+# Claude Code 内で /project:setup を実行（引数なしで対話的に確認）
+/project:setup
 
-1. Fill in template variables (client name, platform, deadlines, etc.)
-2. Generate your project's `CLAUDE.md` from the template
-3. Set up the directory structure for RFP documents
-4. Create the initial docs-catalog.md
-5. Configure platform-specific settings
+# または、プロジェクト情報を引数として渡す
+/project:setup クライアント名: ABC銀行, 提案主体: XYZ株式会社, 案件概要: 次世代DWH刷新, ...
+```
+
+`/project:setup` コマンドが以下を自動実行します:
+
+1. テンプレート変数の対話的な入力（クライアント名、プラットフォーム、提出期限など）
+2. `.claude/CLAUDE.md.tmpl` からプロジェクト固有の `CLAUDE.md` を生成
+3. RFP ドキュメント用のディレクトリ構造を作成（`docs/`、`RFP_answer/`、`src/` 等）
+4. `.mcp.json`、`.gitignore`、`.env.example` を生成
+5. `docs/rfp_answer_output/` にドキュメントテンプレートを配置
+
+> **詳細**: `guides/01-kickoff.md` に完全なセットアップ手順（org-data の準備、プラットフォーム選定、RFP ドキュメント配置など）を記載しています。
+
+---
+
+## Claude Code Tool Ecosystem
+
+ARCADIA は Claude Code の**カスタムコマンド**、**Skills**、**MCP サーバー**を組み合わせて動作します。
+
+### Custom Commands
+
+`.claude/commands/` に定義されたコマンドは、Claude Code 内で `/project:<コマンド名>` で呼び出せます。
+
+| コマンド | 用途 | 定義ファイル |
+|---------|------|-------------|
+| `/project:setup` | プロジェクト初期セットアップ（テンプレート変数の適用、ディレクトリ・設定ファイル生成） | `.claude/commands/setup.md` |
+
+### Skills
+
+`.claude/skills/` に定義された再利用可能なドメイン知識です。Claude Code が各フェーズで自動的に参照します。
+
+| Skill | 用途 | 主な利用フェーズ |
+|-------|------|----------------|
+| `rfp-auditor` | RFP 要件チェック・コンプライアンス監査 | 1, 2, 7 |
+| `proposal-writer` | 提案書ドラフト作成支援 | 2, 5 |
+| `estimation-advisor` | 見積・WBS 生成支援 | 4 |
+| `demo-builder` | デモアプリ画面生成 | 6 |
+
+### MCP Servers
+
+| MCP | 用途 | 必須 |
+|-----|------|:---:|
+| `context7` | ライブラリ・フレームワークのドキュメント検索 | Yes |
+| `drawio` | アーキテクチャ図の生成・編集 | Yes |
+| `aws-knowledge` | AWS ドキュメント参照（AWS 利用時） | No |
+| `google-developer-knowledge` | GCP ドキュメント参照（GCP 利用時） | No |
 
 ---
 
 ## Principles
 
-1. **Reproducibility** -- Any team can follow the same 7 phases to produce consistent results
-2. **Semi-automation** -- Human judgment for strategy and decisions; AI for analysis, drafting, and checking
-3. **Platform Independence** -- Template variables abstract away platform-specific details
-4. **Claude Code-native** -- Designed to work within Claude Code's tool ecosystem (MCP, Skills, Agents)
-5. **Evidence-based** -- Every claim in the proposal traces back to an RFP requirement or reference document
+1. **Reproducibility** -- 同じ 7 フェーズに従うことで、どのチームでも一貫した成果を生み出せる
+2. **Semi-automation** -- 戦略・意思決定は人間、分析・ドラフト・チェックは AI が担当
+3. **Platform Independence** -- テンプレート変数でプラットフォーム固有の詳細を抽象化
+4. **Claude Code-native** -- Claude Code のツールエコシステム（MCP、Skills、Agents）を前提に設計
+5. **Evidence-based** -- 提案書のすべての記述は RFP 要件または参考資料に紐づく
 
 ---
 
 ## License
 
-Internal use. Adapt freely for your organization's RFP response workflows.
+社内利用。組織の RFP 対応ワークフローに合わせて自由にカスタマイズしてください。
