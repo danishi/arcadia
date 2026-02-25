@@ -1,9 +1,10 @@
 ---
 name: nanobanana
-description: "図解やスライド用の画像をGoogle Gemini 3 Pro Image（Nano Banana Pro）で生成・編集するスキル。テキストから画像生成、画像編集、バッチ生成に対応。"
-user-invocable: true
-argument-hint: "<プロンプト> [-i 入力画像] [-r アスペクト比] [-s 解像度] [--search]"
-allowed-tools: Read, Grep, Glob, Write, Edit, Bash
+description: >
+  Generate and edit images using Google Gemini 3 Pro Image (Nano Banana Pro).
+  Supports text-to-image generation, image editing with reference images,
+  configurable aspect ratios, 1K/2K/4K output, Google Search grounding,
+  and batch generation. Works with both Gemini Developer API and Vertex AI.
 ---
 
 # Nano Banana - AI Image Generation Skill
