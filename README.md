@@ -48,7 +48,7 @@ RFP・議事録・既存資料・既存ソースなど、揃わないインプ�
     CLAUDE.md.tmpl                     # Claude Code プロジェクト指示テンプレート
     settings.json.tmpl                 # Claude Code 設定テンプレート
     commands/
-      setup.md                         # /project:setup カスタムコマンド（初期セットアップ）
+      setup.md                         # /setup カスタムコマンド（初期セットアップ）
     skills/
       rfp-auditor/                     # RFP 要件チェック Skill
       proposal-writer/                 # 提案書ドラフト Skill
@@ -101,9 +101,9 @@ git clone https://github.com/your-org/{{PROJECT_SLUG}}.git
 cd {{PROJECT_SLUG}}
 ```
 
-### 2. `/project:setup` カスタムコマンドでプロジェクトを初期化
+### 2. `/setup` カスタムコマンドでプロジェクトを初期化
 
-Claude Code を起動し、**`/project:setup` カスタムコマンド**を実行します。
+Claude Code を起動し、**`/setup` カスタムコマンド**を実行します。
 
 ```bash
 # Claude Code を起動
@@ -111,14 +111,14 @@ claude
 ```
 
 ```
-# Claude Code 内で /project:setup を実行（引数なしで対話的に確認）
-/project:setup
+# Claude Code 内で /setup を実行（引数なしで対話的に確認）
+/setup
 
 # または、プロジェクト情報を引数として渡す
-/project:setup クライアント名: ABC銀行, 提案主体: XYZ株式会社, 案件概要: 次世代DWH刷新, ...
+/setup クライアント名: ABC銀行, 提案主体: XYZ株式会社, 案件概要: 次世代DWH刷新, ...
 ```
 
-`/project:setup` コマンドが以下を自動実行します:
+`/setup` コマンドが以下を自動実行します:
 
 1. テンプレート変数の対話的な入力（クライアント名、プラットフォーム、提出期限など）
 2. `.claude/CLAUDE.md.tmpl` からプロジェクト固有の `CLAUDE.md` を生成
@@ -136,11 +136,11 @@ ARCADIA は Claude Code の**カスタムコマンド**、**Skills**、**MCP サ
 
 ### Custom Commands
 
-`.claude/commands/` に定義されたコマンドは、Claude Code 内で `/project:<コマンド名>` で呼び出せます。
+`.claude/commands/` に定義されたコマンドは、Claude Code 内で `/<コマンド名>` で呼び出せます。
 
 | コマンド | 用途 | 定義ファイル |
 |---------|------|-------------|
-| `/project:setup` | プロジェクト初期セットアップ（テンプレート変数の適用、ディレクトリ・設定ファイル生成） | `.claude/commands/setup.md` |
+| `/setup` | プロジェクト初期セットアップ（テンプレート変数の適用、ディレクトリ・設定ファイル生成） | `.claude/commands/setup.md` |
 
 ### Skills
 
