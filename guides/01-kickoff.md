@@ -25,7 +25,7 @@ git clone https://github.com/your-org/{{PROJECT_SLUG}}.git
 cd {{PROJECT_SLUG}}
 ```
 
-> **Note**: ディレクトリ構造の作成は Step 2 の `/project:setup` コマンドが自動で行います。手動で作成する必要はありません。
+> **Note**: ディレクトリ構造の作成は Step 2 の `/setup` コマンドが自動で行います。手動で作成する必要はありません。
 
 ### Standard Directory Structure
 
@@ -88,10 +88,10 @@ Start Claude Code and run the setup command:
 claude
 ```
 
-Then run the `/project:setup` command with project information:
+Then run the `/setup` command with project information:
 
 ```
-/project:setup
+/setup
 クライアント名: ABC銀行
 提案主体: XYZ株式会社
 案件概要: 次世代DWH・MAプラットフォーム刷新
@@ -105,7 +105,7 @@ Then run the `/project:setup` command with project information:
 デモコンセプト: SQLなしで、データと会話しよう
 ```
 
-> **Note**: 引数なしで `/project:setup` を実行すると、対話的に各項目を確認します。
+> **Note**: 引数なしで `/setup` を実行すると、対話的に各項目を確認します。
 
 Claude Code will:
 1. Create the standard directory structure (`docs/`, `RFP_answer/`, `src/`, etc.)
@@ -278,9 +278,9 @@ Use the generic baseline and add platform-specific configurations manually.
 
 ## Next Steps
 
-After completing kickoff (`/project:setup`):
+After completing kickoff (`/setup`):
 
-1. **Review generated files:** `/project:setup` が生成したファイル一覧を確認する
+1. **Review generated files:** `/setup` が生成したファイル一覧を確認する
 2. **Place RFP documents:** Step 3 に従い RFP ドキュメントを配置する
 3. **Start Phase 1 (Research):** `guides/02-research.md を読んでRFP解析を開始して`
 4. **Configure MCP:** 必要に応じて `.mcp.json` にAPIキーやプラットフォーム固有のMCPサーバーを追加する
