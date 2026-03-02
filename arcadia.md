@@ -235,4 +235,5 @@ Setup procedure: `guides/01-kickoff.md` Step 1.5. Detail: `org-data/README.md`.
 | `{prefix}-{topic}.drawio` | `logical-architecture-ph1.drawio` | Architecture diagrams |
 | `ph{n}-{seq}-{topic}.drawio` | `ph1-01-current-system.drawio` | Phased design documents |
 | `{NN}-{topic}.py` | `00-setup.py` | Numbered execution scripts |
-| `Vol{N}-{topic}.pptx` | `Vol1-overview.pptx` | Proposal volumes |
+| `Vol{N}-{topic}.pptx` | `Vol1-overview.pptx` | Proposal volumes (PPTX method) |
+| `Vol{N}-{topic}/slide-{NN}.png` | `Vol1-overview/slide-01.png` | Proposal volumes (NanoBanana method) |
