@@ -73,35 +73,82 @@ platform/
 - ユーザーが「OK」または配置完了を示す応答をした場合 → Step 3 に進む
 - ユーザーが「スキップ」または後回しを示す応答をした場合 → 「Phase 1（Research）開始前に必ず配置してください」と注意を表示し、Step 3 に進む
 
-### Step 3: CLAUDE.md の生成
+### Step 3: スライド作成方法の選択
+
+ユーザーに提案スライドの作成方法を確認してください:
+
+> **スライドの作成方法を選択してください:**
+>
+> 1. **PowerPoint（PPTX）で作成**（デフォルト）
+>    - Claude の pptx スキル（example-skills / document-skills）を使用
+>    - `.pptx` ファイルを直接生成
+>    - 追加設定不要
+>
+> 2. **NanoBanana（AI画像生成）で作成**（おすすめ）
+>    - NanoBanana スキルを使い、スライドを1枚ずつ画像として生成
+>    - 高品質なビジュアルスライドを AI が自動デザイン
+>    - プロンプトの複雑さに応じてモデルを自動選択（Pro / Flash）
+>    - **要事前設定**（下記参照）
+
+- ユーザーが「1」またはPowerPointを選択した場合 → `SLIDE_METHOD` を `pptx` として記録し、Step 4 に進む
+- ユーザーが「2」またはNanoBananaを選択した場合 → `SLIDE_METHOD` を `nanobanana` として記録し、以下のセットアップを案内する:
+
+#### NanoBanana 利用条件の確認
+
+`.claude/skills/nanobanana/SKILL.md` の Prerequisites セクションを参照し、以下を案内してください:
+
+1. **依存パッケージのインストール**:
+   ```bash
+   pip install google-genai Pillow
+   ```
+
+2. **API クレデンシャルの設定**（いずれか一方）:
+   - **Option A: Gemini Developer API**（個人利用推奨）
+     ```bash
+     export GEMINI_API_KEY="your-api-key"
+     ```
+     キーの取得先: https://aistudio.google.com/apikey
+   - **Option B: Vertex AI API**（Google Cloud ユーザー向け）
+     ```bash
+     export GOOGLE_CLOUD_PROJECT="your-project-id"
+     export GOOGLE_CLOUD_LOCATION="us-central1"
+     ```
+     事前に `gcloud auth application-default login` が必要
+
+3. ユーザーに「セットアップが完了したら OK と入力してください。後で設定する場合は スキップ と入力してください。」と案内する
+   - 「OK」の場合 → Step 4 に進む
+   - 「スキップ」の場合 → 「Phase 5（Proposal）開始前に必ず NanoBanana の設定を完了してください」と注意を表示し、Step 4 に進む
+
+### Step 4: CLAUDE.md の生成
 
 1. `.claude/CLAUDE.md.tmpl` を読み込む
 2. ユーザーから受け取った値で `{{VARIABLE}}` プレースホルダーをすべて置換する
-3. 結果を `.claude/CLAUDE.md` に書き出す
+3. Step 3 で選択された `SLIDE_METHOD` を Project Overview テーブルに `| Slide Method | pptx or nanobanana |` として追記する
+4. 結果を `.claude/CLAUDE.md` に書き出す
 
-### Step 4: settings.json の生成
+### Step 5: settings.json の生成
 
 1. `.claude/settings.json.tmpl` を読み込む
 2. そのまま `.claude/settings.json` にコピーする（settings.json にはプロジェクト固有の変数は含まれないため）
 
-### Step 5: .mcp.json の生成
+### Step 6: .mcp.json の生成
 
 1. `templates/.mcp.json.tmpl` を読み込む
 2. `{{CONTEXT7_API_KEY}}` は空文字のまま残す（ユーザーが後で設定する）
 3. 結果をプロジェクトルートの `.mcp.json` に書き出す
 
-### Step 6: .gitignore の生成
+### Step 7: .gitignore の生成
 
 1. `templates/.gitignore.tmpl` を読み込む
 2. そのまま `.gitignore` に書き出す（変数なし）
 
-### Step 7: 環境変数テンプレートの配置
+### Step 8: 環境変数テンプレートの配置
 
 1. `templates/env-example.tmpl` を読み込む
 2. `{{PLATFORM_TYPE}}` 等を置換する
 3. `.env.example` として書き出す
 
-### Step 8: docs テンプレートの配置
+### Step 9: docs テンプレートの配置
 
 以下のテンプレートを読み込み、**キックオフ段階で確定しているプロジェクト基本変数のみ**（`CLIENT_NAME`, `PROPOSER_NAME`, `PLATFORM_NAME`, `CLOUD_PROVIDER`, `DEADLINE`, `PRESENTATION_DATE` 等）を置換して配置してください。それ以外の `{{VARIABLE}}` はそのまま残してください（フェーズ2以降で埋める）:
 
@@ -113,7 +160,7 @@ platform/
 | `templates/docs/estimation-policy.md.tmpl` | `docs/rfp_answer_output/estimation-policy.md` |
 | `templates/docs/architecture-plan/architecture-policy.md.tmpl` | `docs/rfp_answer_output/architecture-plan/architecture-policy.md` |
 
-### Step 9: 完了レポート
+### Step 10: 完了レポート
 
 セットアップ完了後、以下を表示してください:
 
@@ -121,6 +168,7 @@ platform/
 2. **プロジェクト概要テーブル**（設定した変数値の確認）
 3. **次のステップ案内**:
    - Step 2 で資料配置をスキップした場合は、Phase 1 開始前に必ず `docs/` および `docs/rfp_reference/` にRFP関連資料を配置する
+   - Step 3 で NanoBanana を選択し設定をスキップした場合は、Phase 5（Proposal）開始前に `pip install google-genai Pillow` と API キーの設定を完了する
    - `guides/02-research.md を読んでRFP解析を開始して` でPhase 1を開始する
    - 必要に応じて `.mcp.json` のAPIキーを設定する
    - org-data が未整備の場合は `arcadia/org-data/README.md` を参照する
