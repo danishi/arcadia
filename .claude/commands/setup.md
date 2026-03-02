@@ -29,7 +29,7 @@ $ARGUMENTS
 - `PRESENTATION_DATE` -- プレゼン日（YYYY-MM-DD）
 - `PROJECT_SLUG` -- ディレクトリ名安全なプロジェクトID（未指定時は CLIENT_NAME から自動生成）
 - `DEMO_CONCEPT` -- デモアプリのコンセプト（一言）
-- `CURRENT_SYSTEM` -- 現行システム（例: "Teradata + SAS"）
+- `CURRENT_SYSTEM` -- 現行システム（例: "オンプレ + Struts"）
 
 ---
 
