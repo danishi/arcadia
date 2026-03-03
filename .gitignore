@@ -34,5 +34,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# MCP configuration (may contain API keys)
+.mcp.json
+
 # Misc
 *.pem
