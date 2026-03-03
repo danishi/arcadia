@@ -41,7 +41,7 @@ allowed-tools: Read, Grep, Glob, Write, Task
 
 ### Step 1: 提案戦略書読込
 
-提案戦略書（`docs/rfp_answer_output/proposal-strategy.md` 等）を読み込み、以下を把握する:
+提案戦略書（`source/rfp_answer_output/proposal-strategy.md` 等）を読み込み、以下を把握する:
 
 - **Win Strategy**: 提案全体の勝ちストーリー
 - **差別化の柱**: 競合との差別化ポイント（3-5本程度）。org-data/service-catalog.md の差別化ポイントと整合させる
@@ -51,7 +51,7 @@ allowed-tools: Read, Grep, Glob, Write, Task
 
 ### Step 2: チェックリスト読込
 
-提案書作成チェックリスト（`docs/rfp_answer_output/proposal-items-checklist.md` 等）を読み込み、以下を把握する:
+提案書作成チェックリスト（`source/rfp_answer_output/proposal-items-checklist.md` 等）を読み込み、以下を把握する:
 
 - **Vol別の章立て**: 各分冊の構成と必須セクション
 - **必須記載項目**: RFPが指定する記載必須事項

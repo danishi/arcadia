@@ -66,10 +66,10 @@ allowed-tools: Read, Grep, Glob, Write, Edit, Bash
 #### ファイル構成（1画面あたり）
 
 ```
-src/app/[画面パス]/
+demo-app/src/app/[画面パス]/
   page.tsx              # ページコンポーネント（メインレイアウト）
 
-src/components/[画面名]/
+demo-app/src/components/[画面名]/
   [画面名]-header.tsx   # 画面ヘッダー（タイトル、フィルタ等）
   [画面名]-main.tsx     # メインコンテンツ（パターンに応じた中央エリア）
   [画面名]-panel.tsx    # サイドパネル/詳細パネル（該当する場合）
@@ -80,13 +80,13 @@ src/components/[画面名]/
 
 - UIテキストは仕様書が指定する言語で記述する（日本語指定が多い）
 - `"use client"` ディレクティブはインタラクティブなコンポーネントにのみ付与
-- API呼び出しは `src/app/api/` 配下にRoute Handlerを作成
+- API呼び出しは `demo-app/src/app/api/` 配下にRoute Handlerを作成
 - エラーメッセージは仕様書指定の言語で表示
 - レスポンシブ対応: モバイルビューは最低限の確認（デモ用途のためデスクトップ優先）
 
 ### Step 4: ナビゲーション追加
 
-サイドバー（`src/components/sidebar.tsx` 等）にナビゲーション項目を追加する:
+サイドバー（`demo-app/src/components/sidebar.tsx` 等）にナビゲーション項目を追加する:
 
 ```typescript
 // ナビゲーション項目の追加例
@@ -102,7 +102,7 @@ src/components/[画面名]/
 
 ### Step 5: モックデータ追加
 
-`src/lib/mock-data.ts`（または各画面のデータファイル）にモックデータを追加する:
+`demo-app/src/lib/mock-data.ts`（または各画面のデータファイル）にモックデータを追加する:
 
 - 仕様書のサンプルデータ定義に準拠する
 - データ量はデモに適切な件数（10-50件程度）にする

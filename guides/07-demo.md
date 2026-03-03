@@ -22,10 +22,10 @@
 
 | Item | Source | Description |
 |------|--------|-------------|
-| `proposal-strategy.md` | `docs/rfp_answer_output/` | デモで訴求すべきポイント（Winテーマ） |
-| `architecture-policy.md` | `docs/rfp_answer_output/architecture-plan/` | 技術スタック、API構成 |
+| `proposal-strategy.md` | `source/rfp_answer_output/` | デモで訴求すべきポイント（Winテーマ） |
+| `architecture-policy.md` | `source/rfp_answer_output/architecture-plan/` | 技術スタック、API構成 |
 | `demo-app-spec.md` | Project root | デモアプリ詳細仕様書（存在する場合） |
-| RFP参照資料 | `docs/rfp_reference/` | ドメインデータの構造（テーブル定義、IF定義等） |
+| RFP参照資料 | `source/rfp_reference/` | ドメインデータの構造（テーブル定義、IF定義等） |
 
 ---
 
@@ -33,10 +33,10 @@
 
 | Deliverable | Location | Description |
 |-------------|----------|-------------|
-| デモWebアプリ | `src/` | Next.js App Router アプリケーション |
+| デモWebアプリ | `demo-app/` | Next.js App Router アプリケーション |
 | `demo-app-spec.md` | Project root | デモアプリ詳細仕様書（未作成の場合は生成） |
 | データ基盤スクリプト | `platform/` | サンプルデータ投入・環境構築スクリプト |
-| モックデータ | `src/` 内 | プラットフォーム未接続時のフォールバックデータ |
+| モックデータ | `demo-app/` 内 | プラットフォーム未接続時のフォールバックデータ |
 
 ---
 
@@ -115,7 +115,7 @@ Medallionアーキテクチャ（Bronze→Silver→Gold）で:
 ### 6. プラットフォームAPI接続の実装
 
 ```
-src/lib/platform-client.ts のAPI接続を実装して。
+demo-app/src/lib/platform-client.ts のAPI接続を実装して。
 環境変数が未設定の場合はモックデータにフォールバックする設計で。
 ```
 

@@ -122,9 +122,47 @@ claude
 
 1. テンプレート変数の対話的な入力（クライアント名、プラットフォーム、提出期限など）
 2. `.claude/CLAUDE.md.tmpl` からプロジェクト固有の `CLAUDE.md` を生成
-3. RFP ドキュメント用のディレクトリ構造を作成（`docs/`、`RFP_answer/`、`src/` 等）
+3. RFP ドキュメント用のディレクトリ構造を作成（`source/`、`output/` 等）
 4. `.mcp.json`、`.gitignore`、`.env.example` を生成
-5. `docs/rfp_answer_output/` にドキュメントテンプレートを配置
+5. `source/rfp_answer_output/` にドキュメントテンプレートを配置
+
+#### セットアップで生成されるディレクトリ
+
+`/setup` 実行後、以下のディレクトリとファイルがプロジェクトルートに作成されます（`demo-app/` と `platform/` はテンプレートに同梱済み）:
+
+```
+source/                                   # RFP 関連ドキュメント（セットアップで生成）
+  rfp_reference/                          #   RFP 参考資料・別紙・仕様書の格納先
+  rfp_answer_output/                      #   各フェーズの中間成果物
+    rfp-analysis.md                       #     RFP 分析結果
+    proposal-strategy.md                  #     提案戦略
+    proposal-items-checklist.md           #     提案項目チェックリスト
+    estimation-policy.md                  #     見積方針
+    architecture-plan/                    #     アーキテクチャ設計ドキュメント
+      architecture-policy.md              #       アーキテクチャ方針・ADR
+    migration-plan/                       #     移行計画ドキュメント
+  minutes/                                #   議事録・ヒアリングメモの格納先
+output/                                   # 最終提案成果物（セットアップで生成）
+demo-app/                                 # Next.js デモアプリ（テンプレート同梱済み）
+platform/                                 # データ基盤・クラウド環境（テンプレート同梱済み）
+```
+
+| ディレクトリ | 用途 | 対応フェーズ |
+|-------------|------|-------------|
+| `source/rfp_reference/` | RFP 本体・別紙・仕様書などの原典資料を格納 | Phase 1 (Research) |
+| `source/rfp_answer_output/` | 分析結果・戦略・設計・見積など各フェーズの中間成果物 | Phase 1–5 |
+| `source/minutes/` | クライアントとの打ち合わせ議事録・ヒアリングメモ | 全フェーズ |
+| `output/` | 最終提出する提案書（PPTX）、回答シート（Excel）等 | Phase 5 (Proposal) |
+| `demo-app/` | デモアプリのソースコード（Next.js App Router + TypeScript） | Phase 6 (Demo) |
+| `platform/` | データ基盤のセットアップスクリプト・インフラ設定 | Phase 6 (Demo) |
+
+また、以下の設定ファイルも自動生成されます:
+
+| ファイル | 用途 |
+|---------|------|
+| `.claude/CLAUDE.md` | プロジェクト固有の Claude Code 指示ファイル（テンプレート変数を適用済み） |
+| `.mcp.json` | MCP サーバー接続設定 |
+| `.env.example` | 環境変数のテンプレート（`PLATFORM_HOST`、`PLATFORM_TOKEN` 等） |
 
 > **詳細**: `guides/01-kickoff.md` に完全なセットアップ手順（org-data の準備、プラットフォーム選定、RFP ドキュメント配置など）を記載しています。
 

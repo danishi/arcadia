@@ -39,7 +39,7 @@ ARCADIA is designed to run inside Claude Code sessions:
 
 Every statement in a proposal deliverable must trace to either:
 - An RFP requirement (by section/item number)
-- A reference document (by file path in `docs/rfp_reference/`)
+- A reference document (by file path in `source/rfp_reference/`)
 - An Architecture Decision Record (ADR) with documented rationale
 - An organization data source (by ID in `org-data/` -- e.g., SVC-001, REF-003, WP-002)
 
@@ -49,7 +49,7 @@ Proposals require two orthogonal axes of information. ARCADIA manages both expli
 
 | Axis | Source | Lifecycle | Location |
 |------|--------|-----------|----------|
-| **Customer/RFP** | RFP documents, QA, meetings | Per-project | `docs/` in each project |
+| **Customer/RFP** | RFP documents, QA, meetings | Per-project | `source/` in each project |
 | **Organization** | Rate cards, service specs, whitepapers, credentials | Cross-project | `arcadia/org-data/` |
 
 Skills resolve information from both axes: `estimation-advisor` combines org rate cards with RFP scope; `proposal-writer` merges org credentials/services with RFP requirements.
@@ -189,7 +189,7 @@ ARCADIA defines four core skills. Each is a directory under `skills/` with a `SK
 Skills are project-local (`.claude/skills/`) and travel with the repository.
 
 Skills reference two data sources:
-- **Project data**: `docs/` (RFP, architecture plans, meeting notes)
+- **Project data**: `source/` (RFP, architecture plans, meeting notes)
 - **Organization data**: `arcadia/org-data/` (rate cards, service catalog, whitepapers, company profile)
 
 ---
