@@ -1,5 +1,25 @@
 # Project Instructions
 
+## Principles of Action
+
+- **Completely align with users:** For any ambiguity, break it down into smaller parts and conduct interviews using the AskUserQuestion Tool.
+- **Respect permission denials:** If a tool call is denied via settings or permissions, do NOT attempt to bypass or work around the restriction using alternative methods.
+- **MCP/Skills First (mandatory):** Before using WebSearch/WebFetch for any technical research or documentation lookup, you MUST:
+  1. Run `ToolSearch` with relevant keywords to check for specialized MCP tools
+  2. Use the matching MCP tool if found
+  3. Fall back to WebSearch/WebFetch only when MCP tools return insufficient results
+  - Similarly, prefer matching Skills over generic approaches when available
+- MUST use subagents for complex problem verification
+- Optimize tool usage with parallel calling for maximum efficiency
+
+## Language
+
+- Always respond in **Japanese**. Technical terms and code identifiers remain in their original form.
+
+---
+
+> **Note:** `{{VARIABLE}}` placeholders below are replaced with actual values when `/setup` is run. If placeholders remain, the project is not yet initialized — run `/setup` first.
+
 ## Role
 
 Responsible for (1) RFP analysis, (2) demo web app development, and (3) RFP response document creation for the {{CLIENT_NAME}} proposal project.
@@ -72,6 +92,18 @@ CLAUDE.md is included in every conversation's system prompt. Keep it current and
 2. **On repository structure changes**: Update the structure diagram when new directories or key files are added
 3. **Prevent bloat**: Delegate details to sub-files (docs/, references/, etc.); keep only summaries here
 4. **Token efficiency**: Prefer tables over prose, eliminate duplication
+
+---
+
+## Quality Standards
+
+### Commit Messages
+
+- Write in English, imperative mood ("Add feature" not "Added feature"), first line under 72 characters.
+
+### DrawIO Diagrams
+
+Architecture diagrams (`architecture-plan/*.drawio`) and migration diagrams (`migration-plan/*.drawio`) are key deliverables. When creating or editing `.drawio` files, use only DrawIO's built-in official icon sets (shape libraries). Do not embed external image URLs or custom images.
 
 ---
 

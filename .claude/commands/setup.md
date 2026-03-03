@@ -119,17 +119,17 @@ platform/
    - 「OK」の場合 → Step 4 に進む
    - 「スキップ」の場合 → 「Phase 5（Proposal）開始前に必ず NanoBanana の設定を完了してください」と注意を表示し、Step 4 に進む
 
-### Step 4: CLAUDE.md の生成
+### Step 4: CLAUDE.md の更新
 
-1. `.claude/CLAUDE.md.tmpl` を読み込む
+1. `.claude/CLAUDE.md` を読み込む（リポジトリにプレースホルダー付きで同梱済み）
 2. ユーザーから受け取った値で `{{VARIABLE}}` プレースホルダーをすべて置換する
-3. Step 3 で選択された `SLIDE_METHOD` を Project Overview テーブルに `| Slide Method | pptx or nanobanana |` として追記する
-4. 結果を `.claude/CLAUDE.md` に書き出す
+3. Step 3 で選択された `SLIDE_METHOD` を Project Overview テーブルの `{{SLIDE_METHOD}}` に反映する
+4. `> **Note:** {{VARIABLE}} placeholders below...` で始まる注記ブロック（blockquote 1行）を削除する
+5. 結果を `.claude/CLAUDE.md` に上書き保存する
 
-### Step 5: settings.json の生成
+### Step 5: settings.json の確認
 
-1. `.claude/settings.json.tmpl` を読み込む
-2. そのまま `.claude/settings.json` にコピーする（settings.json にはプロジェクト固有の変数は含まれないため）
+`.claude/settings.json` はリポジトリに同梱済みです。内容を確認し、必要に応じてユーザーに変更点がないか確認してください（通常は変更不要）。
 
 ### Step 6: .mcp.json の生成
 
