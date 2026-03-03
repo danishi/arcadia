@@ -137,6 +137,8 @@ platform/
 2. `{{CONTEXT7_API_KEY}}` は空文字のまま残す（ユーザーが後で設定する）
 3. 結果をプロジェクトルートの `.mcp.json` に書き出す
 
+> **注意**: Context7 MCP サーバーを使用するには、セットアップ完了後に `.mcp.json` の `CONTEXT7_API_KEY` を実際のキーに置き換えてください。
+
 ### Step 7: .gitignore の生成
 
 1. `templates/.gitignore.tmpl` を読み込む
