@@ -105,7 +105,9 @@ CLAUDE.md is included in every conversation's system prompt. Keep it current and
 
 ### DrawIO Diagrams
 
-Architecture diagrams (`architecture-plan/*.drawio`) and migration diagrams (`migration-plan/*.drawio`) are key deliverables. When creating or editing `.drawio` files, use only DrawIO's built-in official icon sets (shape libraries). Do not embed external image URLs or custom images.
+Architecture diagrams (`architecture-plan/*.drawio`) and migration diagrams (`migration-plan/*.drawio`) are key deliverables. When creating or editing `.drawio` files:
+- Use MCP tools for diagram creation, but always save as actual `.drawio` files (do NOT open in browser)
+- Use only DrawIO's built-in official icon sets (shape libraries). Do not embed external image URLs or custom images.
 
 ---
 
