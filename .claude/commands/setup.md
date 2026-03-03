@@ -12,24 +12,126 @@ ARCADIA テンプレートリポジトリから新しいRFP対応プロジェク
 
 $ARGUMENTS
 
-上記が空の場合、または不足情報がある場合は、以下の項目をユーザーに対話的に確認してください:
+上記が空の場合、または不足情報がある場合は、以下の **Phase A → B → C → D** の順序で対話的にヒアリングしてください。各フェーズの条件分岐に従い、不要な質問はスキップしてください。
+
+---
+
+### Phase A: 基本情報
 
 **必須項目:**
 - `CLIENT_NAME` -- クライアント名（例: "ABC銀行"）
 - `PROPOSER_NAME` -- 提案主体（例: "XYZ株式会社"）
-- `PROJECT_DESCRIPTION` -- 案件概要（例: "次世代DWH・MAプラットフォーム刷新"）
-- `PROPOSED_PRODUCTS` -- 提案製品（例: "Snowflake Data Cloud"）
-- `PLATFORM_NAME` -- プラットフォーム名（例: "Snowflake"）
-- `PLATFORM_TYPE` -- プラットフォーム種別（"Cloud Data Warehouse" / "Lakehouse" / "Data Platform"）
-- `CLOUD_PROVIDER` -- クラウドプロバイダー（"AWS" / "Azure" / "GCP"）
+- `PROJECT_DESCRIPTION` -- 案件概要（例: "次世代データ基盤刷新", "ECサイトリニューアル", "基幹系クラウド移行"）
 - `DEADLINE` -- 提出期限（YYYY-MM-DD）
 
 **任意項目（未指定なら空欄のまま残す）:**
 - `PARTNER_NAMES` -- 共同提案パートナー（カンマ区切り）
 - `PRESENTATION_DATE` -- プレゼン日（YYYY-MM-DD）
-- `PROJECT_SLUG` -- ディレクトリ名安全なプロジェクトID（未指定時は CLIENT_NAME から自動生成）
+- `CURRENT_SYSTEM` -- 現行システム（例: "オンプレ Oracle + Struts", "AWS上のレガシーシステム"）
+
+---
+
+### Phase B: インフラ & システム分類
+
+#### Q: INFRA_TYPE（インフラ種別）
+
+ユーザーに以下を選択させてください:
+
+> **インフラストラクチャの種別を選択してください:**
+>
+> 1. **クラウド** -- パブリッククラウド上に構築（AWS, Azure, GCP 等）
+> 2. **オンプレミス** -- 自社データセンター / プライベートクラウド上に構築
+> 3. **ハイブリッド** -- クラウドとオンプレミスの併用
+
+| 選択 | `INFRA_TYPE` の値 | 次のアクション |
+|------|-------------------|--------------|
+| 1 (クラウド) | `cloud` | → `CLOUD_PROVIDER` を聞く |
+| 2 (オンプレミス) | `on-premises` | → `CLOUD_PROVIDER` = `"オンプレミス"`, `CLOUD_REGION` = `"自社DC"` として Q: CLOUD_PROVIDER をスキップ |
+| 3 (ハイブリッド) | `hybrid` | → `CLOUD_PROVIDER` を聞く（クラウド側のプロバイダーを選択） |
+
+#### Q: CLOUD_PROVIDER（クラウドプロバイダー）-- INFRA_TYPE ≠ on-premises の場合のみ
+
+> **クラウドプロバイダーを選択してください:**
+>
+> 1. **AWS** (Amazon Web Services)
+> 2. **Azure** (Microsoft Azure)
+> 3. **GCP** (Google Cloud Platform)
+> 4. **その他**（手動入力）
+
+`CLOUD_PROVIDER` の値に応じて `CLOUD_REGION` のデフォルト値を自動設定:
+
+| CLOUD_PROVIDER | CLOUD_REGION デフォルト |
+|---------------|----------------------|
+| AWS | `ap-northeast-1` |
+| Azure | `japaneast` |
+| GCP | `asia-northeast1` |
+| その他 | （ユーザーに入力を求める） |
+
+#### Q: SYSTEM_TYPE（システム種別）
+
+ユーザーに以下を選択させてください:
+
+> **提案対象のシステム種別を選択してください:**
+>
+> 1. **基幹系システム** -- ERP、会計、人事、SCM 等の業務基幹システム
+> 2. **Webサービス / Webアプリケーション** -- ECサイト、ポータル、SaaS 等
+> 3. **モバイルアプリケーション** -- iOS / Android ネイティブアプリ、クロスプラットフォームアプリ
+> 4. **データ基盤（DWH / データレイク）** -- データウェアハウス、ETL、BI、分析基盤
+> 5. **AI / ML プラットフォーム** -- 機械学習基盤、生成AI、MLOps
+
+| 選択 | `SYSTEM_TYPE` の値 | `PLATFORM_TYPE` の扱い |
+|------|-------------------|---------------------|
+| 1 (基幹系) | `enterprise` | 自動 = `enterprise-system` |
+| 2 (Web系) | `web` | 自動 = `web-application` |
+| 3 (モバイル) | `mobile` | 自動 = `mobile-application` |
+| 4 (データ基盤) | `data-platform` | → Phase C で個別に聞く |
+| 5 (AI/ML) | `ai-ml` | 自動 = `ai-ml-platform` |
+
+---
+
+### Phase C: 製品 & プラットフォーム詳細
+
+#### Q: PROPOSED_PRODUCTS（提案製品）
+
+`SYSTEM_TYPE` に応じた例文を表示してください:
+
+| SYSTEM_TYPE | 表示する例 |
+|-------------|-----------|
+| `enterprise` | "SAP S/4HANA", "Oracle EBS", "Microsoft Dynamics 365" |
+| `web` | "AWS + Next.js", "Vercel + Supabase", "Azure App Service" |
+| `mobile` | "Flutter + Firebase", "React Native + AWS Amplify" |
+| `data-platform` | "Snowflake Data Cloud", "Databricks", "Google BigQuery" |
+| `ai-ml` | "AWS SageMaker", "Azure AI Studio", "Google Vertex AI" |
+
+#### Q: PLATFORM_NAME（主要プラットフォーム / 製品名）
+
+`SYSTEM_TYPE` に応じた説明と例文を表示してください:
+
+| SYSTEM_TYPE | 説明 | 表示する例 |
+|-------------|------|-----------|
+| `enterprise` | 提案の中核となる製品/プラットフォーム名 | "SAP", "Oracle", "ServiceNow" |
+| `web` | 主要プラットフォーム/フレームワーク名 | "Next.js", "Vercel", "AWS" |
+| `mobile` | 主要プラットフォーム/フレームワーク名 | "Flutter", "React Native", "Swift" |
+| `data-platform` | データプラットフォーム名 | "Snowflake", "Databricks", "BigQuery" |
+| `ai-ml` | AI/ML プラットフォーム名 | "SageMaker", "Vertex AI", "Azure AI" |
+
+#### Q: PLATFORM_TYPE（プラットフォーム種別）-- SYSTEM_TYPE = data-platform の場合のみ
+
+> **プラットフォーム種別を選択してください:**
+>
+> 1. **Cloud Data Warehouse** （例: Snowflake, Redshift）
+> 2. **Lakehouse** （例: Databricks, Delta Lake）
+> 3. **Data Platform** （例: Google BigQuery, Microsoft Fabric）
+
+`SYSTEM_TYPE` ≠ `data-platform` の場合、`PLATFORM_TYPE` は Phase B の SYSTEM_TYPE 選択時に自動導出された値を使用します。
+
+---
+
+### Phase D: デモ & その他
+
+**任意項目（未指定なら空欄のまま残す）:**
 - `DEMO_CONCEPT` -- デモアプリのコンセプト（一言）
-- `CURRENT_SYSTEM` -- 現行システム（例: "オンプレ + Struts"）
+- `PROJECT_SLUG` -- ディレクトリ名安全なプロジェクトID（未指定時は CLIENT_NAME から自動生成）
 
 ---
 
@@ -123,6 +225,8 @@ output/
 
 1. `.claude/CLAUDE.md` を読み込む（リポジトリにプレースホルダー付きで同梱済み）
 2. ユーザーから受け取った値で `__VARIABLE__` プレースホルダーをすべて置換する
+   - `__INFRA_TYPE__` と `__SYSTEM_TYPE__` も Phase B で取得した値で置換する
+   - `__PLATFORM_TYPE__` は Phase C で取得した値（または SYSTEM_TYPE からの自動導出値）で置換する
 3. Step 3 で選択された `SLIDE_METHOD` を Project Overview テーブルの `__SLIDE_METHOD__` に反映する
 4. `> **Note:** \`__VARIABLE__\` placeholders below...` で始まる注記ブロック（blockquote 1行）を削除する
 5. 結果を `.claude/CLAUDE.md` に上書き保存する
@@ -162,7 +266,7 @@ output/
 セットアップ完了後、以下を表示してください:
 
 1. **生成したファイル一覧**（パスとステータス）
-2. **プロジェクト概要テーブル**（設定した変数値の確認）
+2. **プロジェクト概要テーブル**（設定した変数値の確認。`INFRA_TYPE`, `SYSTEM_TYPE` を含む）
 3. **次のステップ案内**:
    - Step 2 で資料配置をスキップした場合は、Phase 1 開始前に必ず `source/` および `source/rfp_reference/` にRFP関連資料を配置する
    - Step 3 で NanoBanana を選択し設定をスキップした場合は、Phase 5（Proposal）開始前に `pip install google-genai Pillow` と API キーの設定を完了する

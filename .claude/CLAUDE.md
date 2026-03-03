@@ -32,6 +32,8 @@ Responsible for (1) RFP analysis, (2) demo web app development, and (3) RFP resp
 | Lead Proposer | __PROPOSER_NAME__ |
 | Co-Proposer(s) | __PARTNER_NAMES__ |
 | Project | __PROJECT_DESCRIPTION__ |
+| Infrastructure | __INFRA_TYPE__ |
+| System Type | __SYSTEM_TYPE__ |
 | Proposed Product | __PROPOSED_PRODUCTS__ |
 | Submission Deadline | __DEADLINE__ |
 | Presentation Date | __PRESENTATION_DATE__ |
