@@ -1,8 +1,8 @@
 // ============================================================================
 // sidebar.tsx — サイドバーナビゲーション
 // ============================================================================
-// {{PLATFORM_NAME}} と {{CLIENT_NAME}} はプロジェクト固有値に置換する。
-// {{DEMO_SECTIONS}} はナビゲーションセクション定義に展開する。
+// __PLATFORM_NAME__ と __CLIENT_NAME__ はプロジェクト固有値に置換する。
+// __DEMO_SECTIONS__ はナビゲーションセクション定義に展開する。
 // ============================================================================
 
 "use client";
@@ -23,7 +23,7 @@ type NavSection = {
 };
 
 // --- ナビゲーション定義（プロジェクトに合わせて編集） -----------------------
-// {{DEMO_SECTIONS}} を以下の形式で展開してください:
+// __DEMO_SECTIONS__ を以下の形式で展開してください:
 const sections: NavSection[] = [
   {
     title: "",
@@ -57,20 +57,20 @@ export function Sidebar() {
       <div className="p-5 border-b border-white/10">
         <div className="flex items-center gap-2 mb-1">
           <div className="w-6 h-6 rounded bg-primary flex items-center justify-center text-[10px] font-bold">
-            {/* {{PLATFORM_NAME}} のアイコン略称 */}
+            {/* __PLATFORM_NAME__ のアイコン略称 */}
             AP
           </div>
           <span className="text-xs font-bold tracking-wide text-white/70">
-            {/* {{PLATFORM_NAME}} */}
+            {/* __PLATFORM_NAME__ */}
             データプラットフォーム
           </span>
         </div>
         <h1 className="text-sm font-bold leading-tight mt-2">
-          {/* {{CLIENT_NAME}} プロジェクト名 */}
+          {/* __CLIENT_NAME__ プロジェクト名 */}
           分析基盤デモ
         </h1>
         <p className="text-[10px] text-white/40 mt-0.5">
-          {/* {{DEMO_CONCEPT}} の短縮版 */}
+          {/* __DEMO_CONCEPT__ の短縮版 */}
           次世代データプラットフォーム
         </p>
       </div>

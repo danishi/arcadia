@@ -1,6 +1,6 @@
 # Other Cloud Providers Guide
 
-Azure、オンプレミス、その他クラウドプロバイダーを使用する場合のガイド。`{{CLOUD_PROVIDER}}` が `AWS` / `GCP` 以外の場合に参照する。
+Azure、オンプレミス、その他クラウドプロバイダーを使用する場合のガイド。`__CLOUD_PROVIDER__` が `AWS` / `GCP` 以外の場合に参照する。
 
 ---
 

@@ -1,6 +1,6 @@
 # AWS Cloud Infrastructure Guide
 
-AWS上でのインフラストラクチャ構成ガイド。`{{CLOUD_PROVIDER}}` = `AWS` の場合に参照する。
+AWS上でのインフラストラクチャ構成ガイド。`__CLOUD_PROVIDER__` = `AWS` の場合に参照する。
 
 ---
 
@@ -15,30 +15,30 @@ AWS上でのインフラストラクチャ構成ガイド。`{{CLOUD_PROVIDER}}`
 
 ```
 AWS ap-northeast-1 (Tokyo)
-├── VPC: {{VPC_NAME}} ({{VPC_CIDR}})
+├── VPC: __VPC_NAME__ (__VPC_CIDR__)
 │   ├── Private Subnet (コントロールプレーン通信用)
 │   │   └── NAT Gateway → Internet Gateway（制限付き）
 │   ├── Private Subnet (データプレーン)
-│   │   ├── {{PLATFORM_NAME}} コンピュートリソース
+│   │   ├── __PLATFORM_NAME__ コンピュートリソース
 │   │   └── データ処理パイプライン
 │   └── Private Subnet (プライベート接続)
 │       ├── S3 VPC Endpoint (Gateway)
-│       └── {{PLATFORM_NAME}} PrivateLink Endpoint
+│       └── __PLATFORM_NAME__ PrivateLink Endpoint
 │
 ├── S3 バケット
-│   ├── {{PROJECT_SLUG}}-landing       ← データ受信先
-│   ├── {{PROJECT_SLUG}}-raw           ← Raw層データ
-│   ├── {{PROJECT_SLUG}}-curated       ← 加工済データ
-│   ├── {{PROJECT_SLUG}}-analytics     ← 分析用データ
-│   ├── {{PROJECT_SLUG}}-staging       ← ワーク/一時データ
-│   ├── {{PROJECT_SLUG}}-archive       ← アーカイブ (S3 Glacier)
-│   ├── {{PROJECT_SLUG}}-exchange      ← システム間データ交換用
-│   ├── {{PROJECT_SLUG}}-audit         ← 監査ログ長期保存
-│   └── {{PROJECT_SLUG}}-backup        ← バックアップ先
+│   ├── __PROJECT_SLUG__-landing       ← データ受信先
+│   ├── __PROJECT_SLUG__-raw           ← Raw層データ
+│   ├── __PROJECT_SLUG__-curated       ← 加工済データ
+│   ├── __PROJECT_SLUG__-analytics     ← 分析用データ
+│   ├── __PROJECT_SLUG__-staging       ← ワーク/一時データ
+│   ├── __PROJECT_SLUG__-archive       ← アーカイブ (S3 Glacier)
+│   ├── __PROJECT_SLUG__-exchange      ← システム間データ交換用
+│   ├── __PROJECT_SLUG__-audit         ← 監査ログ長期保存
+│   └── __PROJECT_SLUG__-backup        ← バックアップ先
 │
 ├── IAM
 │   ├── KMS CMK (S3暗号化用、AES-256)
-│   ├── サービスロール（{{PLATFORM_NAME}}用）
+│   ├── サービスロール（__PLATFORM_NAME__用）
 │   └── CloudTrail → S3 (API操作ログ)
 │
 └── 監視・運用

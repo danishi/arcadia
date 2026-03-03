@@ -122,9 +122,9 @@ output/
 ### Step 4: CLAUDE.md の更新
 
 1. `.claude/CLAUDE.md` を読み込む（リポジトリにプレースホルダー付きで同梱済み）
-2. ユーザーから受け取った値で `{{VARIABLE}}` プレースホルダーをすべて置換する
-3. Step 3 で選択された `SLIDE_METHOD` を Project Overview テーブルの `{{SLIDE_METHOD}}` に反映する
-4. `> **Note:** {{VARIABLE}} placeholders below...` で始まる注記ブロック（blockquote 1行）を削除する
+2. ユーザーから受け取った値で `__VARIABLE__` プレースホルダーをすべて置換する
+3. Step 3 で選択された `SLIDE_METHOD` を Project Overview テーブルの `__SLIDE_METHOD__` に反映する
+4. `> **Note:** \`__VARIABLE__\` placeholders below...` で始まる注記ブロック（blockquote 1行）を削除する
 5. 結果を `.claude/CLAUDE.md` に上書き保存する
 
 ### Step 5: settings.json の確認
@@ -134,7 +134,7 @@ output/
 ### Step 6: .mcp.json の生成
 
 1. `templates/.mcp.json.tmpl` を読み込む
-2. `{{CONTEXT7_API_KEY}}` は空文字のまま残す（ユーザーが後で設定する）
+2. `__CONTEXT7_API_KEY__` は空文字のまま残す（ユーザーが後で設定する）
 3. 結果をプロジェクトルートの `.mcp.json` に書き出す
 
 > **注意**: Context7 MCP サーバーを使用するには、セットアップ完了後に `.mcp.json` の `CONTEXT7_API_KEY` を実際のキーに置き換えてください。
@@ -142,12 +142,12 @@ output/
 ### Step 7: 環境変数テンプレートの配置
 
 1. `templates/env-example.tmpl` を読み込む
-2. `{{PLATFORM_TYPE}}` 等を置換する
+2. `__PLATFORM_TYPE__` 等を置換する
 3. `.env.example` として書き出す
 
 ### Step 8: docs テンプレートの配置
 
-以下のテンプレートを読み込み、**キックオフ段階で確定しているプロジェクト基本変数のみ**（`CLIENT_NAME`, `PROPOSER_NAME`, `PLATFORM_NAME`, `CLOUD_PROVIDER`, `DEADLINE`, `PRESENTATION_DATE` 等）を置換して配置してください。それ以外の `{{VARIABLE}}` はそのまま残してください（フェーズ2以降で埋める）:
+以下のテンプレートを読み込み、**キックオフ段階で確定しているプロジェクト基本変数のみ**（`CLIENT_NAME`, `PROPOSER_NAME`, `PLATFORM_NAME`, `CLOUD_PROVIDER`, `DEADLINE`, `PRESENTATION_DATE` 等）を置換して配置してください。それ以外の `__VARIABLE__` はそのまま残してください（フェーズ2以降で埋める）:
 
 | テンプレート | 出力先 |
 |------------|--------|

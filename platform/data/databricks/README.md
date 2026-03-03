@@ -69,12 +69,12 @@ for f in *.py.tmpl; do cp "$f" "${f%.tmpl}"; done
 
 ### 2. プレースホルダの置換
 
-各 `.py` ファイル内の `{{PLACEHOLDER}}` を実際の値に置換する。
+各 `.py` ファイル内の `__PLACEHOLDER__` を実際の値に置換する。
 
 | プレースホルダ | 説明 |
 |---------------|------|
-| `{{PROJECT_SLUG}}` | プロジェクト識別子 |
-| `{{CATALOG_LOCATION}}` | Unity Catalog マネージドロケーション (S3/ADLS パス) |
+| `__PROJECT_SLUG__` | プロジェクト識別子 |
+| `__CATALOG_LOCATION__` | Unity Catalog マネージドロケーション (S3/ADLS パス) |
 
 ### 3. Databricks Notebook での実行
 

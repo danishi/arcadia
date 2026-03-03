@@ -75,9 +75,9 @@ rfp-analysis.md と rfp-requirements-checklist.md を元に、提案戦略書の
 ### 2. RFP課題 x プラットフォーム機能マッピング
 
 ```
-RFP要件チェックリストを元に、{{PLATFORM_NAME}} の機能マッピング表を作って。
+RFP要件チェックリストを元に、__PLATFORM_NAME__ の機能マッピング表を作って。
 各要件に対して:
-- 対応する {{PLATFORM_NAME}} 機能/サービス名
+- 対応する __PLATFORM_NAME__ 機能/サービス名
 - 適合度（○完全対応 / △カスタマイズ要 / ×非対応）
 - 補足説明
 出力先: source/rfp_answer_output/platform-capability-mapping.md

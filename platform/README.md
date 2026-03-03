@@ -20,7 +20,7 @@
 │   │                   │  │  └── common/        │  │
 │   └──────────────────┘  └────────────────────┘  │
 │                                                  │
-│         {{CLOUD_PROVIDER}}  ×  {{PLATFORM_NAME}} │
+│         __CLOUD_PROVIDER__  ×  __PLATFORM_NAME__ │
 └─────────────────────────────────────────────────┘
 ```
 
@@ -64,9 +64,9 @@ platform/
 
 | 変数 | 軸 | 説明 | 例 |
 |------|-----|------|-----|
-| `{{CLOUD_PROVIDER}}` | Cloud | クラウドプロバイダー | `AWS`, `GCP`, `Azure` |
-| `{{PLATFORM_NAME}}` | Data | データ基盤名 | `Databricks`, `Snowflake`, `BigQuery` |
-| `{{PLATFORM_TYPE}}` | Data | データ基盤カテゴリ | `Lakehouse`, `Cloud Data Warehouse` |
+| `__CLOUD_PROVIDER__` | Cloud | クラウドプロバイダー | `AWS`, `GCP`, `Azure` |
+| `__PLATFORM_NAME__` | Data | データ基盤名 | `Databricks`, `Snowflake`, `BigQuery` |
+| `__PLATFORM_TYPE__` | Data | データ基盤カテゴリ | `Lakehouse`, `Cloud Data Warehouse` |
 
 ## 使い方
 
@@ -76,8 +76,8 @@ platform/
 
 ```bash
 # 例: AWS + Databricks の場合
-# {{CLOUD_PROVIDER}} = AWS
-# {{PLATFORM_NAME}} = Databricks
+# __CLOUD_PROVIDER__ = AWS
+# __PLATFORM_NAME__ = Databricks
 ```
 
 ### 2. クラウドインフラ設計

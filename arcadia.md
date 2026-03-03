@@ -25,7 +25,7 @@ ARCADIA does not aim for full automation. RFP responses require human judgment f
 
 ### 1.3 Platform Independence
 
-All templates use `{{VARIABLE}}` syntax. No template file references a specific data platform, cloud provider, or product name. Platform-specific configurations live in `platform/data/{platform}/` and `platform/cloud/{provider}/`.
+All templates use `__VARIABLE__` syntax. No template file references a specific data platform, cloud provider, or product name. Platform-specific configurations live in `platform/data/{platform}/` and `platform/cloud/{provider}/`.
 
 ### 1.4 Claude Code-native
 
@@ -62,21 +62,21 @@ All template files (`.tmpl`) use the following variables. Replace them during pr
 
 | Variable | Purpose | Example |
 |----------|---------|---------|
-| `{{CLIENT_NAME}}` | Client organization name | "ABC Bank" |
-| `{{PROPOSER_NAME}}` | Lead proposing company | "XYZ Corp" |
-| `{{PARTNER_NAMES}}` | Co-proposing partners (comma-separated) | "Partner A, Partner B" |
-| `{{PROJECT_DESCRIPTION}}` | One-line project description | "Next-gen DWH & MA platform renewal" |
-| `{{PROPOSED_PRODUCTS}}` | Primary product/platform being proposed | "Snowflake Data Cloud" |
-| `{{PLATFORM_NAME}}` | Technical platform name (may equal PROPOSED_PRODUCTS) | "Snowflake" |
-| `{{PLATFORM_TYPE}}` | Platform category | "Cloud Data Warehouse" / "Lakehouse" / "Data Platform" |
-| `{{CLOUD_PROVIDER}}` | Underlying cloud infrastructure | "AWS" / "Azure" / "GCP" |
-| `{{DEADLINE}}` | Proposal submission deadline | "2026-03-15" |
-| `{{PRESENTATION_DATE}}` | Presentation/defense date | "2026-03-20" |
-| `{{PROJECT_SLUG}}` | URL/directory-safe project identifier | "abc-bank-dwh" |
-| `{{DEMO_CONCEPT}}` | Demo app one-liner concept | "No SQL needed. Just talk to your data." |
-| `{{CURRENT_SYSTEM}}` | Current system being replaced | "Teradata + SAS CIS + SAS EG" |
-| `{{UNIT_RATE}}` | Standard man-month unit rate (10K JPY) for estimation baseline | "150" |
-| `{{DEMO_SECTIONS}}` | Navigation section definitions for demo app sidebar | (JSON or list of section names) |
+| `__CLIENT_NAME__` | Client organization name | "ABC Bank" |
+| `__PROPOSER_NAME__` | Lead proposing company | "XYZ Corp" |
+| `__PARTNER_NAMES__` | Co-proposing partners (comma-separated) | "Partner A, Partner B" |
+| `__PROJECT_DESCRIPTION__` | One-line project description | "Next-gen DWH & MA platform renewal" |
+| `__PROPOSED_PRODUCTS__` | Primary product/platform being proposed | "Snowflake Data Cloud" |
+| `__PLATFORM_NAME__` | Technical platform name (may equal PROPOSED_PRODUCTS) | "Snowflake" |
+| `__PLATFORM_TYPE__` | Platform category | "Cloud Data Warehouse" / "Lakehouse" / "Data Platform" |
+| `__CLOUD_PROVIDER__` | Underlying cloud infrastructure | "AWS" / "Azure" / "GCP" |
+| `__DEADLINE__` | Proposal submission deadline | "2026-03-15" |
+| `__PRESENTATION_DATE__` | Presentation/defense date | "2026-03-20" |
+| `__PROJECT_SLUG__` | URL/directory-safe project identifier | "abc-bank-dwh" |
+| `__DEMO_CONCEPT__` | Demo app one-liner concept | "No SQL needed. Just talk to your data." |
+| `__CURRENT_SYSTEM__` | Current system being replaced | "Teradata + SAS CIS + SAS EG" |
+| `__UNIT_RATE__` | Standard man-month unit rate (10K JPY) for estimation baseline | "150" |
+| `__DEMO_SECTIONS__` | Navigation section definitions for demo app sidebar | (JSON or list of section names) |
 
 ### Variable Usage Rules
 
@@ -120,7 +120,7 @@ The `rfp-auditor` skill (generalized from `rfp-checker`) performs systematic ver
 Design decisions are documented in `architecture-policy.md` using ADR format:
 
 ```
-### ADR-001: {{DECISION_TITLE}}
+### ADR-001: __DECISION_TITLE__
 - Status: Accepted / Proposed / Deprecated
 - Context: Why this decision was needed
 - Decision: What was decided
@@ -142,7 +142,7 @@ Each project maintains a terminology table in `CLAUDE.md` to ensure consistent l
 ```markdown
 | Term | Meaning |
 |------|---------|
-| DWH  | Data Warehouse (current: {{CURRENT_SYSTEM}}) |
+| DWH  | Data Warehouse (current: __CURRENT_SYSTEM__) |
 | ...  | ... |
 ```
 

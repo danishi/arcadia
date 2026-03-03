@@ -1,9 +1,9 @@
-# RFP解析結果：{{CLIENT_NAME}} {{PROJECT_NAME}}
+# RFP解析結果：__CLIENT_NAME__ __PROJECT_NAME__
 
-> **作成日**: {{CREATED_DATE}}
-> **RFP受領日**: {{RFP_RECEIVED_DATE}}
-> **提出期限**: {{SUBMISSION_DEADLINE}}
-> **プレゼン日**: {{PRESENTATION_DATE}}（該当する場合）
+> **作成日**: __CREATED_DATE__
+> **RFP受領日**: __RFP_RECEIVED_DATE__
+> **提出期限**: __SUBMISSION_DEADLINE__
+> **プレゼン日**: __PRESENTATION_DATE__（該当する場合）
 >
 > **関連文書**: [提案戦略書](./proposal-strategy.md) | [アーキテクチャ方針書](./architecture-plan/architecture-policy.md) | [見積方針書](./estimation-policy.md)
 
@@ -13,15 +13,15 @@
 
 | 項目 | 値 |
 |------|---|
-| **クライアント** | {{CLIENT_NAME}} |
-| **案件名** | {{PROJECT_NAME}} |
-| **提案主体** | {{PROPOSER_NAME}} |
-| **共同提案** | {{CO_PROPOSER_NAME}}（該当する場合） |
-| **提案製品** | {{PLATFORM_NAME}} |
-| **RFP提出期限** | {{SUBMISSION_DEADLINE}} |
-| **プレゼン日** | {{PRESENTATION_DATE}} |
-| **採否通知予定** | {{RESULT_NOTIFICATION_DATE}} |
-| **対象システム** | {{TARGET_SYSTEM_DESCRIPTION}} |
+| **クライアント** | __CLIENT_NAME__ |
+| **案件名** | __PROJECT_NAME__ |
+| **提案主体** | __PROPOSER_NAME__ |
+| **共同提案** | __CO_PROPOSER_NAME__（該当する場合） |
+| **提案製品** | __PLATFORM_NAME__ |
+| **RFP提出期限** | __SUBMISSION_DEADLINE__ |
+| **プレゼン日** | __PRESENTATION_DATE__ |
+| **採否通知予定** | __RESULT_NOTIFICATION_DATE__ |
+| **対象システム** | __TARGET_SYSTEM_DESCRIPTION__ |
 
 ---
 
@@ -33,7 +33,7 @@
 
 | # | 要件カテゴリ | 要件概要 | 優先度 | フェーズ | 備考 |
 |---|-------------|---------|--------|---------|------|
-| 1 | {{REQUIREMENT_CATEGORY}} | {{REQUIREMENT_SUMMARY}} | {{PRIORITY}} | {{PHASE}} | {{NOTES}} |
+| 1 | __REQUIREMENT_CATEGORY__ | __REQUIREMENT_SUMMARY__ | __PRIORITY__ | __PHASE__ | __NOTES__ |
 | 2 | | | | | |
 | 3 | | | | | |
 
@@ -54,46 +54,46 @@
 
 | 分類 | 現行システム | バージョン/状態 | 課題 |
 |------|------------|----------------|------|
-| **データ基盤** | {{CURRENT_DWH_PRODUCT}} | {{CURRENT_DWH_VERSION}} | {{CURRENT_DWH_ISSUES}} |
-| **分析ツール** | {{CURRENT_ANALYTICS_TOOL}} | {{CURRENT_ANALYTICS_VERSION}} | {{CURRENT_ANALYTICS_ISSUES}} |
-| **データ連携** | {{CURRENT_ETL_TOOL}} | {{CURRENT_ETL_VERSION}} | {{CURRENT_ETL_ISSUES}} |
-| **クラウド基盤** | {{CURRENT_CLOUD_PROVIDER}} | {{CURRENT_CLOUD_REGION}} | {{CURRENT_CLOUD_ISSUES}} |
-| **その他** | {{CURRENT_OTHER_SYSTEM}} | | {{CURRENT_OTHER_ISSUES}} |
+| **データ基盤** | __CURRENT_DWH_PRODUCT__ | __CURRENT_DWH_VERSION__ | __CURRENT_DWH_ISSUES__ |
+| **分析ツール** | __CURRENT_ANALYTICS_TOOL__ | __CURRENT_ANALYTICS_VERSION__ | __CURRENT_ANALYTICS_ISSUES__ |
+| **データ連携** | __CURRENT_ETL_TOOL__ | __CURRENT_ETL_VERSION__ | __CURRENT_ETL_ISSUES__ |
+| **クラウド基盤** | __CURRENT_CLOUD_PROVIDER__ | __CURRENT_CLOUD_REGION__ | __CURRENT_CLOUD_ISSUES__ |
+| **その他** | __CURRENT_OTHER_SYSTEM__ | | __CURRENT_OTHER_ISSUES__ |
 
-> **EoSL情報**: {{EOSL_DESCRIPTION}}（例: 現行基盤が{{EOSL_DATE}}にEoSLを迎える）
+> **EoSL情報**: __EOSL_DESCRIPTION__（例: 現行基盤が__EOSL_DATE__にEoSLを迎える）
 
 ### 3.2 To-Be（提案後の構成）
 
 | 分類 | 提案ソリューション | 主要コンポーネント | 効果 |
 |------|------------------|-------------------|------|
-| **データ基盤** | {{PLATFORM_NAME}} | {{PLATFORM_COMPONENTS}} | {{PLATFORM_EFFECTS}} |
-| **分析ツール** | {{PROPOSED_ANALYTICS}} | {{ANALYTICS_COMPONENTS}} | {{ANALYTICS_EFFECTS}} |
-| **データ連携** | {{PROPOSED_ETL}} | {{ETL_COMPONENTS}} | {{ETL_EFFECTS}} |
-| **クラウド基盤** | {{PROPOSED_CLOUD}} | {{CLOUD_COMPONENTS}} | {{CLOUD_EFFECTS}} |
-| **その他** | {{PROPOSED_OTHER}} | | {{OTHER_EFFECTS}} |
+| **データ基盤** | __PLATFORM_NAME__ | __PLATFORM_COMPONENTS__ | __PLATFORM_EFFECTS__ |
+| **分析ツール** | __PROPOSED_ANALYTICS__ | __ANALYTICS_COMPONENTS__ | __ANALYTICS_EFFECTS__ |
+| **データ連携** | __PROPOSED_ETL__ | __ETL_COMPONENTS__ | __ETL_EFFECTS__ |
+| **クラウド基盤** | __PROPOSED_CLOUD__ | __CLOUD_COMPONENTS__ | __CLOUD_EFFECTS__ |
+| **その他** | __PROPOSED_OTHER__ | | __OTHER_EFFECTS__ |
 
 ### 3.3 As-Is / To-Be 対比
 
 | 分類 | 現状の課題（As-Is） | 目指す姿（To-Be） |
 |------|-------------------|------------------|
-| **データ鮮度** | {{ASIS_DATA_FRESHNESS}} | {{TOBE_DATA_FRESHNESS}} |
-| **データ活用** | {{ASIS_DATA_UTILIZATION}} | {{TOBE_DATA_UTILIZATION}} |
-| **開発・運用** | {{ASIS_DEVELOPMENT}} | {{TOBE_DEVELOPMENT}} |
-| **インフラ** | {{ASIS_INFRASTRUCTURE}} | {{TOBE_INFRASTRUCTURE}} |
-| **コスト** | {{ASIS_COST}} | {{TOBE_COST}} |
-| **セキュリティ** | {{ASIS_SECURITY}} | {{TOBE_SECURITY}} |
+| **データ鮮度** | __ASIS_DATA_FRESHNESS__ | __TOBE_DATA_FRESHNESS__ |
+| **データ活用** | __ASIS_DATA_UTILIZATION__ | __TOBE_DATA_UTILIZATION__ |
+| **開発・運用** | __ASIS_DEVELOPMENT__ | __TOBE_DEVELOPMENT__ |
+| **インフラ** | __ASIS_INFRASTRUCTURE__ | __TOBE_INFRASTRUCTURE__ |
+| **コスト** | __ASIS_COST__ | __TOBE_COST__ |
+| **セキュリティ** | __ASIS_SECURITY__ | __TOBE_SECURITY__ |
 
 ---
 
 ## 4. 要件分類
 
-### 4.1 カテゴリ A: 機能要件（{{PHASE_1_NAME}}）
+### 4.1 カテゴリ A: 機能要件（__PHASE_1_NAME__）
 
 | # | 要件ID | 要件概要 | 対応方針 | 充足 | 備考 |
 |---|--------|---------|---------|------|------|
-| 1 | {{REQ_ID}} | {{REQ_SUMMARY}} | {{REQ_APPROACH}} | {{REQ_STATUS}} | {{REQ_NOTES}} |
+| 1 | __REQ_ID__ | __REQ_SUMMARY__ | __REQ_APPROACH__ | __REQ_STATUS__ | __REQ_NOTES__ |
 
-### 4.2 カテゴリ B: 機能要件（{{PHASE_2_NAME}}）
+### 4.2 カテゴリ B: 機能要件（__PHASE_2_NAME__）
 
 | # | 要件ID | 要件概要 | 対応方針 | 充足 | 備考 |
 |---|--------|---------|---------|------|------|
@@ -115,26 +115,26 @@
 |---|-------|--------------|------|---------|---------|---------|
 | 1 | | | 受信/送信 | | | |
 
-> **接続システム数**: 社内 {{INTERNAL_SYSTEM_COUNT}} システム ＋ 社外 {{EXTERNAL_SYSTEM_COUNT}} システム
-> **処理フロー数**: {{PROCESS_FLOW_COUNT}} 処理フロー
+> **接続システム数**: 社内 __INTERNAL_SYSTEM_COUNT__ システム ＋ 社外 __EXTERNAL_SYSTEM_COUNT__ システム
+> **処理フロー数**: __PROCESS_FLOW_COUNT__ 処理フロー
 
 ### 4.5 カテゴリ E: 提案書構成要件
 
 | # | RFPセクション | 要求内容 | 対応状況 |
 |---|-------------|---------|---------|
-| 1 | {{RFP_SECTION_ID}} | {{RFP_SECTION_REQUIREMENT}} | {{RFP_SECTION_STATUS}} |
+| 1 | __RFP_SECTION_ID__ | __RFP_SECTION_REQUIREMENT__ | __RFP_SECTION_STATUS__ |
 
 ### 4.6 カテゴリ F: デモ要件
 
 | # | デモ項目 | 目的 | 対応方針 |
 |---|---------|------|---------|
-| 1 | {{DEMO_ITEM}} | {{DEMO_PURPOSE}} | {{DEMO_APPROACH}} |
+| 1 | __DEMO_ITEM__ | __DEMO_PURPOSE__ | __DEMO_APPROACH__ |
 
 ### 4.7 カテゴリ G: 数値条件
 
 | # | 数値項目 | RFP記載値 | 提案値 | 根拠 |
 |---|---------|----------|--------|------|
-| 1 | {{METRIC_NAME}} | {{METRIC_RFP_VALUE}} | {{METRIC_PROPOSED_VALUE}} | {{METRIC_RATIONALE}} |
+| 1 | __METRIC_NAME__ | __METRIC_RFP_VALUE__ | __METRIC_PROPOSED_VALUE__ | __METRIC_RATIONALE__ |
 
 ---
 
@@ -144,17 +144,17 @@
 
 | 項目 | 値 | 出典 |
 |------|---|------|
-| 顧客数/口座数 | {{CUSTOMER_COUNT}} | {{SOURCE}} |
-| データ容量 | {{DATA_VOLUME}} | |
-| 日次バッチジョブ数 | {{DAILY_BATCH_COUNT}} | |
-| データ鮮度目標 | {{FRESHNESS_TARGET}} | |
-| チャネル数 | {{CHANNEL_COUNT}} | |
-| IF数 | {{INTERFACE_COUNT}} | |
-| 接続システム数 | {{CONNECTED_SYSTEM_COUNT}} | |
-| 現行基盤バージョン | {{CURRENT_PLATFORM_VERSION}} | |
-| クラウド基盤 | {{CLOUD_PLATFORM}} リージョン: {{CLOUD_REGION}} | |
-| SLA目標 | {{SLA_TARGET}} | |
-| 顧客ID体系 | {{CUSTOMER_ID_SCHEME}} | |
+| 顧客数/口座数 | __CUSTOMER_COUNT__ | __SOURCE__ |
+| データ容量 | __DATA_VOLUME__ | |
+| 日次バッチジョブ数 | __DAILY_BATCH_COUNT__ | |
+| データ鮮度目標 | __FRESHNESS_TARGET__ | |
+| チャネル数 | __CHANNEL_COUNT__ | |
+| IF数 | __INTERFACE_COUNT__ | |
+| 接続システム数 | __CONNECTED_SYSTEM_COUNT__ | |
+| 現行基盤バージョン | __CURRENT_PLATFORM_VERSION__ | |
+| クラウド基盤 | __CLOUD_PLATFORM__ リージョン: __CLOUD_REGION__ | |
+| SLA目標 | __SLA_TARGET__ | |
+| 顧客ID体系 | __CUSTOMER_ID_SCHEME__ | |
 
 ---
 
@@ -162,7 +162,7 @@
 
 | # | リスク | 影響度 | 発生確率 | 対応策 | 備考 |
 |---|--------|-------|---------|--------|------|
-| 1 | {{RISK_DESCRIPTION}} | 高/中/低 | 高/中/低 | {{RISK_MITIGATION}} | {{RISK_NOTES}} |
+| 1 | __RISK_DESCRIPTION__ | 高/中/低 | 高/中/低 | __RISK_MITIGATION__ | __RISK_NOTES__ |
 | 2 | スケジュール制約 | | | | |
 | 3 | 移行リスク | | | | |
 | 4 | 技術リスク | | | | |
@@ -176,7 +176,7 @@
 
 | QA# | 質問内容 | 回答 | 提案への影響 | ステータス |
 |-----|---------|------|------------|-----------|
-| 1 | {{QA_QUESTION}} | {{QA_ANSWER}} | {{QA_IMPACT}} | 回答済/未回答 |
+| 1 | __QA_QUESTION__ | __QA_ANSWER__ | __QA_IMPACT__ | 回答済/未回答 |
 
 ### 7.2 追加確認事項
 
@@ -184,4 +184,4 @@
 
 | # | 確認事項 | 優先度 | ステータス |
 |---|---------|--------|-----------|
-| 1 | {{CLARIFICATION_ITEM}} | 高/中/低 | 未確認/確認済 |
+| 1 | __CLARIFICATION_ITEM__ | 高/中/低 | 未確認/確認済 |

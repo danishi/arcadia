@@ -18,24 +18,24 @@
 
 ---
 
-> **Note:** `{{VARIABLE}}` placeholders below are replaced with actual values when `/setup` is run. If placeholders remain, the project is not yet initialized — run `/setup` first.
+> **Note:** `__VARIABLE__` placeholders below are replaced with actual values when `/setup` is run. If placeholders remain, the project is not yet initialized — run `/setup` first.
 
 ## Role
 
-Responsible for (1) RFP analysis, (2) demo web app development, and (3) RFP response document creation for the {{CLIENT_NAME}} proposal project.
+Responsible for (1) RFP analysis, (2) demo web app development, and (3) RFP response document creation for the __CLIENT_NAME__ proposal project.
 
 ## Project Overview
 
 | Item | Value |
 |------|-------|
-| Client | {{CLIENT_NAME}} |
-| Lead Proposer | {{PROPOSER_NAME}} |
-| Co-Proposer(s) | {{PARTNER_NAMES}} |
-| Project | {{PROJECT_DESCRIPTION}} |
-| Proposed Product | {{PROPOSED_PRODUCTS}} |
-| Submission Deadline | {{DEADLINE}} |
-| Presentation Date | {{PRESENTATION_DATE}} |
-| Slide Method | {{SLIDE_METHOD}} |
+| Client | __CLIENT_NAME__ |
+| Lead Proposer | __PROPOSER_NAME__ |
+| Co-Proposer(s) | __PARTNER_NAMES__ |
+| Project | __PROJECT_DESCRIPTION__ |
+| Proposed Product | __PROPOSED_PRODUCTS__ |
+| Submission Deadline | __DEADLINE__ |
+| Presentation Date | __PRESENTATION_DATE__ |
+| Slide Method | __SLIDE_METHOD__ |
 | Proposal Strategy | `source/rfp_answer_output/proposal-strategy.md` |
 
 ## Repository Structure
@@ -115,7 +115,7 @@ Stored under `source/rfp_reference/`. RFP main document is `source/rfp.md`. Deta
 
 ### Analysis Principles
 
-- Interpret from the **{{PROPOSED_PRODUCTS}} proposal** perspective (current system: {{CURRENT_SYSTEM}})
+- Interpret from the **__PROPOSED_PRODUCTS__ proposal** perspective (current system: __CURRENT_SYSTEM__)
 - Consider regulatory/compliance requirements relevant to the client's industry
 - Cite specific RFP sections when summarizing or answering
 - Use platform-specific Skills and MCP servers for technical validation
@@ -132,7 +132,7 @@ Stored under `source/rfp_reference/`. RFP main document is `source/rfp.md`. Deta
 
 ### Concept
 
-"{{DEMO_CONCEPT}}"
+"__DEMO_CONCEPT__"
 
 ### Tech Stack
 
@@ -140,10 +140,10 @@ Next.js 15 (App Router) / React 19 / TypeScript (strict) / Tailwind CSS 4 / Rech
 
 ### Architecture
 
-- Serverless ({{PLATFORM_NAME}} = single Source of Truth)
-- Frontend -> API Route -> {{PLATFORM_NAME}} API (token managed server-side)
+- Serverless (__PLATFORM_NAME__ = single Source of Truth)
+- Frontend -> API Route -> __PLATFORM_NAME__ API (token managed server-side)
 - AI responses are streamed
-- Mock data fallback when {{PLATFORM_NAME}} is not connected
+- Mock data fallback when __PLATFORM_NAME__ is not connected
 
 ### Demo Screens
 
@@ -165,9 +165,9 @@ customers, transactions, web_logs, applications, campaign_history, partner_data
 
 | Variable | Purpose |
 |----------|---------|
-| `PLATFORM_HOST` | {{PLATFORM_NAME}} workspace URL |
-| `PLATFORM_TOKEN` | {{PLATFORM_NAME}} API token |
-| `PLATFORM_WAREHOUSE_ID` | {{PLATFORM_NAME}} compute/warehouse ID |
+| `PLATFORM_HOST` | __PLATFORM_NAME__ workspace URL |
+| `PLATFORM_TOKEN` | __PLATFORM_NAME__ API token |
+| `PLATFORM_WAREHOUSE_ID` | __PLATFORM_NAME__ compute/warehouse ID |
 | `AI_SPACE_ID` | AI assistant space/room ID |
 | `AI_ENDPOINT` | AI agent/model endpoint URL |
 
