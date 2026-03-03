@@ -36,7 +36,7 @@ Phases 1-2 are sequential. Phases 3-6 can overlap. Phase 7 runs continuously and
 |-------------|-------------|----------|
 | `docs-catalog.md` | Catalog of all reference documents with metadata | `.claude/skills/rfp-auditor/references/` |
 | `rfp-requirements-checklist.md` | Structured list of all RFP requirements | `.claude/skills/rfp-auditor/references/` |
-| RFP summary | Executive summary of the RFP | `docs/rfp_answer_output/` |
+| RFP summary | Executive summary of the RFP | `source/rfp_answer_output/` |
 
 ### Skills Used
 
@@ -68,9 +68,9 @@ Phases 1-2 are sequential. Phases 3-6 can overlap. Phase 7 runs continuously and
 
 | Deliverable | Description | Location |
 |-------------|-------------|----------|
-| `proposal-strategy.md` | Win strategy with themes, differentiators, risks | `docs/rfp_answer_output/` |
-| `proposal-items-checklist.md` | Complete list of proposal deliverable items | `docs/rfp_answer_output/` |
-| Scope matrix | Ph1/Ph2 scope breakdown | `docs/rfp_answer_output/` |
+| `proposal-strategy.md` | Win strategy with themes, differentiators, risks | `source/rfp_answer_output/` |
+| `proposal-items-checklist.md` | Complete list of proposal deliverable items | `source/rfp_answer_output/` |
+| Scope matrix | Ph1/Ph2 scope breakdown | `source/rfp_answer_output/` |
 
 ### Skills Used
 
@@ -102,11 +102,11 @@ Phases 1-2 are sequential. Phases 3-6 can overlap. Phase 7 runs continuously and
 
 | Deliverable | Description | Location |
 |-------------|-------------|----------|
-| `architecture-policy.md` | Design principles, ADRs, security, infrastructure | `docs/rfp_answer_output/architecture-plan/` |
-| Logical architecture diagrams | Per-phase logical views | `docs/rfp_answer_output/architecture-plan/` |
-| Physical architecture diagrams | Per-phase physical/infra views | `docs/rfp_answer_output/architecture-plan/` |
-| `ph1-migration-requirements.md` | Migration requirements and approach | `docs/rfp_answer_output/migration-plan/` |
-| Migration design diagrams | Current state, target state, data flow, schedule | `docs/rfp_answer_output/migration-plan/` |
+| `architecture-policy.md` | Design principles, ADRs, security, infrastructure | `source/rfp_answer_output/architecture-plan/` |
+| Logical architecture diagrams | Per-phase logical views | `source/rfp_answer_output/architecture-plan/` |
+| Physical architecture diagrams | Per-phase physical/infra views | `source/rfp_answer_output/architecture-plan/` |
+| `ph1-migration-requirements.md` | Migration requirements and approach | `source/rfp_answer_output/migration-plan/` |
+| Migration design diagrams | Current state, target state, data flow, schedule | `source/rfp_answer_output/migration-plan/` |
 
 ### Skills Used
 
@@ -140,9 +140,9 @@ Phases 1-2 are sequential. Phases 3-6 can overlap. Phase 7 runs continuously and
 
 | Deliverable | Description | Location |
 |-------------|-------------|----------|
-| `estimation-policy.md` | Estimation methodology, unit rates, assumptions | `docs/rfp_answer_output/` |
-| Cost breakdown sheets | Detailed per-phase, per-role cost tables | `docs/rfp_answer_output/` |
-| WBS | Work Breakdown Structure | `docs/rfp_answer_output/` |
+| `estimation-policy.md` | Estimation methodology, unit rates, assumptions | `source/rfp_answer_output/` |
+| Cost breakdown sheets | Detailed per-phase, per-role cost tables | `source/rfp_answer_output/` |
+| WBS | Work Breakdown Structure | `source/rfp_answer_output/` |
 
 ### Skills Used
 
@@ -174,8 +174,8 @@ Phases 1-2 are sequential. Phases 3-6 can overlap. Phase 7 runs continuously and
 
 | Deliverable | Description | Location |
 |-------------|-------------|----------|
-| Proposal volumes (PPTX) | Multi-volume presentation set | `RFP_answer/` |
-| Answer sheets (XLSX) | RFP response spreadsheets | `RFP_answer/` |
+| Proposal volumes (PPTX) | Multi-volume presentation set | `output/` |
+| Answer sheets (XLSX) | RFP response spreadsheets | `output/` |
 | Speaker notes | Presentation talking points | Embedded in PPTX |
 
 ### Skills Used
@@ -212,7 +212,7 @@ Phases 1-2 are sequential. Phases 3-6 can overlap. Phase 7 runs continuously and
 
 | Deliverable | Description | Location |
 |-------------|-------------|----------|
-| Demo web app | Next.js application with demo screens | `src/` |
+| Demo web app | Next.js application with demo screens | `demo-app/` |
 | Platform scripts | Data platform setup and sample data | `platform/` |
 | `demo-app-spec.md` | Detailed demo application specification | Project root |
 
@@ -250,9 +250,9 @@ Phases 1-2 are sequential. Phases 3-6 can overlap. Phase 7 runs continuously and
 
 | Deliverable | Description | Location |
 |-------------|-------------|----------|
-| Audit report | Requirement-by-requirement compliance status | `docs/rfp_answer_output/` |
-| Gap analysis | Missing or mismatched items with remediation plan | `docs/rfp_answer_output/` |
-| Final checklist sign-off | All items confirmed as addressed | `docs/rfp_answer_output/` |
+| Audit report | Requirement-by-requirement compliance status | `source/rfp_answer_output/` |
+| Gap analysis | Missing or mismatched items with remediation plan | `source/rfp_answer_output/` |
+| Final checklist sign-off | All items confirmed as addressed | `source/rfp_answer_output/` |
 
 ### Skills Used
 

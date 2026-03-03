@@ -31,7 +31,7 @@ cd {{PROJECT_SLUG}}
 
 ```
 {{PROJECT_SLUG}}/
-  docs/
+  source/
     rfp.md                              # RFP main document (converted to Markdown)
     rfp_reference/                      # Original reference documents
     rfp_answer_output/                  # Intermediate deliverables
@@ -41,8 +41,8 @@ cd {{PROJECT_SLUG}}
       architecture-plan/
       migration-plan/
     minutes/                            # Meeting notes
-  RFP_answer/                           # Final deliverables (PPTX, XLSX)
-  src/                                  # Demo app (Next.js)
+  output/                               # Final deliverables (PPTX, XLSX)
+  demo-app/                             # Demo app (Next.js)
   platform/                             # Platform setup scripts
   .claude/
     CLAUDE.md                           # Project instructions (generated from .tmpl)
@@ -108,11 +108,11 @@ Then run the `/setup` command with project information:
 > **Note**: 引数なしで `/setup` を実行すると、対話的に各項目を確認します。
 
 Claude Code will:
-1. Create the standard directory structure (`docs/`, `RFP_answer/`, `src/`, etc.)
+1. Create the standard directory structure (`source/`, `output/`, `demo-app/`, etc.)
 2. Read the template from `.claude/CLAUDE.md.tmpl` and generate `.claude/CLAUDE.md`
 3. Generate `.claude/settings.json` from `.claude/settings.json.tmpl`
 4. Generate `.mcp.json`, `.env.example`
-5. Place document templates in `docs/rfp_answer_output/` with project variables applied
+5. Place document templates in `source/rfp_answer_output/` with project variables applied
 
 ### Variable Quick Reference
 
@@ -140,10 +140,10 @@ Copy all RFP-related documents into the reference directory:
 
 ```bash
 # Copy RFP main document
-cp /path/to/rfp-document.pdf docs/
+cp /path/to/rfp-document.pdf source/
 
 # Copy reference documents (maintain original folder structure if possible)
-cp -r /path/to/reference-docs/* docs/rfp_reference/
+cp -r /path/to/reference-docs/* source/rfp_reference/
 ```
 
 ### Supported Document Types
@@ -160,7 +160,7 @@ cp -r /path/to/reference-docs/* docs/rfp_reference/
 ### Recommended: Convert RFP to Markdown
 
 ```
-RFPのPDFをMarkdownに変換して docs/rfp.md に保存して
+RFPのPDFをMarkdownに変換して source/rfp.md に保存して
 ```
 
 ---
@@ -170,7 +170,7 @@ RFPのPDFをMarkdownに変換して docs/rfp.md に保存して
 Instruct Claude Code to analyze the RFP and generate the initial checklist:
 
 ```
-docs/rfp.md を読んで、RFP要件チェックリストを生成して。
+source/rfp.md を読んで、RFP要件チェックリストを生成して。
 出力先: .claude/skills/rfp-auditor/references/rfp-requirements-checklist.md
 ```
 
@@ -195,12 +195,12 @@ Claude Code will:
 ## Step 5: Generate Document Catalog
 
 ```
-docs/rfp_reference/ 配下の全ファイルを解析して docs-catalog.md を生成して。
+source/rfp_reference/ 配下の全ファイルを解析して docs-catalog.md を生成して。
 各ファイルについて: パス、種類、ページ数/行数、主要な内容を記録して。
 ```
 
 Claude Code will:
-1. Scan all files in `docs/rfp_reference/`
+1. Scan all files in `source/rfp_reference/`
 2. Read and summarize each document
 3. Generate a catalog with metadata
 4. Save to `.claude/skills/rfp-auditor/references/docs-catalog.md`

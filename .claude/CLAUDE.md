@@ -36,12 +36,12 @@ Responsible for (1) RFP analysis, (2) demo web app development, and (3) RFP resp
 | Submission Deadline | {{DEADLINE}} |
 | Presentation Date | {{PRESENTATION_DATE}} |
 | Slide Method | {{SLIDE_METHOD}} |
-| Proposal Strategy | `docs/rfp_answer_output/proposal-strategy.md` |
+| Proposal Strategy | `source/rfp_answer_output/proposal-strategy.md` |
 
 ## Repository Structure
 
 ```
-docs/
+source/
   rfp.md                                # RFP main document
   rfp_reference/                        # Original reference documents
     (organized by source category)
@@ -57,11 +57,11 @@ docs/
       ph1-migration-requirements.md
       ph1-{01..04}-*.drawio
   minutes/                              # Meeting notes
-RFP_answer/                             # Final deliverables
+output/                                 # Final deliverables
   Vol{N}-{topic}.pptx                   #   Proposal volumes (PPTX method)
   Vol{N}-{topic}/slide-{NN}.png         #   Proposal volumes (NanoBanana method)
   *.xlsx                                #   Answer sheets
-src/                                    # Demo app (Next.js App Router + TypeScript)
+demo-app/                               # Demo app (Next.js App Router + TypeScript)
 platform/                               # Platform setup scripts
 .claude/skills/                         # Project-local skills
 demo-app-spec.md                        # Demo app specification
@@ -90,7 +90,7 @@ CLAUDE.md is included in every conversation's system prompt. Keep it current and
 
 1. **On skill/plugin changes**: Update the "Active Skills & Plugins" table immediately
 2. **On repository structure changes**: Update the structure diagram when new directories or key files are added
-3. **Prevent bloat**: Delegate details to sub-files (docs/, references/, etc.); keep only summaries here
+3. **Prevent bloat**: Delegate details to sub-files (source/, references/, etc.); keep only summaries here
 4. **Token efficiency**: Prefer tables over prose, eliminate duplication
 
 ---
@@ -111,7 +111,7 @@ Architecture diagrams (`architecture-plan/*.drawio`) and migration diagrams (`mi
 
 ### Target Documents
 
-Stored under `docs/rfp_reference/`. RFP main document is `docs/rfp.md`. Detailed catalog at `.claude/skills/rfp-auditor/references/docs-catalog.md`.
+Stored under `source/rfp_reference/`. RFP main document is `source/rfp.md`. Detailed catalog at `.claude/skills/rfp-auditor/references/docs-catalog.md`.
 
 ### Analysis Principles
 
@@ -174,6 +174,6 @@ customers, transactions, web_logs, applications, campaign_history, partner_data
 ### Coding Standards
 
 - UI text: **Japanese**
-- Components: `src/components/` (organized by feature)
-- API Routes: `src/app/api/`
+- Components: `demo-app/src/components/` (organized by feature)
+- API Routes: `demo-app/src/app/api/`
 - Error messages: Japanese

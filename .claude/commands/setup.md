@@ -40,14 +40,14 @@ $ARGUMENTS
 以下のディレクトリを作成してください:
 
 ```
-docs/rfp_reference/
-docs/rfp_answer_output/architecture-plan/
-docs/rfp_answer_output/migration-plan/
-docs/minutes/
-RFP_answer/
-src/
-platform/
+source/rfp_reference/
+source/rfp_answer_output/architecture-plan/
+source/rfp_answer_output/migration-plan/
+source/minutes/
+output/
 ```
+
+> **Note**: `demo-app/` と `platform/` はテンプレートリポジトリに同梱済みのため、作成不要です。
 
 ### Step 2: インプット資料の配置確認
 
@@ -55,18 +55,18 @@ platform/
 
 | 資料 | 格納先 | 必須 |
 |------|--------|:---:|
-| RFP 本体（PDF/Word/Excel） | `docs/` | Yes |
-| RFP 参考資料・別紙・仕様書 | `docs/rfp_reference/` | Yes |
-| 議事録・ヒアリングメモ | `docs/minutes/` | No |
+| RFP 本体（PDF/Word/Excel） | `source/` | Yes |
+| RFP 参考資料・別紙・仕様書 | `source/rfp_reference/` | Yes |
+| 議事録・ヒアリングメモ | `source/minutes/` | No |
 
 ユーザーに以下のメッセージを表示してください:
 
 > **インプット資料を配置してください。**
 >
 > Step 1 で作成したディレクトリに、RFP 関連資料を格納してください:
-> - `docs/` -- RFP 本体（PDF、Word、Excel 等）
-> - `docs/rfp_reference/` -- 参考資料・別紙・仕様書など
-> - `docs/minutes/` -- 議事録やヒアリングメモ（あれば）
+> - `source/` -- RFP 本体（PDF、Word、Excel 等）
+> - `source/rfp_reference/` -- 参考資料・別紙・仕様書など
+> - `source/minutes/` -- 議事録やヒアリングメモ（あれば）
 >
 > 資料の配置が完了したら「OK」と入力してください。後で配置する場合は「スキップ」と入力してください。
 
@@ -151,11 +151,11 @@ platform/
 
 | テンプレート | 出力先 |
 |------------|--------|
-| `templates/docs/rfp-analysis.md.tmpl` | `docs/rfp_answer_output/rfp-analysis.md` |
-| `templates/docs/proposal-strategy.md.tmpl` | `docs/rfp_answer_output/proposal-strategy.md` |
-| `templates/docs/proposal-items-checklist.md.tmpl` | `docs/rfp_answer_output/proposal-items-checklist.md` |
-| `templates/docs/estimation-policy.md.tmpl` | `docs/rfp_answer_output/estimation-policy.md` |
-| `templates/docs/architecture-plan/architecture-policy.md.tmpl` | `docs/rfp_answer_output/architecture-plan/architecture-policy.md` |
+| `templates/docs/rfp-analysis.md.tmpl` | `source/rfp_answer_output/rfp-analysis.md` |
+| `templates/docs/proposal-strategy.md.tmpl` | `source/rfp_answer_output/proposal-strategy.md` |
+| `templates/docs/proposal-items-checklist.md.tmpl` | `source/rfp_answer_output/proposal-items-checklist.md` |
+| `templates/docs/estimation-policy.md.tmpl` | `source/rfp_answer_output/estimation-policy.md` |
+| `templates/docs/architecture-plan/architecture-policy.md.tmpl` | `source/rfp_answer_output/architecture-plan/architecture-policy.md` |
 
 ### Step 9: 完了レポート
 
@@ -164,7 +164,7 @@ platform/
 1. **生成したファイル一覧**（パスとステータス）
 2. **プロジェクト概要テーブル**（設定した変数値の確認）
 3. **次のステップ案内**:
-   - Step 2 で資料配置をスキップした場合は、Phase 1 開始前に必ず `docs/` および `docs/rfp_reference/` にRFP関連資料を配置する
+   - Step 2 で資料配置をスキップした場合は、Phase 1 開始前に必ず `source/` および `source/rfp_reference/` にRFP関連資料を配置する
    - Step 3 で NanoBanana を選択し設定をスキップした場合は、Phase 5（Proposal）開始前に `pip install google-genai Pillow` と API キーの設定を完了する
    - `guides/02-research.md を読んでRFP解析を開始して` でPhase 1を開始する
    - 必要に応じて `.mcp.json` のAPIキーを設定する
