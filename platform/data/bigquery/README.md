@@ -43,41 +43,41 @@
 -- CREATE VOLUME IF NOT EXISTS ...
 
 -- BigQuery equivalent:
-CREATE SCHEMA IF NOT EXISTS `{{GCP_PROJECT_ID}}.bronze`
-    OPTIONS (location = '{{BQ_LOCATION}}');
-CREATE SCHEMA IF NOT EXISTS `{{GCP_PROJECT_ID}}.silver`
-    OPTIONS (location = '{{BQ_LOCATION}}');
-CREATE SCHEMA IF NOT EXISTS `{{GCP_PROJECT_ID}}.gold`
-    OPTIONS (location = '{{BQ_LOCATION}}');
+CREATE SCHEMA IF NOT EXISTS `__GCP_PROJECT_ID__.bronze`
+    OPTIONS (location = '__BQ_LOCATION__');
+CREATE SCHEMA IF NOT EXISTS `__GCP_PROJECT_ID__.silver`
+    OPTIONS (location = '__BQ_LOCATION__');
+CREATE SCHEMA IF NOT EXISTS `__GCP_PROJECT_ID__.gold`
+    OPTIONS (location = '__BQ_LOCATION__');
 
 -- Landing zone: Create GCS bucket via gsutil
--- gsutil mb -l {{BQ_LOCATION}} gs://{{PROJECT_SLUG}}-data-landing/
+-- gsutil mb -l __BQ_LOCATION__ gs://__PROJECT_SLUG__-data-landing/
 ```
 
 ### 03_bronze_ingestion
 
 ```sql
 -- Databricks COPY INTO -> BigQuery LOAD DATA
-LOAD DATA INTO `{{GCP_PROJECT_ID}}.bronze.raw_customers`
+LOAD DATA INTO `__GCP_PROJECT_ID__.bronze.raw_customers`
 FROM FILES (
     format = 'CSV',
-    uris = ['gs://{{PROJECT_SLUG}}-data-landing/customers/*.csv'],
+    uris = ['gs://__PROJECT_SLUG__-data-landing/customers/*.csv'],
     skip_leading_rows = 1
 );
 
 -- Or via bq CLI:
 -- bq load --source_format=CSV --autodetect \
---   {{GCP_PROJECT_ID}}:bronze.raw_customers \
---   gs://{{PROJECT_SLUG}}-data-landing/customers/*.csv
+--   __GCP_PROJECT_ID__:bronze.raw_customers \
+--   gs://__PROJECT_SLUG__-data-landing/customers/*.csv
 ```
 
 ### 04_silver_transform
 
 ```sql
 -- MERGE INTO syntax is nearly identical
-MERGE INTO `{{GCP_PROJECT_ID}}.silver.customers` AS tgt
+MERGE INTO `__GCP_PROJECT_ID__.silver.customers` AS tgt
 USING (
-    SELECT DISTINCT * FROM `{{GCP_PROJECT_ID}}.bronze.raw_customers`
+    SELECT DISTINCT * FROM `__GCP_PROJECT_ID__.bronze.raw_customers`
     WHERE customer_id IS NOT NULL
 ) AS src
 ON tgt.customer_id = src.customer_id
@@ -98,7 +98,7 @@ WHEN NOT MATCHED THEN INSERT ...;
 --   current_timestamp() -> CURRENT_TIMESTAMP()
 
 -- Partitioning (BigQuery-specific):
-CREATE OR REPLACE TABLE `{{GCP_PROJECT_ID}}.gold.daily_summary`
+CREATE OR REPLACE TABLE `__GCP_PROJECT_ID__.gold.daily_summary`
 PARTITION BY transaction_date
 CLUSTER BY channel
 AS SELECT ...;
@@ -136,7 +136,7 @@ WHERE customer_id IS NOT NULL
 
 ```sql
 -- Customer churn prediction
-CREATE OR REPLACE MODEL `{{GCP_PROJECT_ID}}.gold.churn_model`
+CREATE OR REPLACE MODEL `__GCP_PROJECT_ID__.gold.churn_model`
 OPTIONS (
     model_type = 'LOGISTIC_REG',
     input_label_cols = ['is_churned']
@@ -147,7 +147,7 @@ SELECT
     web_page_views_90d,
     campaigns_opened,
     CASE WHEN status = 'dormant' THEN 1 ELSE 0 END AS is_churned
-FROM `{{GCP_PROJECT_ID}}.gold.customer_360`
+FROM `__GCP_PROJECT_ID__.gold.customer_360`
 WHERE status IN ('active', 'dormant');
 ```
 

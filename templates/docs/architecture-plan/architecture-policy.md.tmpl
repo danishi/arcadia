@@ -1,8 +1,8 @@
-# アーキテクチャ方針書：{{CLIENT_NAME}} {{PROJECT_NAME}}
+# アーキテクチャ方針書：__CLIENT_NAME__ __PROJECT_NAME__
 
 > **関連文書**: [提案戦略書](../proposal-strategy.md) | [見積方針書](../estimation-policy.md)
 >
-> **図面一覧**: [{{PHASE_1_NAME}}論理構成図](./logical-architecture-ph1.drawio) | [{{PHASE_1_NAME}}物理構成図](./physical-architecture-ph1.drawio) | [{{PHASE_2_NAME}}論理構成図](./logical-architecture-ph2.drawio) | [{{PHASE_2_NAME}}物理構成図](./physical-architecture-ph2.drawio)
+> **図面一覧**: [__PHASE_1_NAME__論理構成図](./logical-architecture-ph1.drawio) | [__PHASE_1_NAME__物理構成図](./physical-architecture-ph1.drawio) | [__PHASE_2_NAME__論理構成図](./logical-architecture-ph2.drawio) | [__PHASE_2_NAME__物理構成図](./physical-architecture-ph2.drawio)
 
 ---
 
@@ -16,13 +16,13 @@
 
 | # | 原則 | 説明 | 根拠（RFP対応箇所） |
 |---|------|------|---------------------|
-| P-01 | **国内データ保管** | データの保管・処理をすべて国内リージョンで完結 | {{P01_RFP_REF}} |
-| P-02 | **レイヤードアーキテクチャ** | 段階的なデータ品質向上の多層構造を採用 | {{P02_RFP_REF}} |
-| P-03 | **オープンフォーマット** | 標準的なデータフォーマットでベンダーロックインを回避 | {{P03_RFP_REF}} |
-| P-04 | **内製化ファースト** | GUI/ローコードツールを優先し、開発コスト削減を実現 | {{P04_RFP_REF}} |
-| P-05 | **段階的移行** | フェーズ分離で移行リスクを最小化 | {{P05_RFP_REF}} |
-| P-06 | **SaaS活用・従量課金** | オートスケールで固定費を変動費化 | {{P06_RFP_REF}} |
-| P-07 | **金融グレードセキュリティ** | アクセス制御、暗号化、監査ログで規制に準拠 | {{P07_RFP_REF}} |
+| P-01 | **国内データ保管** | データの保管・処理をすべて国内リージョンで完結 | __P01_RFP_REF__ |
+| P-02 | **レイヤードアーキテクチャ** | 段階的なデータ品質向上の多層構造を採用 | __P02_RFP_REF__ |
+| P-03 | **オープンフォーマット** | 標準的なデータフォーマットでベンダーロックインを回避 | __P03_RFP_REF__ |
+| P-04 | **内製化ファースト** | GUI/ローコードツールを優先し、開発コスト削減を実現 | __P04_RFP_REF__ |
+| P-05 | **段階的移行** | フェーズ分離で移行リスクを最小化 | __P05_RFP_REF__ |
+| P-06 | **SaaS活用・従量課金** | オートスケールで固定費を変動費化 | __P06_RFP_REF__ |
+| P-07 | **金融グレードセキュリティ** | アクセス制御、暗号化、監査ログで規制に準拠 | __P07_RFP_REF__ |
 
 ### 1.2 アーキテクチャ決定記録（ADR）
 
@@ -32,45 +32,45 @@
 
 | ADR# | 決定事項 | 選択肢 | 決定 | 理由 |
 |------|---------|--------|------|------|
-| ADR-001 | {{ADR001_TITLE}} | {{ADR001_OPTIONS}} | **{{ADR001_DECISION}}** | {{ADR001_RATIONALE}} |
-| ADR-002 | {{ADR002_TITLE}} | {{ADR002_OPTIONS}} | **{{ADR002_DECISION}}** | {{ADR002_RATIONALE}} |
-| ADR-003 | {{ADR003_TITLE}} | {{ADR003_OPTIONS}} | **{{ADR003_DECISION}}** | {{ADR003_RATIONALE}} |
-| ADR-004 | {{ADR004_TITLE}} | {{ADR004_OPTIONS}} | **{{ADR004_DECISION}}** | {{ADR004_RATIONALE}} |
-| ADR-005 | {{ADR005_TITLE}} | {{ADR005_OPTIONS}} | **{{ADR005_DECISION}}** | {{ADR005_RATIONALE}} |
+| ADR-001 | __ADR001_TITLE__ | __ADR001_OPTIONS__ | **__ADR001_DECISION__** | __ADR001_RATIONALE__ |
+| ADR-002 | __ADR002_TITLE__ | __ADR002_OPTIONS__ | **__ADR002_DECISION__** | __ADR002_RATIONALE__ |
+| ADR-003 | __ADR003_TITLE__ | __ADR003_OPTIONS__ | **__ADR003_DECISION__** | __ADR003_RATIONALE__ |
+| ADR-004 | __ADR004_TITLE__ | __ADR004_OPTIONS__ | **__ADR004_DECISION__** | __ADR004_RATIONALE__ |
+| ADR-005 | __ADR005_TITLE__ | __ADR005_OPTIONS__ | **__ADR005_DECISION__** | __ADR005_RATIONALE__ |
 
 #### ADR詳細テンプレート
 
 <!-- 重要なADRは詳細形式で記録する。以下をコピーして使用 -->
 
 ```
-### ADR-001: {{ADR001_TITLE}}
+### ADR-001: __ADR001_TITLE__
 
 **ステータス**: 承認 / 提案中 / 却下
-**日付**: {{ADR_DATE}}
-**決定者**: {{ADR_DECIDER}}
+**日付**: __ADR_DATE__
+**決定者**: __ADR_DECIDER__
 
 #### コンテキスト
-{{ADR_CONTEXT}}
+__ADR_CONTEXT__
 
 #### 検討した選択肢
 
 | # | 選択肢 | メリット | デメリット |
 |---|--------|---------|----------|
-| 1 | {{OPTION_1}} | {{OPTION_1_PROS}} | {{OPTION_1_CONS}} |
-| 2 | {{OPTION_2}} | {{OPTION_2_PROS}} | {{OPTION_2_CONS}} |
-| 3 | {{OPTION_3}} | {{OPTION_3_PROS}} | {{OPTION_3_CONS}} |
+| 1 | __OPTION_1__ | __OPTION_1_PROS__ | __OPTION_1_CONS__ |
+| 2 | __OPTION_2__ | __OPTION_2_PROS__ | __OPTION_2_CONS__ |
+| 3 | __OPTION_3__ | __OPTION_3_PROS__ | __OPTION_3_CONS__ |
 
 #### 決定
-**{{ADR_DECISION}}** を採用する。
+**__ADR_DECISION__** を採用する。
 
 #### 理由
-{{ADR_RATIONALE_DETAIL}}
+__ADR_RATIONALE_DETAIL__
 
 #### 結果
-{{ADR_CONSEQUENCES}}
+__ADR_CONSEQUENCES__
 
 #### 代替案が却下された理由
-{{ADR_REJECTED_ALTERNATIVES}}
+__ADR_REJECTED_ALTERNATIVES__
 ```
 
 ---
@@ -83,34 +83,34 @@
      詳細な図面は DrawIO（drawio MCP）で作成する -->
 
 ```
-{{CLOUD_PROVIDER}} {{CLOUD_REGION}}（主系）
-├── VPC: {{VPC_NAME}} ({{VPC_CIDR}})
+__CLOUD_PROVIDER__ __CLOUD_REGION__（主系）
+├── VPC: __VPC_NAME__ (__VPC_CIDR__)
 │   ├── Private Subnet (コントロールプレーン通信用)
 │   │   └── NAT Gateway → Internet Gateway（制限付き）
 │   ├── Private Subnet (データプレーン)
-│   │   ├── {{PLATFORM_NAME}} コンピュートリソース
+│   │   ├── __PLATFORM_NAME__ コンピュートリソース
 │   │   └── データ処理パイプライン
 │   └── Private Subnet (プライベート接続)
 │       ├── オブジェクトストレージ エンドポイント
-│       └── {{PLATFORM_NAME}} プライベート接続
+│       └── __PLATFORM_NAME__ プライベート接続
 │
 ├── オブジェクトストレージ
-│   ├── {{BUCKET_LANDING}}     ← データ受信先
-│   ├── {{BUCKET_RAW}}         ← Raw層データ
-│   ├── {{BUCKET_CURATED}}     ← 加工済データ
-│   ├── {{BUCKET_ANALYTICS}}   ← 分析用データ
-│   ├── {{BUCKET_STAGING}}     ← ワーク/一時データ
-│   ├── {{BUCKET_ARCHIVE}}     ← アーカイブデータ
-│   ├── {{BUCKET_EXCHANGE}}    ← システム間データ交換用
-│   ├── {{BUCKET_OUTBOUND}}    ← 仕向ファイル出力先
-│   ├── {{BUCKET_AUDIT}}       ← 監査ログ長期保存
-│   └── {{BUCKET_BACKUP}}      ← バックアップ先
+│   ├── __BUCKET_LANDING__     ← データ受信先
+│   ├── __BUCKET_RAW__         ← Raw層データ
+│   ├── __BUCKET_CURATED__     ← 加工済データ
+│   ├── __BUCKET_ANALYTICS__   ← 分析用データ
+│   ├── __BUCKET_STAGING__     ← ワーク/一時データ
+│   ├── __BUCKET_ARCHIVE__     ← アーカイブデータ
+│   ├── __BUCKET_EXCHANGE__    ← システム間データ交換用
+│   ├── __BUCKET_OUTBOUND__    ← 仕向ファイル出力先
+│   ├── __BUCKET_AUDIT__       ← 監査ログ長期保存
+│   └── __BUCKET_BACKUP__      ← バックアップ先
 │
 ├── アプリケーション基盤
-│   └── {{APP_PLATFORM_DESCRIPTION}}
+│   └── __APP_PLATFORM_DESCRIPTION__
 │
 ├── IAM / セキュリティ
-│   ├── 暗号化キー管理 -- {{ENCRYPTION_STANDARD}}
+│   ├── 暗号化キー管理 -- __ENCRYPTION_STANDARD__
 │   ├── サービスロール一覧は別途定義
 │   └── API操作ログ
 │
@@ -118,18 +118,18 @@
     ├── メトリクス / アラーム
     └── ログ → 長期保存
 
-{{CLOUD_PROVIDER}} {{DR_REGION}}（DR/バックアップ）
+__CLOUD_PROVIDER__ __DR_REGION__（DR/バックアップ）
 ├── クロスリージョンレプリケーション先
 └── [必要時] DR環境（フェイルオーバー用）
 ```
 
-### 2.2 {{PLATFORM_NAME}} ワークスペース/環境構成
+### 2.2 __PLATFORM_NAME__ ワークスペース/環境構成
 
 | 環境 | 用途 | データカタログ | コンピュート |
 |------|------|-------------|------------|
-| **{{ENV_PROD_NAME}}** | 本番環境 | {{ENV_PROD_CATALOG}} | {{ENV_PROD_COMPUTE}} |
-| **{{ENV_DEV_NAME}}** | 開発・検証 | {{ENV_DEV_CATALOG}} | {{ENV_DEV_COMPUTE}} |
-| **{{ENV_STG_NAME}}** | ステージング | {{ENV_STG_CATALOG}} | {{ENV_STG_COMPUTE}} |
+| **__ENV_PROD_NAME__** | 本番環境 | __ENV_PROD_CATALOG__ | __ENV_PROD_COMPUTE__ |
+| **__ENV_DEV_NAME__** | 開発・検証 | __ENV_DEV_CATALOG__ | __ENV_DEV_COMPUTE__ |
+| **__ENV_STG_NAME__** | ステージング | __ENV_STG_CATALOG__ | __ENV_STG_COMPUTE__ |
 
 ### 2.3 環境分離戦略
 
@@ -137,9 +137,9 @@
 
 | 方針 | 内容 |
 |------|------|
-| **データ分離** | {{DATA_ISOLATION_POLICY}} |
-| **アクセス制御** | {{ACCESS_CONTROL_POLICY}} |
-| **ネットワーク分離** | {{NETWORK_ISOLATION_POLICY}} |
+| **データ分離** | __DATA_ISOLATION_POLICY__ |
+| **アクセス制御** | __ACCESS_CONTROL_POLICY__ |
+| **ネットワーク分離** | __NETWORK_ISOLATION_POLICY__ |
 
 ---
 
@@ -152,35 +152,35 @@
 
 | レイヤー | 現行対応 | 役割 | データ形式 | 保持期間 |
 |---------|---------|------|----------|---------|
-| **{{LAYER_1_NAME}}** (Raw/Landing) | {{LAYER_1_CURRENT}} | {{LAYER_1_ROLE}} | {{LAYER_1_FORMAT}} | {{LAYER_1_RETENTION}} |
-| **{{LAYER_2_NAME}}** (Cleansed) | {{LAYER_2_CURRENT}} | {{LAYER_2_ROLE}} | {{LAYER_2_FORMAT}} | {{LAYER_2_RETENTION}} |
-| **{{LAYER_3_NAME}}** (Curated) | {{LAYER_3_CURRENT}} | {{LAYER_3_ROLE}} | {{LAYER_3_FORMAT}} | {{LAYER_3_RETENTION}} |
-| **{{LAYER_4_NAME}}** (Analytics) | {{LAYER_4_CURRENT}} | {{LAYER_4_ROLE}} | {{LAYER_4_FORMAT}} | {{LAYER_4_RETENTION}} |
+| **__LAYER_1_NAME__** (Raw/Landing) | __LAYER_1_CURRENT__ | __LAYER_1_ROLE__ | __LAYER_1_FORMAT__ | __LAYER_1_RETENTION__ |
+| **__LAYER_2_NAME__** (Cleansed) | __LAYER_2_CURRENT__ | __LAYER_2_ROLE__ | __LAYER_2_FORMAT__ | __LAYER_2_RETENTION__ |
+| **__LAYER_3_NAME__** (Curated) | __LAYER_3_CURRENT__ | __LAYER_3_ROLE__ | __LAYER_3_FORMAT__ | __LAYER_3_RETENTION__ |
+| **__LAYER_4_NAME__** (Analytics) | __LAYER_4_CURRENT__ | __LAYER_4_ROLE__ | __LAYER_4_FORMAT__ | __LAYER_4_RETENTION__ |
 
 ### 3.2 データフロー概要
 
 ```
 [源泉システム]
-    ↓ ({{DATA_INGESTION_METHOD}})
-[{{LAYER_1_NAME}}] ← Raw取込、スキーマ変換なし
+    ↓ (__DATA_INGESTION_METHOD__)
+[__LAYER_1_NAME__] ← Raw取込、スキーマ変換なし
     ↓ (品質チェック・クレンジング)
-[{{LAYER_2_NAME}}] ← 型変換、重複排除、NULL処理
+[__LAYER_2_NAME__] ← 型変換、重複排除、NULL処理
     ↓ (ビジネスロジック適用)
-[{{LAYER_3_NAME}}] ← 集計、結合、ビジネスKPI算出
+[__LAYER_3_NAME__] ← 集計、結合、ビジネスKPI算出
     ↓ (分析用最適化)
-[{{LAYER_4_NAME}}] ← BI/分析/ML用の最適化ビュー
+[__LAYER_4_NAME__] ← BI/分析/ML用の最適化ビュー
 ```
 
 ### 3.3 データガバナンス
 
 | 機能 | 実現方法 |
 |------|---------|
-| **データカタログ** | {{DATA_CATALOG_APPROACH}} |
-| **データリネージ** | {{DATA_LINEAGE_APPROACH}} |
-| **データ品質** | {{DATA_QUALITY_APPROACH}} |
-| **アクセス制御** | {{DATA_ACCESS_CONTROL}} |
-| **暗号化** | {{DATA_ENCRYPTION}} |
-| **監査ログ** | {{DATA_AUDIT_LOG}} |
+| **データカタログ** | __DATA_CATALOG_APPROACH__ |
+| **データリネージ** | __DATA_LINEAGE_APPROACH__ |
+| **データ品質** | __DATA_QUALITY_APPROACH__ |
+| **アクセス制御** | __DATA_ACCESS_CONTROL__ |
+| **暗号化** | __DATA_ENCRYPTION__ |
+| **監査ログ** | __DATA_AUDIT_LOG__ |
 
 ---
 
@@ -190,22 +190,22 @@
 
 | # | セキュリティ要件 | 実現方式 | 対応コンポーネント |
 |---|----------------|---------|-----------------|
-| S-01 | 国内データ保管 | {{SEC_01_APPROACH}} | {{SEC_01_COMPONENT}} |
-| S-02 | 通信暗号化 | {{SEC_02_APPROACH}} | {{SEC_02_COMPONENT}} |
-| S-03 | 保存データ暗号化 | {{SEC_03_APPROACH}} | {{SEC_03_COMPONENT}} |
-| S-04 | アクセス制御 | {{SEC_04_APPROACH}} | {{SEC_04_COMPONENT}} |
-| S-05 | 監査ログ | {{SEC_05_APPROACH}} | {{SEC_05_COMPONENT}} |
-| S-06 | ネットワーク分離 | {{SEC_06_APPROACH}} | {{SEC_06_COMPONENT}} |
-| S-07 | AIガバナンス | {{SEC_07_APPROACH}} | {{SEC_07_COMPONENT}} |
+| S-01 | 国内データ保管 | __SEC_01_APPROACH__ | __SEC_01_COMPONENT__ |
+| S-02 | 通信暗号化 | __SEC_02_APPROACH__ | __SEC_02_COMPONENT__ |
+| S-03 | 保存データ暗号化 | __SEC_03_APPROACH__ | __SEC_03_COMPONENT__ |
+| S-04 | アクセス制御 | __SEC_04_APPROACH__ | __SEC_04_COMPONENT__ |
+| S-05 | 監査ログ | __SEC_05_APPROACH__ | __SEC_05_COMPONENT__ |
+| S-06 | ネットワーク分離 | __SEC_06_APPROACH__ | __SEC_06_COMPONENT__ |
+| S-07 | AIガバナンス | __SEC_07_APPROACH__ | __SEC_07_COMPONENT__ |
 
 ### 4.2 認証・認可
 
 | 項目 | 方式 |
 |------|------|
-| **ユーザー認証** | {{AUTH_METHOD}} |
-| **サービス間認証** | {{SERVICE_AUTH_METHOD}} |
-| **権限管理** | {{AUTHORIZATION_METHOD}} |
-| **セキュリティ区画** | {{SECURITY_ZONE_POLICY}} |
+| **ユーザー認証** | __AUTH_METHOD__ |
+| **サービス間認証** | __SERVICE_AUTH_METHOD__ |
+| **権限管理** | __AUTHORIZATION_METHOD__ |
+| **セキュリティ区画** | __SECURITY_ZONE_POLICY__ |
 
 ---
 
@@ -213,11 +213,11 @@
 
 | 項目 | 目標 | 実現方式 |
 |------|------|---------|
-| **SLA** | {{SLA_TARGET}} | {{SLA_APPROACH}} |
-| **RPO** | {{RPO_TARGET}} | {{RPO_APPROACH}} |
-| **RTO** | {{RTO_TARGET}} | {{RTO_APPROACH}} |
-| **バックアップ** | {{BACKUP_POLICY}} | {{BACKUP_APPROACH}} |
-| **DR** | {{DR_POLICY}} | {{DR_APPROACH}} |
+| **SLA** | __SLA_TARGET__ | __SLA_APPROACH__ |
+| **RPO** | __RPO_TARGET__ | __RPO_APPROACH__ |
+| **RTO** | __RTO_TARGET__ | __RTO_APPROACH__ |
+| **バックアップ** | __BACKUP_POLICY__ | __BACKUP_APPROACH__ |
+| **DR** | __DR_POLICY__ | __DR_APPROACH__ |
 
 ---
 
@@ -228,10 +228,10 @@
 
 | # | 図面名 | ファイル | ステータス | 概要 |
 |---|--------|---------|-----------|------|
-| 1 | {{PHASE_1_NAME}}論理構成図 | `logical-architecture-ph1.drawio` | 未作成/作成済 | 論理的なシステム構成（コンポーネント間の関係） |
-| 2 | {{PHASE_1_NAME}}物理構成図 | `physical-architecture-ph1.drawio` | | 物理的なインフラ配置（リージョン、VPC、サブネット） |
-| 3 | {{PHASE_2_NAME}}論理構成図 | `logical-architecture-ph2.drawio` | | {{PHASE_2_NAME}}拡張後の論理構成 |
-| 4 | {{PHASE_2_NAME}}物理構成図 | `physical-architecture-ph2.drawio` | | {{PHASE_2_NAME}}拡張後の物理構成 |
+| 1 | __PHASE_1_NAME__論理構成図 | `logical-architecture-ph1.drawio` | 未作成/作成済 | 論理的なシステム構成（コンポーネント間の関係） |
+| 2 | __PHASE_1_NAME__物理構成図 | `physical-architecture-ph1.drawio` | | 物理的なインフラ配置（リージョン、VPC、サブネット） |
+| 3 | __PHASE_2_NAME__論理構成図 | `logical-architecture-ph2.drawio` | | __PHASE_2_NAME__拡張後の論理構成 |
+| 4 | __PHASE_2_NAME__物理構成図 | `physical-architecture-ph2.drawio` | | __PHASE_2_NAME__拡張後の物理構成 |
 | 5 | 現行基盤構成図 | `current-system.drawio` | | 移行元の現行システム構成 |
 | 6 | データフロー図 | `data-flow.drawio` | | エンドツーエンドのデータフロー |
 | 7 | ネットワーク構成図 | `network-architecture.drawio` | | VPC、サブネット、セキュリティグループの詳細 |

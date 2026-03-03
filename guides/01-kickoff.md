@@ -21,8 +21,8 @@ GitHub 上で ARCADIA テンプレートリポジトリの **「Use this templat
 
 ```bash
 # 作成したリポジトリをクローン
-git clone https://github.com/your-org/{{PROJECT_SLUG}}.git
-cd {{PROJECT_SLUG}}
+git clone https://github.com/your-org/__PROJECT_SLUG__.git
+cd __PROJECT_SLUG__
 ```
 
 > **Note**: ディレクトリ構造の作成は Step 2 の `/setup` コマンド（Step 1）が自動で行います。手動で作成する必要はありません。
@@ -30,7 +30,7 @@ cd {{PROJECT_SLUG}}
 ### Standard Directory Structure
 
 ```
-{{PROJECT_SLUG}}/
+__PROJECT_SLUG__/
   source/
     rfp.md                              # RFP main document (converted to Markdown)
     rfp_reference/                      # Original reference documents
@@ -118,19 +118,19 @@ Claude Code will:
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `{{CLIENT_NAME}}` | Yes | Client organization name |
-| `{{PROPOSER_NAME}}` | Yes | Your company name |
-| `{{PARTNER_NAMES}}` | No | Comma-separated partner names |
-| `{{PROJECT_DESCRIPTION}}` | Yes | One-line project scope |
-| `{{PROPOSED_PRODUCTS}}` | Yes | Product/platform being proposed |
-| `{{PLATFORM_NAME}}` | Yes | Technical platform name |
-| `{{PLATFORM_TYPE}}` | Yes | "Cloud Data Warehouse" / "Lakehouse" / "Data Platform" |
-| `{{CLOUD_PROVIDER}}` | Yes | "AWS" / "Azure" / "GCP" |
-| `{{DEADLINE}}` | Yes | Submission deadline (YYYY-MM-DD) |
-| `{{PRESENTATION_DATE}}` | No | Presentation date (YYYY-MM-DD) |
-| `{{PROJECT_SLUG}}` | Auto | Directory-safe project ID |
-| `{{DEMO_CONCEPT}}` | No | Demo app one-liner |
-| `{{CURRENT_SYSTEM}}` | No | Systems being replaced |
+| `__CLIENT_NAME__` | Yes | Client organization name |
+| `__PROPOSER_NAME__` | Yes | Your company name |
+| `__PARTNER_NAMES__` | No | Comma-separated partner names |
+| `__PROJECT_DESCRIPTION__` | Yes | One-line project scope |
+| `__PROPOSED_PRODUCTS__` | Yes | Product/platform being proposed |
+| `__PLATFORM_NAME__` | Yes | Technical platform name |
+| `__PLATFORM_TYPE__` | Yes | "Cloud Data Warehouse" / "Lakehouse" / "Data Platform" |
+| `__CLOUD_PROVIDER__` | Yes | "AWS" / "Azure" / "GCP" |
+| `__DEADLINE__` | Yes | Submission deadline (YYYY-MM-DD) |
+| `__PRESENTATION_DATE__` | No | Presentation date (YYYY-MM-DD) |
+| `__PROJECT_SLUG__` | Auto | Directory-safe project ID |
+| `__DEMO_CONCEPT__` | No | Demo app one-liner |
+| `__CURRENT_SYSTEM__` | No | Systems being replaced |
 
 ---
 
@@ -219,9 +219,9 @@ platform/cloud/ を参照して、クラウドプロバイダーを選定して
 
 | Option | Guide | Template Variable |
 |--------|-------|------------------|
-| **AWS** | `platform/cloud/aws/README.md` | `{{CLOUD_PROVIDER}}` = `AWS` |
-| **GCP** | `platform/cloud/gcp/README.md` | `{{CLOUD_PROVIDER}}` = `GCP` |
-| **Other** | `platform/cloud/other/README.md` | `{{CLOUD_PROVIDER}}` = (provider name) |
+| **AWS** | `platform/cloud/aws/README.md` | `__CLOUD_PROVIDER__` = `AWS` |
+| **GCP** | `platform/cloud/gcp/README.md` | `__CLOUD_PROVIDER__` = `GCP` |
+| **Other** | `platform/cloud/other/README.md` | `__CLOUD_PROVIDER__` = (provider name) |
 
 ### Step B: Data Platform Selection
 
@@ -293,5 +293,5 @@ After completing kickoff (`/setup`):
 |-------|---------|
 | Claude Code cannot read PDF | Install PDF support or convert to Markdown |
 | MCP server not available | Check `claude mcp list` and reconfigure |
-| Template variables not replaced | Re-run Step 2; check `.claude/CLAUDE.md` for remaining `{{` |
+| Template variables not replaced | Re-run Step 2; check `.claude/CLAUDE.md` for remaining `__` placeholders |
 | Skills not loading | Verify `.claude/skills/{name}/SKILL.md` exists |

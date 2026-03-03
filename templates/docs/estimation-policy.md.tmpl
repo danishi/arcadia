@@ -1,7 +1,7 @@
-# 見積方針書：{{CLIENT_NAME}} {{PROJECT_NAME}}
+# 見積方針書：__CLIENT_NAME__ __PROJECT_NAME__
 
-> **作成日**: {{CREATED_DATE}}
-> **提出期限**: {{SUBMISSION_DEADLINE}}
+> **作成日**: __CREATED_DATE__
+> **提出期限**: __SUBMISSION_DEADLINE__
 >
 > **関連文書**: [提案戦略書](./proposal-strategy.md) | [アーキテクチャ方針書](./architecture-plan/architecture-policy.md) | [提案書チェックリスト](./proposal-items-checklist.md)
 
@@ -14,8 +14,8 @@
 
 | 区分 | 内訳 | 対象フェーズ |
 |------|------|------------|
-| **イニシャル（構築費）** | {{INITIAL_COST_BREAKDOWN}} | {{PHASE_1_NAME}}: 詳細見積、{{PHASE_2_NAME}}: 参考価格 |
-| **ランニング（運用費）** | {{RUNNING_COST_BREAKDOWN}} | {{RUNNING_COST_PERIOD}} |
+| **イニシャル（構築費）** | __INITIAL_COST_BREAKDOWN__ | __PHASE_1_NAME__: 詳細見積、__PHASE_2_NAME__: 参考価格 |
+| **ランニング（運用費）** | __RUNNING_COST_BREAKDOWN__ | __RUNNING_COST_PERIOD__ |
 
 ---
 
@@ -23,7 +23,7 @@
 
 | 項目 | 金額 |
 |------|------|
-| **人月単価** | **{{UNIT_COST_PER_MONTH}}円/人月**（税別） |
+| **人月単価** | **__UNIT_COST_PER_MONTH__円/人月**（税別） |
 
 <!-- 単価設定の考え方:
   - 全工程・全ロール統一単価の場合はここに1行
@@ -34,27 +34,27 @@
 
 | ロール | 単価（円/人月） | 備考 |
 |--------|---------------|------|
-| PM/PL | {{ROLE_PM_COST}} | |
-| アーキテクト | {{ROLE_ARCHITECT_COST}} | |
-| シニアエンジニア | {{ROLE_SR_ENG_COST}} | |
-| エンジニア | {{ROLE_ENG_COST}} | |
+| PM/PL | __ROLE_PM_COST__ | |
+| アーキテクト | __ROLE_ARCHITECT_COST__ | |
+| シニアエンジニア | __ROLE_SR_ENG_COST__ | |
+| エンジニア | __ROLE_ENG_COST__ | |
 
 ---
 
 ## 3. プラットフォーム利用料
 
-<!-- {{PLATFORM_NAME}}の利用料は、ベンダー提供の試算に基づく。
+<!-- __PLATFORM_NAME__の利用料は、ベンダー提供の試算に基づく。
      試算シナリオを複数用意し、推奨ケースを明示すること -->
 
-**参照ファイル**: `{{PLATFORM_COST_REFERENCE_FILE}}`
+**参照ファイル**: `__PLATFORM_COST_REFERENCE_FILE__`
 
 ### 3.1 試算シナリオ
 
 | シナリオ | 処理量 | 用途 |
 |---------|-------|------|
-| {{SCENARIO_1_NAME}} | {{SCENARIO_1_VOLUME}} | {{SCENARIO_1_PURPOSE}} |
-| **{{SCENARIO_2_NAME}}** | {{SCENARIO_2_VOLUME}} | **ベースケース（推奨）** |
-| {{SCENARIO_3_NAME}} | {{SCENARIO_3_VOLUME}} | 上限ケース |
+| __SCENARIO_1_NAME__ | __SCENARIO_1_VOLUME__ | __SCENARIO_1_PURPOSE__ |
+| **__SCENARIO_2_NAME__** | __SCENARIO_2_VOLUME__ | **ベースケース（推奨）** |
+| __SCENARIO_3_NAME__ | __SCENARIO_3_VOLUME__ | 上限ケース |
 
 ### 3.2 プラットフォーム費用サマリ
 
@@ -62,35 +62,35 @@
 
 | 年度 | 商用 年額 | 開発環境 年額 | **合計 年額** |
 |------|----------|-------------|-------------|
-| {{FY_1}} | {{FY1_PROD}} | {{FY1_DEV}} | **{{FY1_TOTAL}}** |
-| {{FY_2}} | {{FY2_PROD}} | {{FY2_DEV}} | **{{FY2_TOTAL}}** |
-| {{FY_3}} | {{FY3_PROD}} | {{FY3_DEV}} | **{{FY3_TOTAL}}** |
-| {{FY_4}} | {{FY4_PROD}} | {{FY4_DEV}} | **{{FY4_TOTAL}}** |
-| {{FY_5}} | {{FY5_PROD}} | {{FY5_DEV}} | **{{FY5_TOTAL}}** |
+| __FY_1__ | __FY1_PROD__ | __FY1_DEV__ | **__FY1_TOTAL__** |
+| __FY_2__ | __FY2_PROD__ | __FY2_DEV__ | **__FY2_TOTAL__** |
+| __FY_3__ | __FY3_PROD__ | __FY3_DEV__ | **__FY3_TOTAL__** |
+| __FY_4__ | __FY4_PROD__ | __FY4_DEV__ | **__FY4_TOTAL__** |
+| __FY_5__ | __FY5_PROD__ | __FY5_DEV__ | **__FY5_TOTAL__** |
 
-> - 上記は{{PLATFORM_NAME}}費用＋サポートプランを含む金額
-> - 為替レート: {{EXCHANGE_RATE}}（該当する場合）
-> - {{PLATFORM_COST_NOTES}}
+> - 上記は__PLATFORM_NAME__費用＋サポートプランを含む金額
+> - 為替レート: __EXCHANGE_RATE__（該当する場合）
+> - __PLATFORM_COST_NOTES__
 
 ### 3.3 費用構成要素
 
 | # | カテゴリ | 内容 |
 |---|---------|------|
-| 1 | 開発 | {{COST_CATEGORY_1_DETAIL}} |
-| 2 | 運用 | {{COST_CATEGORY_2_DETAIL}} |
-| 3 | 分析/BI | {{COST_CATEGORY_3_DETAIL}} |
-| 4 | AI/ML | {{COST_CATEGORY_4_DETAIL}} |
-| 5 | サポート | {{COST_CATEGORY_5_DETAIL}} |
+| 1 | 開発 | __COST_CATEGORY_1_DETAIL__ |
+| 2 | 運用 | __COST_CATEGORY_2_DETAIL__ |
+| 3 | 分析/BI | __COST_CATEGORY_3_DETAIL__ |
+| 4 | AI/ML | __COST_CATEGORY_4_DETAIL__ |
+| 5 | サポート | __COST_CATEGORY_5_DETAIL__ |
 
 ### 3.4 前提条件
 
 | 項目 | 値 |
 |------|---|
-| クラウド | {{CLOUD_PROVIDER}} |
-| データ総量 | {{DATA_VOLUME_ESTIMATE}} |
-| 開発者数 | {{DEVELOPER_COUNT}} |
-| {{PREMISE_KEY_1}} | {{PREMISE_VALUE_1}} |
-| {{PREMISE_KEY_2}} | {{PREMISE_VALUE_2}} |
+| クラウド | __CLOUD_PROVIDER__ |
+| データ総量 | __DATA_VOLUME_ESTIMATE__ |
+| 開発者数 | __DEVELOPER_COUNT__ |
+| __PREMISE_KEY_1__ | __PREMISE_VALUE_1__ |
+| __PREMISE_KEY_2__ | __PREMISE_VALUE_2__ |
 
 ---
 
@@ -102,18 +102,18 @@
 
 | # | サービス | 用途 | 月額 |
 |---|---------|------|------|
-| 1 | {{CLOUD_SERVICE_1}} | {{CLOUD_PURPOSE_1}} | {{CLOUD_COST_1}} |
-| 2 | {{CLOUD_SERVICE_2}} | {{CLOUD_PURPOSE_2}} | {{CLOUD_COST_2}} |
-| 3 | {{CLOUD_SERVICE_3}} | {{CLOUD_PURPOSE_3}} | {{CLOUD_COST_3}} |
-| | **合計** | | **{{CLOUD_MONTHLY_TOTAL}}** |
+| 1 | __CLOUD_SERVICE_1__ | __CLOUD_PURPOSE_1__ | __CLOUD_COST_1__ |
+| 2 | __CLOUD_SERVICE_2__ | __CLOUD_PURPOSE_2__ | __CLOUD_COST_2__ |
+| 3 | __CLOUD_SERVICE_3__ | __CLOUD_PURPOSE_3__ | __CLOUD_COST_3__ |
+| | **合計** | | **__CLOUD_MONTHLY_TOTAL__** |
 
 ### 4.2 年額費用サマリ
 
 | 年度 | 本番 年額 | 開発環境 | **合計** |
 |------|----------|---------|---------|
-| {{FY_1}} | {{CLOUD_FY1_PROD}} | {{CLOUD_FY1_DEV}} | **{{CLOUD_FY1_TOTAL}}** |
-| {{FY_2}} | {{CLOUD_FY2_PROD}} | {{CLOUD_FY2_DEV}} | **{{CLOUD_FY2_TOTAL}}** |
-| {{FY_3}} | {{CLOUD_FY3_PROD}} | {{CLOUD_FY3_DEV}} | **{{CLOUD_FY3_TOTAL}}** |
+| __FY_1__ | __CLOUD_FY1_PROD__ | __CLOUD_FY1_DEV__ | **__CLOUD_FY1_TOTAL__** |
+| __FY_2__ | __CLOUD_FY2_PROD__ | __CLOUD_FY2_DEV__ | **__CLOUD_FY2_TOTAL__** |
+| __FY_3__ | __CLOUD_FY3_PROD__ | __CLOUD_FY3_DEV__ | **__CLOUD_FY3_TOTAL__** |
 
 ---
 
@@ -121,42 +121,42 @@
 
 ### 5.1 イニシャル費用（構築費）
 
-#### {{PHASE_1_NAME}}（〜{{PHASE_1_DEADLINE}}）-- 詳細見積
+#### __PHASE_1_NAME__（〜__PHASE_1_DEADLINE__）-- 詳細見積
 
 | 工程 | 期間 | 見積方法 |
 |------|------|---------|
-| 要件定義支援 | {{RD_PERIOD}} | 人月 x {{UNIT_COST_PER_MONTH}}円 |
-| 基本設計 | {{BD_PERIOD}} | 人月 x {{UNIT_COST_PER_MONTH}}円 |
-| 詳細設計 | {{DD_PERIOD}} | 人月 x {{UNIT_COST_PER_MONTH}}円 |
-| 製造・UT | {{DEV_PERIOD}} | 人月 x {{UNIT_COST_PER_MONTH}}円 |
-| 結合テスト | {{IT_PERIOD}} | 人月 x {{UNIT_COST_PER_MONTH}}円 |
-| 移行・並行稼働 | {{MIG_PERIOD}} | 人月 x {{UNIT_COST_PER_MONTH}}円 |
+| 要件定義支援 | __RD_PERIOD__ | 人月 x __UNIT_COST_PER_MONTH__円 |
+| 基本設計 | __BD_PERIOD__ | 人月 x __UNIT_COST_PER_MONTH__円 |
+| 詳細設計 | __DD_PERIOD__ | 人月 x __UNIT_COST_PER_MONTH__円 |
+| 製造・UT | __DEV_PERIOD__ | 人月 x __UNIT_COST_PER_MONTH__円 |
+| 結合テスト | __IT_PERIOD__ | 人月 x __UNIT_COST_PER_MONTH__円 |
+| 移行・並行稼働 | __MIG_PERIOD__ | 人月 x __UNIT_COST_PER_MONTH__円 |
 
 **見積対象領域**:
 
 <!-- プロジェクト固有の見積対象を列挙 -->
 
-- **{{ESTIMATE_SCOPE_1}}**: {{ESTIMATE_SCOPE_1_DETAIL}}
-- **{{ESTIMATE_SCOPE_2}}**: {{ESTIMATE_SCOPE_2_DETAIL}}
-- **{{ESTIMATE_SCOPE_3}}**: {{ESTIMATE_SCOPE_3_DETAIL}}
-- **{{ESTIMATE_SCOPE_4}}**: {{ESTIMATE_SCOPE_4_DETAIL}}
+- **__ESTIMATE_SCOPE_1__**: __ESTIMATE_SCOPE_1_DETAIL__
+- **__ESTIMATE_SCOPE_2__**: __ESTIMATE_SCOPE_2_DETAIL__
+- **__ESTIMATE_SCOPE_3__**: __ESTIMATE_SCOPE_3_DETAIL__
+- **__ESTIMATE_SCOPE_4__**: __ESTIMATE_SCOPE_4_DETAIL__
 
-#### {{PHASE_2_NAME}}（{{PHASE_2_START}}以降）-- 参考価格
+#### __PHASE_2_NAME__（__PHASE_2_START__以降）-- 参考価格
 
 | 機能 | 見積方法 | 備考 |
 |------|---------|------|
-| {{PH2_FEATURE_1}} | 概算人月 x {{UNIT_COST_PER_MONTH}}円 | {{PH2_FEATURE_1_NOTES}} |
-| {{PH2_FEATURE_2}} | 概算人月 x {{UNIT_COST_PER_MONTH}}円 | |
-| {{PH2_FEATURE_3}} | 概算人月 x {{UNIT_COST_PER_MONTH}}円 | |
+| __PH2_FEATURE_1__ | 概算人月 x __UNIT_COST_PER_MONTH__円 | __PH2_FEATURE_1_NOTES__ |
+| __PH2_FEATURE_2__ | 概算人月 x __UNIT_COST_PER_MONTH__円 | |
+| __PH2_FEATURE_3__ | 概算人月 x __UNIT_COST_PER_MONTH__円 | |
 
-### 5.2 ランニング費用（{{RUNNING_COST_YEARS}}年間）
+### 5.2 ランニング費用（__RUNNING_COST_YEARS__年間）
 
 | 費目 | 算出方法 |
 |------|---------|
-| **{{PLATFORM_NAME}}ライセンス** | {{PLATFORM_LICENSE_CALCULATION}} |
-| **クラウドインフラ** | {{CLOUD_INFRA_CALCULATION}} |
-| **保守・運用** | {{MAINTENANCE_CALCULATION}} |
-| **不定期費用** | {{ADHOC_CALCULATION}} |
+| **__PLATFORM_NAME__ライセンス** | __PLATFORM_LICENSE_CALCULATION__ |
+| **クラウドインフラ** | __CLOUD_INFRA_CALCULATION__ |
+| **保守・運用** | __MAINTENANCE_CALCULATION__ |
+| **不定期費用** | __ADHOC_CALCULATION__ |
 
 ---
 
@@ -166,24 +166,24 @@
 
 | 区分 | 人月 | 労務費 | ライセンス等 | 小計 | 備考 |
 |------|------|--------|------------|------|------|
-| **{{DOMAIN_A_NAME}} {{PHASE_1_NAME}}** | {{DOMAIN_A_PH1_MM}} | {{DOMAIN_A_PH1_LABOR}} | {{DOMAIN_A_PH1_LICENSE}} | **{{DOMAIN_A_PH1_TOTAL}}** | |
-| **{{DOMAIN_B_NAME}} {{PHASE_1_NAME}}** | {{DOMAIN_B_PH1_MM}} | {{DOMAIN_B_PH1_LABOR}} | {{DOMAIN_B_PH1_LICENSE}} | **{{DOMAIN_B_PH1_TOTAL}}** | |
-| {{DOMAIN_A_NAME}} {{PHASE_2_NAME}}（参考） | {{DOMAIN_A_PH2_MM}} | {{DOMAIN_A_PH2_LABOR}} | -- | {{DOMAIN_A_PH2_TOTAL}} | |
-| {{DOMAIN_B_NAME}} {{PHASE_2_NAME}}（参考） | {{DOMAIN_B_PH2_MM}} | {{DOMAIN_B_PH2_LABOR}} | -- | {{DOMAIN_B_PH2_TOTAL}} | |
-| **イニシャル合計** | **{{INITIAL_TOTAL_MM}}** | **{{INITIAL_TOTAL_LABOR}}** | **{{INITIAL_TOTAL_LICENSE}}** | **{{INITIAL_TOTAL}}** | |
+| **__DOMAIN_A_NAME__ __PHASE_1_NAME__** | __DOMAIN_A_PH1_MM__ | __DOMAIN_A_PH1_LABOR__ | __DOMAIN_A_PH1_LICENSE__ | **__DOMAIN_A_PH1_TOTAL__** | |
+| **__DOMAIN_B_NAME__ __PHASE_1_NAME__** | __DOMAIN_B_PH1_MM__ | __DOMAIN_B_PH1_LABOR__ | __DOMAIN_B_PH1_LICENSE__ | **__DOMAIN_B_PH1_TOTAL__** | |
+| __DOMAIN_A_NAME__ __PHASE_2_NAME__（参考） | __DOMAIN_A_PH2_MM__ | __DOMAIN_A_PH2_LABOR__ | -- | __DOMAIN_A_PH2_TOTAL__ | |
+| __DOMAIN_B_NAME__ __PHASE_2_NAME__（参考） | __DOMAIN_B_PH2_MM__ | __DOMAIN_B_PH2_LABOR__ | -- | __DOMAIN_B_PH2_TOTAL__ | |
+| **イニシャル合計** | **__INITIAL_TOTAL_MM__** | **__INITIAL_TOTAL_LABOR__** | **__INITIAL_TOTAL_LICENSE__** | **__INITIAL_TOTAL__** | |
 
 ---
 
-## 7. ランニングコスト（{{RUNNING_COST_YEARS}}年TCO）
+## 7. ランニングコスト（__RUNNING_COST_YEARS__年TCO）
 
-| 年度 | {{PLATFORM_NAME}} | クラウドインフラ | 保守・運用 | **合計** |
+| 年度 | __PLATFORM_NAME__ | クラウドインフラ | 保守・運用 | **合計** |
 |------|------------------|---------------|----------|---------|
-| {{FY_1}} | {{RUN_FY1_PLATFORM}} | {{RUN_FY1_CLOUD}} | {{RUN_FY1_MAINT}} | **{{RUN_FY1_TOTAL}}** |
-| {{FY_2}} | {{RUN_FY2_PLATFORM}} | {{RUN_FY2_CLOUD}} | {{RUN_FY2_MAINT}} | **{{RUN_FY2_TOTAL}}** |
-| {{FY_3}} | {{RUN_FY3_PLATFORM}} | {{RUN_FY3_CLOUD}} | {{RUN_FY3_MAINT}} | **{{RUN_FY3_TOTAL}}** |
-| {{FY_4}} | {{RUN_FY4_PLATFORM}} | {{RUN_FY4_CLOUD}} | {{RUN_FY4_MAINT}} | **{{RUN_FY4_TOTAL}}** |
-| {{FY_5}} | {{RUN_FY5_PLATFORM}} | {{RUN_FY5_CLOUD}} | {{RUN_FY5_MAINT}} | **{{RUN_FY5_TOTAL}}** |
-| **ランニング合計** | **{{RUN_TOTAL_PLATFORM}}** | **{{RUN_TOTAL_CLOUD}}** | **{{RUN_TOTAL_MAINT}}** | **{{RUN_TOTAL}}** |
+| __FY_1__ | __RUN_FY1_PLATFORM__ | __RUN_FY1_CLOUD__ | __RUN_FY1_MAINT__ | **__RUN_FY1_TOTAL__** |
+| __FY_2__ | __RUN_FY2_PLATFORM__ | __RUN_FY2_CLOUD__ | __RUN_FY2_MAINT__ | **__RUN_FY2_TOTAL__** |
+| __FY_3__ | __RUN_FY3_PLATFORM__ | __RUN_FY3_CLOUD__ | __RUN_FY3_MAINT__ | **__RUN_FY3_TOTAL__** |
+| __FY_4__ | __RUN_FY4_PLATFORM__ | __RUN_FY4_CLOUD__ | __RUN_FY4_MAINT__ | **__RUN_FY4_TOTAL__** |
+| __FY_5__ | __RUN_FY5_PLATFORM__ | __RUN_FY5_CLOUD__ | __RUN_FY5_MAINT__ | **__RUN_FY5_TOTAL__** |
+| **ランニング合計** | **__RUN_TOTAL_PLATFORM__** | **__RUN_TOTAL_CLOUD__** | **__RUN_TOTAL_MAINT__** | **__RUN_TOTAL__** |
 
 ---
 
@@ -193,21 +193,21 @@
 
 <!-- 見積の前提となる条件を列挙 -->
 
-1. {{ASSUMPTION_1}}
-2. {{ASSUMPTION_2}}
-3. {{ASSUMPTION_3}}
+1. __ASSUMPTION_1__
+2. __ASSUMPTION_2__
+3. __ASSUMPTION_3__
 
 ### 8.2 除外事項
 
 <!-- 見積範囲外の事項を明記 -->
 
-1. {{EXCLUSION_1}}
-2. {{EXCLUSION_2}}
-3. {{EXCLUSION_3}}
+1. __EXCLUSION_1__
+2. __EXCLUSION_2__
+3. __EXCLUSION_3__
 
 ### 8.3 見積リスク
 
 | # | リスク | 影響 | 対応策 |
 |---|--------|------|--------|
-| 1 | {{EST_RISK_1}} | {{EST_RISK_1_IMPACT}} | {{EST_RISK_1_MITIGATION}} |
+| 1 | __EST_RISK_1__ | __EST_RISK_1_IMPACT__ | __EST_RISK_1_MITIGATION__ |
 | 2 | | | |

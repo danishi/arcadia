@@ -100,13 +100,13 @@ platform/data/
 
 ## カスタマイズ
 
-テンプレートファイル (`.py.tmpl`) 内の `{{PLACEHOLDER}}` を自プロジェクトの値に置き換えて使用する。
+テンプレートファイル (`.py.tmpl`) 内の `__PLACEHOLDER__` を自プロジェクトの値に置き換えて使用する。
 
 | プレースホルダ | 説明 | 例 |
 |---------------|------|-----|
-| `{{PROJECT_SLUG}}` | プロジェクト識別子（英数字+アンダースコア） | `my_bank` |
-| `{{PLATFORM_TYPE}}` | 対象プラットフォーム | `databricks` |
-| `{{CATALOG_LOCATION}}` | Databricks: カタログのストレージパス | `s3://bucket/path` |
+| `__PROJECT_SLUG__` | プロジェクト識別子（英数字+アンダースコア） | `my_bank` |
+| `__PLATFORM_TYPE__` | 対象プラットフォーム | `databricks` |
+| `__CATALOG_LOCATION__` | Databricks: カタログのストレージパス | `s3://bucket/path` |
 
 ---
 

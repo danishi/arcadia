@@ -1,6 +1,6 @@
 # GCP Cloud Infrastructure Guide
 
-Google Cloud Platform上でのインフラストラクチャ構成ガイド。`{{CLOUD_PROVIDER}}` = `GCP` の場合に参照する。
+Google Cloud Platform上でのインフラストラクチャ構成ガイド。`__CLOUD_PROVIDER__` = `GCP` の場合に参照する。
 
 ---
 
@@ -15,30 +15,30 @@ Google Cloud Platform上でのインフラストラクチャ構成ガイド。`{
 
 ```
 GCP asia-northeast1 (Tokyo)
-├── VPC: {{VPC_NAME}}
+├── VPC: __VPC_NAME__
 │   ├── Subnet (コントロールプレーン通信用)
 │   │   └── Cloud NAT → Cloud Router（制限付き外部通信）
 │   ├── Subnet (データプレーン)
-│   │   ├── {{PLATFORM_NAME}} コンピュートリソース
+│   │   ├── __PLATFORM_NAME__ コンピュートリソース
 │   │   └── データ処理パイプライン
 │   └── Subnet (プライベート接続)
 │       ├── Private Service Connect (GCS)
-│       └── {{PLATFORM_NAME}} プライベート接続
+│       └── __PLATFORM_NAME__ プライベート接続
 │
 ├── Cloud Storage (GCS)
-│   ├── {{PROJECT_SLUG}}-landing       ← データ受信先
-│   ├── {{PROJECT_SLUG}}-raw           ← Raw層データ
-│   ├── {{PROJECT_SLUG}}-curated       ← 加工済データ
-│   ├── {{PROJECT_SLUG}}-analytics     ← 分析用データ
-│   ├── {{PROJECT_SLUG}}-staging       ← ワーク/一時データ
-│   ├── {{PROJECT_SLUG}}-archive       ← アーカイブ (Coldline/Archive)
-│   ├── {{PROJECT_SLUG}}-exchange      ← システム間データ交換用
-│   ├── {{PROJECT_SLUG}}-audit         ← 監査ログ長期保存
-│   └── {{PROJECT_SLUG}}-backup        ← バックアップ先
+│   ├── __PROJECT_SLUG__-landing       ← データ受信先
+│   ├── __PROJECT_SLUG__-raw           ← Raw層データ
+│   ├── __PROJECT_SLUG__-curated       ← 加工済データ
+│   ├── __PROJECT_SLUG__-analytics     ← 分析用データ
+│   ├── __PROJECT_SLUG__-staging       ← ワーク/一時データ
+│   ├── __PROJECT_SLUG__-archive       ← アーカイブ (Coldline/Archive)
+│   ├── __PROJECT_SLUG__-exchange      ← システム間データ交換用
+│   ├── __PROJECT_SLUG__-audit         ← 監査ログ長期保存
+│   └── __PROJECT_SLUG__-backup        ← バックアップ先
 │
 ├── IAM / セキュリティ
 │   ├── Cloud KMS (CMEK、AES-256)
-│   ├── Service Account（{{PLATFORM_NAME}}用）
+│   ├── Service Account（__PLATFORM_NAME__用）
 │   └── Cloud Audit Logs
 │
 └── 監視・運用
