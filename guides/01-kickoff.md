@@ -25,7 +25,7 @@ git clone https://github.com/your-org/{{PROJECT_SLUG}}.git
 cd {{PROJECT_SLUG}}
 ```
 
-> **Note**: ディレクトリ構造の作成は Step 2 の `/setup` コマンドが自動で行います。手動で作成する必要はありません。
+> **Note**: ディレクトリ構造の作成は Step 2 の `/setup` コマンド（Step 1）が自動で行います。手動で作成する必要はありません。
 
 ### Standard Directory Structure
 

@@ -75,6 +75,8 @@ All template files (`.tmpl`) use the following variables. Replace them during pr
 | `{{PROJECT_SLUG}}` | URL/directory-safe project identifier | "abc-bank-dwh" |
 | `{{DEMO_CONCEPT}}` | Demo app one-liner concept | "No SQL needed. Just talk to your data." |
 | `{{CURRENT_SYSTEM}}` | Current system being replaced | "Teradata + SAS CIS + SAS EG" |
+| `{{UNIT_RATE}}` | Standard man-month unit rate (10K JPY) for estimation baseline | "150" |
+| `{{DEMO_SECTIONS}}` | Navigation section definitions for demo app sidebar | (JSON or list of section names) |
 
 ### Variable Usage Rules
 
@@ -207,7 +209,7 @@ Setup procedure: `guides/01-kickoff.md` Step 1.5. Detail: `org-data/README.md`.
 
 ---
 
-### MCP Integration
+## 7. MCP Integration
 
 #### Required (all projects)
 
