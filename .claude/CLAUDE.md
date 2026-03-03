@@ -43,6 +43,7 @@ Responsible for (1) RFP analysis, (2) demo web app development, and (3) RFP resp
 ## Repository Structure
 
 ```
+input/                                  # Raw input files (drop RFP docs, references, memos here first)
 source/
   rfp.md                                # RFP main document
   rfp_reference/                        # Original reference documents
