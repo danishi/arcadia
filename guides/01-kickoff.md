@@ -111,7 +111,7 @@ Claude Code will:
 1. Create the standard directory structure (`docs/`, `RFP_answer/`, `src/`, etc.)
 2. Read the template from `.claude/CLAUDE.md.tmpl` and generate `.claude/CLAUDE.md`
 3. Generate `.claude/settings.json` from `.claude/settings.json.tmpl`
-4. Generate `.mcp.json`, `.gitignore`, `.env.example`
+4. Generate `.mcp.json`, `.env.example`
 5. Place document templates in `docs/rfp_answer_output/` with project variables applied
 
 ### Variable Quick Reference

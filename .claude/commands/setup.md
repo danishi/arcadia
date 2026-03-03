@@ -139,18 +139,13 @@ platform/
 
 > **注意**: Context7 MCP サーバーを使用するには、セットアップ完了後に `.mcp.json` の `CONTEXT7_API_KEY` を実際のキーに置き換えてください。
 
-### Step 7: .gitignore の生成
-
-1. `templates/.gitignore.tmpl` を読み込む
-2. そのまま `.gitignore` に書き出す（変数なし）
-
-### Step 8: 環境変数テンプレートの配置
+### Step 7: 環境変数テンプレートの配置
 
 1. `templates/env-example.tmpl` を読み込む
 2. `{{PLATFORM_TYPE}}` 等を置換する
 3. `.env.example` として書き出す
 
-### Step 9: docs テンプレートの配置
+### Step 8: docs テンプレートの配置
 
 以下のテンプレートを読み込み、**キックオフ段階で確定しているプロジェクト基本変数のみ**（`CLIENT_NAME`, `PROPOSER_NAME`, `PLATFORM_NAME`, `CLOUD_PROVIDER`, `DEADLINE`, `PRESENTATION_DATE` 等）を置換して配置してください。それ以外の `{{VARIABLE}}` はそのまま残してください（フェーズ2以降で埋める）:
 
@@ -162,7 +157,7 @@ platform/
 | `templates/docs/estimation-policy.md.tmpl` | `docs/rfp_answer_output/estimation-policy.md` |
 | `templates/docs/architecture-plan/architecture-policy.md.tmpl` | `docs/rfp_answer_output/architecture-plan/architecture-policy.md` |
 
-### Step 10: 完了レポート
+### Step 9: 完了レポート
 
 セットアップ完了後、以下を表示してください:
 
