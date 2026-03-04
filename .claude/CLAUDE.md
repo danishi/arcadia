@@ -82,7 +82,7 @@ arcadia/org-data/                       # Organization-specific data (rate cards
 | **proposal-writer** | Proposal document drafting assistance (references `arcadia/org-data/`) |
 | **estimation-advisor** | Cost estimation and WBS generation (references `arcadia/org-data/rate-card.md`) |
 | **demo-builder** | Demo app scaffolding and mock data |
-| **data-import** | Incremental data import from `input/` to `source/` with auto-categorization & catalog update (`.claude/skills/data-import/`) |
+| **data-import** | Incremental data import from `input/` to `source/` or `org-data/` with auto-categorization & catalog update (`.claude/skills/data-import/`) |
 | **nanobanana** | AI image generation/editing for diagrams & slides (auto-selects Pro / Flash based on complexity) (`.claude/skills/nanobanana/`) |
 | **example-skills** | Frontend design, document co-authoring, web app testing, PDF/PPTX/DOCX/XLSX generation |
 | **document-skills** | Document generation skills (same family as example-skills) |

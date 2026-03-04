@@ -1,8 +1,8 @@
 ---
 name: data-import
-description: "プロジェクト進行中に追加資料を取り込むスキル。input/配下のファイルを自動分類し、source/の適切な場所に配置する。docs-catalogの差分更新も実施。"
+description: "プロジェクト進行中に追加資料を取り込むスキル。input/配下のファイルを自動分類し、source/ または org-data/ の適切な場所に配置する。docs-catalogの差分更新も実施。"
 user-invocable: true
-argument-hint: "[カテゴリヒント: rfp|reference|minutes|all] [--dry-run]"
+argument-hint: "[カテゴリヒント: rfp|reference|minutes|org-data|all] [--dry-run]"
 allowed-tools: Read, Grep, Glob, Write, Edit, Bash
 ---
 
@@ -10,17 +10,31 @@ allowed-tools: Read, Grep, Glob, Write, Edit, Bash
 
 ## 概要
 
-本スキルは、プロジェクト進行中に受領した追加資料を `input/` フォルダから `source/` 配下の適切な場所に取り込む。
+本スキルは、プロジェクト進行中に受領した追加資料を `input/` フォルダから **`source/`（案件固有情報）** または **`org-data/`（組織横断情報）** 配下の適切な場所に取り込む。
 `/setup` の初回インポート（Step 2）とは異なり、**既存のプロジェクト構造を前提**として動作し、
 差分インポート・重複検知・カタログ更新を行う。
 
+### 振り分け先の2軸
+
+| 軸 | 振り分け先 | 内容 | ライフサイクル |
+|---|-----------|------|-------------|
+| 案件固有 | `source/` | RFP、参考資料、議事録等 | 案件ごとに新規作成 |
+| 組織横断 | `org-data/` | 単価表、サービスカタログ、会社概要、ホワイトペーパー等 | 組織で維持・更新 |
+
 ### 主な利用シーン
 
+**案件固有資料:**
 - RFP追加質問への回答書を受領した
 - 新しい参考資料・別紙が追加で送付された
 - 打ち合わせ後の議事録を追加したい
 - 現行システムの設計書が追加で入手できた
 - RFP正誤表・修正版が届いた
+
+**組織横断資料:**
+- 単価表（rate card）が四半期改定で更新された
+- 新サービスのカタログ情報を追加したい
+- 会社概要に新しい導入実績を追加したい
+- 新しいホワイトペーパーを登録したい
 
 ---
 
@@ -28,8 +42,11 @@ allowed-tools: Read, Grep, Glob, Write, Edit, Bash
 
 ### Step 1: 前提確認
 
-1. `source/` ディレクトリの存在を確認する。存在しない場合はエラー:
-   > `source/` ディレクトリが見つかりません。先に `/setup` を実行してプロジェクトを初期化してください。
+1. 振り分け先ディレクトリの存在を確認する:
+   - `source/` が存在しない **かつ** `org-data/` も存在しない場合はエラー:
+     > `source/` および `org-data/` ディレクトリが見つかりません。先に `/setup` を実行してプロジェクトを初期化してください。
+   - `source/` のみ未存在の場合: 案件固有資料のインポートは不可。`org-data/` 向けのみ実行可能と案内
+   - `org-data/` のみ未存在の場合: 組織横断資料のインポートは不可。`source/` 向けのみ実行可能と案内
 
 2. `input/` フォルダ内のファイルを列挙する（再帰的に走査）
 3. `.gitkeep` 等の管理ファイルを除外する
@@ -49,17 +66,33 @@ allowed-tools: Read, Grep, Glob, Write, Edit, Bash
 
 #### 自動分類ルール
 
+ファイルはまず **org-data（組織横断）** → **source（案件固有）** の順に判定する。`input/` 直下にサブフォルダ `org-data/` または `source/` を作成して明示的に振り分けることも可能。
+
+**org-data/ 向け（組織横断資料）:**
+
 | 優先度 | 判定条件 | カテゴリ | 振り分け先 |
 |--------|---------|---------|-----------|
-| 1 | ファイル名に「議事」「メモ」「minutes」「meeting」「ヒアリング」を含む | 議事録 | `source/minutes/` |
-| 2 | ファイル名に「Q&A」「質問」「回答」「clarification」を含む | RFP Q&A | `source/rfp_reference/qa/` |
-| 3 | ファイル名に「正誤」「訂正」「errata」「amendment」「修正版」を含む | RFP修正 | `source/rfp_reference/amendments/` |
-| 4 | ファイル名に「RFP」「提案依頼」を含む、かつ `source/rfp.md` が既に存在 | RFP追補 | `source/rfp_reference/` |
-| 5 | ファイル名に「RFP」「提案依頼」を含む、かつ `source/rfp.md` が未存在 | RFP本体 | `source/` |
-| 6 | ファイル名に「見積」「estimate」「pricing」「単価」を含む | 見積関連 | `source/rfp_reference/estimation/` |
-| 7 | ファイル名に「設計」「仕様」「spec」「design」「IF」「インターフェース」「バッチ」を含む | 技術仕様 | `source/rfp_reference/specs/` |
-| 8 | ファイル名に「セキュリティ」「security」「規定」「ガイドライン」を含む | セキュリティ | `source/rfp_reference/security/` |
-| 9 | 上記いずれにも該当しない | その他参考資料 | `source/rfp_reference/` |
+| O1 | ファイル名に「単価」「rate」「原価」「人月」を含む | 単価表 | `org-data/rate-card.md` を更新 |
+| O2 | ファイル名に「サービス」「service」「catalog」「製品」「product」を含む | サービスカタログ | `org-data/service-catalog.md` を更新 |
+| O3 | ファイル名に「会社概要」「company」「profile」「実績」「導入事例」「case study」を含む | 会社概要 | `org-data/company-profile.md` を更新 |
+| O4 | ファイル名に「whitepaper」「ホワイトペーパー」「技術資料」「white paper」を含む | ホワイトペーパー | `org-data/whitepapers/` |
+| O5 | `input/org-data/` サブフォルダ内に配置されている | 組織横断（手動指定） | ファイル名・内容から O1-O4 を再判定。該当なしなら `org-data/` 直下 |
+
+**source/ 向け（案件固有資料）:**
+
+| 優先度 | 判定条件 | カテゴリ | 振り分け先 |
+|--------|---------|---------|-----------|
+| S1 | ファイル名に「議事」「メモ」「minutes」「meeting」「ヒアリング」を含む | 議事録 | `source/minutes/` |
+| S2 | ファイル名に「Q&A」「質問」「回答」「clarification」を含む | RFP Q&A | `source/rfp_reference/qa/` |
+| S3 | ファイル名に「正誤」「訂正」「errata」「amendment」「修正版」を含む | RFP修正 | `source/rfp_reference/amendments/` |
+| S4 | ファイル名に「RFP」「提案依頼」を含む、かつ `source/rfp.md` が既に存在 | RFP追補 | `source/rfp_reference/` |
+| S5 | ファイル名に「RFP」「提案依頼」を含む、かつ `source/rfp.md` が未存在 | RFP本体 | `source/` |
+| S6 | ファイル名に「見積」「estimate」「pricing」を含む（※「単価」は O1 が優先） | 見積関連 | `source/rfp_reference/estimation/` |
+| S7 | ファイル名に「設計」「仕様」「spec」「design」「IF」「インターフェース」「バッチ」を含む | 技術仕様 | `source/rfp_reference/specs/` |
+| S8 | ファイル名に「セキュリティ」「security」「規定」「ガイドライン」を含む | セキュリティ | `source/rfp_reference/security/` |
+| S9 | 上記いずれにも該当しない | その他参考資料 | `source/rfp_reference/` |
+
+> **判定の曖昧さへの対処**: org-data と source のどちらにも該当しうるファイル（例: 「単価」を含むがRFP添付の単価表の場合）は、ユーザーに確認する。
 
 #### 内容ベースの補助判定
 
@@ -70,7 +103,16 @@ allowed-tools: Read, Grep, Glob, Write, Edit, Bash
 
 #### 既存サブディレクトリの活用
 
-`source/rfp_reference/` 配下に既にサブディレクトリが存在する場合（例: セットアップ時に作られたカテゴリ別フォルダ）、ファイル内容が既存カテゴリに合致すればそのディレクトリに振り分ける。
+- `source/rfp_reference/` 配下に既にサブディレクトリが存在する場合（例: セットアップ時に作られたカテゴリ別フォルダ）、ファイル内容が既存カテゴリに合致すればそのディレクトリに振り分ける
+- `org-data/whitepapers/` 配下に既にサブディレクトリが存在する場合、同様に活用する
+
+#### org-data ファイルの更新方式
+
+org-data の既存ファイル（`rate-card.md`, `service-catalog.md`, `company-profile.md`）は**マスターデータ**であり、単純な上書きではなく以下の方式で取り込む:
+
+1. **テキストファイル（`.md`, `.txt`）の場合**: 既存ファイルの内容と新規ファイルの内容を比較し、差分をユーザーに提示。ユーザーが承認した変更のみ反映
+2. **バイナリファイル（PDF, Excel等）の場合**: `org-data/` 配下に配置し、対応する `.md` ファイルに参照リンクを追記
+3. **ホワイトペーパーの場合**: `org-data/whitepapers/` にファイルを配置し、`index.md` にエントリを追記
 
 ### Step 3: 重複・更新検知
 
@@ -126,7 +168,15 @@ allowed-tools: Read, Grep, Glob, Write, Edit, Bash
 3. **存在しない場合**: 更新はスキップし、以下のメッセージを表示:
    > `docs-catalog.md` が未生成です。RFP分析（Phase 1）で生成する際に、今回インポートしたファイルも含まれます。
 
-#### 5b. インポートログの記録
+#### 5b. org-data インデックス更新
+
+`org-data/` 配下にファイルが追加・更新された場合:
+
+1. **ホワイトペーパー追加時**: `org-data/whitepapers/index.md` に新規エントリを追記（タイトル、タグ、要約、ファイルパス）
+2. **マスターデータ更新時**: 更新内容のサマリを生成し、影響を受けるスキル（estimation-advisor, proposal-writer）をリストアップ:
+   > `rate-card.md` を更新しました。estimation-advisor が次回実行時に新しい単価を参照します。
+
+#### 5c. インポートログの記録
 
 `source/import-log.md` にインポート履歴を追記する:
 
@@ -139,17 +189,19 @@ allowed-tools: Read, Grep, Glob, Write, Edit, Bash
 | meeting_0301.md | 議事録 | source/minutes/ | 新規 |
 ```
 
-#### 5c. 完了サマリ
+#### 5d. 完了サマリ
 
 > **インポート完了:**
 >
-> - 取り込みファイル数: X件
+> - 取り込みファイル数: X件（source: A件 / org-data: B件）
 > - 新規ディレクトリ作成: Y件
 > - カタログ更新: 済/スキップ
+> - org-data 更新: 済/なし
 >
 > **次のステップ:**
 > - RFP要件チェックリストの更新が必要な場合は、rfp-auditor の references を再生成してください
 > - 提案戦略への影響がある資料の場合は、`proposal-strategy.md` の見直しを推奨します
+> - org-data の単価表を更新した場合は、見積方針書（`estimation-policy.md`）の見直しを推奨します
 
 ---
 
@@ -161,10 +213,11 @@ allowed-tools: Read, Grep, Glob, Write, Edit, Bash
 
 | ヒント | 動作 |
 |-------|------|
-| `rfp` | RFP関連（本体・追補・修正）のみインポート |
-| `reference` | 参考資料のみインポート |
-| `minutes` | 議事録のみインポート |
-| `all`（デフォルト） | 全ファイルをインポート |
+| `rfp` | RFP関連（本体・追補・修正）のみインポート → `source/` |
+| `reference` | 参考資料のみインポート → `source/rfp_reference/` |
+| `minutes` | 議事録のみインポート → `source/minutes/` |
+| `org-data` | 組織横断資料のみインポート → `org-data/` |
+| `all`（デフォルト） | 全ファイルを自動分類してインポート |
 
 ### --dry-run
 
@@ -175,7 +228,9 @@ allowed-tools: Read, Grep, Glob, Write, Edit, Bash
 ## 注意事項
 
 - バイナリファイル（PDF, Excel, Word等）はそのまま移動する。テキスト変換は行わない
-- `source/` ディレクトリが存在しない場合は `/setup` の実行を促す
+- `source/` と `org-data/` がどちらも存在しない場合は `/setup` の実行を促す
 - 大量ファイル（20件超）の場合はバッチ処理モードで実行し、10件ずつ確認を挟む
 - 機密ファイル（`.env`, `.key`, `credentials` 等を含むファイル名）はインポート対象外。警告を表示する
 - RFP本体（`source/rfp.md`）の置き換えはユーザーの明示的な承認が必須
+- `org-data/` のマスターデータ（`rate-card.md`, `service-catalog.md`, `company-profile.md`）の更新は差分提示+承認方式。誤って全内容が上書きされないよう保護する
+- `org-data/` は案件固有でなく組織横断のデータ。案件固有の単価情報等は `source/rfp_reference/estimation/` に振り分けること
