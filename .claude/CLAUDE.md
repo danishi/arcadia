@@ -47,12 +47,14 @@ Responsible for (1) RFP analysis, (2) demo web app development, and (3) RFP resp
 
 | Path | Purpose |
 |------|---------|
+| `input/` | Universal intake — all documents go here; `data-import` skill auto-classifies to `source/` or `org-data/` |
 | `source/rfp.md` | RFP main document |
 | `source/rfp_reference/` | Original reference documents |
 | `source/rfp_answer_output/` | Intermediate deliverables (strategy, checklist, estimation, architecture, migration) |
+| `source/minutes/` | Meeting notes, hearing memos |
 | `output/` | Final deliverables (PPTX, XLSX) |
 | `demo-app/` | Demo app (Next.js App Router + TypeScript) |
-| `org-data/` | Organization-specific data (rate cards, services, etc.) |
+| `org-data/` | Organization-specific data (rate cards, services, whitepapers, etc.) |
 
 > Full directory structure & skill list: see `README.md`
 
