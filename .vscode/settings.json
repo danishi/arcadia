@@ -1,0 +1,72 @@
+{
+  // ── Editor ──────────────────────────────────────────
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+
+  // ── TypeScript ──────────────────────────────────────
+  "typescript.tsdk": "demo-app/node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+
+  // ── ESLint ──────────────────────────────────────────
+  "eslint.useFlatConfig": true,
+  "eslint.workingDirectories": ["demo-app"],
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+
+  // ── Tailwind CSS IntelliSense ───────────────────────
+  "tailwindCSS.rootFontSize": 16,
+  "tailwindCSS.experimental.classRegex": [
+    ["clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
+    ["cn\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
+  ],
+  "tailwindCSS.includeLanguages": {
+    "typescriptreact": "html"
+  },
+
+  // ── File Associations ───────────────────────────────
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "emmet.includeLanguages": {
+    "typescriptreact": "html"
+  },
+
+  // ── Search / Explorer Exclusions ────────────────────
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.next": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/.git": true
+  },
+  "files.exclude": {
+    "**/.next": true,
+    "**/node_modules": true
+  },
+
+  // ── Markdown ────────────────────────────────────────
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.wordWrap": "on"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
