@@ -184,7 +184,19 @@ Phase 2 (Strategy)          ← 順次: Phase 1 完了必須
               │
               v
          Phase 7 (Review)   ← 継続的; 最終チェックは全フェーズ完了後
+              │
+              v
+         Refinement         ← 反復ループ: 対話的に成果物を修正・改善
 ```
+
+### Refinement モードでの復帰
+
+Phase 7 完了後に Refinement モードに入っている場合、復帰時は以下を確認する:
+
+1. phase-state.md の全フェーズが `completed` であること
+2. Refinement セクションの修正履歴と追加取込資料を確認
+3. Session Log の直近のエントリから、前回の作業内容を把握
+4. ユーザーに「前回の続きから修正を続けますか？」と確認
 
 ---
 
