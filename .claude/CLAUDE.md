@@ -48,6 +48,7 @@ source/
   rfp.md                                # RFP main document
   rfp_reference/                        # Original reference documents
     (organized by source category)
+  import-log.md                         # Data import history (auto-maintained by data-import skill)
   rfp_answer_output/                    # Intermediate deliverables
     proposal-strategy.md                #   Win strategy
     proposal-items-checklist.md         #   Deliverable item checklist
@@ -81,6 +82,7 @@ arcadia/org-data/                       # Organization-specific data (rate cards
 | **proposal-writer** | Proposal document drafting assistance (references `arcadia/org-data/`) |
 | **estimation-advisor** | Cost estimation and WBS generation (references `arcadia/org-data/rate-card.md`) |
 | **demo-builder** | Demo app scaffolding and mock data |
+| **data-import** | Incremental data import from `input/` to `source/` with auto-categorization & catalog update (`.claude/skills/data-import/`) |
 | **nanobanana** | AI image generation/editing for diagrams & slides (auto-selects Pro / Flash based on complexity) (`.claude/skills/nanobanana/`) |
 | **example-skills** | Frontend design, document co-authoring, web app testing, PDF/PPTX/DOCX/XLSX generation |
 | **document-skills** | Document generation skills (same family as example-skills) |
