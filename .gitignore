@@ -36,5 +36,9 @@ next-env.d.ts
 # MCP configuration (may contain API keys)
 .mcp.json
 
+# Temp directory (AI working files)
+tmp/*
+!tmp/.gitkeep
+
 # Misc
 *.pem

@@ -55,6 +55,7 @@ Responsible for (1) RFP analysis, (2) demo web app development, and (3) RFP resp
 | `output/` | Final deliverables (PPTX, XLSX) |
 | `demo-app/` | Demo app (Next.js App Router + TypeScript) |
 | `org-data/` | Organization-specific data (rate cards, services, whitepapers, etc.) |
+| `tmp/` | AI working directory for temporary files (Git-ignored except `.gitkeep`) |
 
 > Full directory structure & skill list: see `README.md`
 
