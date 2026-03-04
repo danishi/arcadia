@@ -1,0 +1,22 @@
+{
+  "recommendations": [
+    // ESLint - リンター
+    "dbaeumer.vscode-eslint",
+    // Tailwind CSS IntelliSense - クラス名補完・ホバー表示
+    "bradlc.vscode-tailwindcss",
+    // PostCSS Language Support - Tailwind v4の@theme等のCSS構文サポート
+    "csstools.postcss",
+    // Prettier - Markdown/JSON フォーマッター
+    "esbenp.prettier-vscode",
+    // Next.js snippets
+    "pulkitgangwar.nextjs-snippets",
+    // Error Lens - インラインエラー表示
+    "usernamehw.errorlens",
+    // GitLens - Git履歴・blame表示
+    "eamodio.gitlens",
+    // Draw.io - .drawioファイル編集
+    "hediet.vscode-drawio",
+    // Markdown All in One - Markdown編集強化
+    "yzhang.markdown-all-in-one"
+  ]
+}
