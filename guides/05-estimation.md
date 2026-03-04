@@ -1,27 +1,27 @@
-# Phase 4: Estimation Guide
+# Phase 4: 見積ガイド
 
 見積方針の策定、工数算出、コスト構造の設計を行うフェーズ。
 
 ---
 
-## Overview
+## 概要
 
-| Attribute | Value |
-|-----------|-------|
-| Phase | 4. Estimation |
-| Duration | 2-3 days |
-| Human/AI Split | 50% / 50% |
-| Primary Actor | Shared (PM + Claude Code) |
-| Parallelizable | Yes -- Phase 3 (Design), Phase 5 (Proposal) と並行可能 |
+| 項目 | 値 |
+|------|-------|
+| フェーズ | 4. Estimation（見積） |
+| 所要期間 | 2-3日 |
+| 人間/AI比率 | 50% / 50% |
+| 主担当 | 共同作業（PM + Claude Code） |
+| 並行可否 | 可 -- Phase 3（設計）、Phase 5（提案書作成）と並行可能 |
 
 戦略とアーキテクチャ設計に基づき、工数見積・ライセンスコスト・TCOを算出する。人間が単価設定・ベンダー見積入手・最終承認を担い、AIがWBS生成・工数計算・整合性チェックを行う。
 
 ---
 
-## Input
+## インプット
 
-| Item | Source | Description |
-|------|--------|-------------|
+| 項目 | ソース | 説明 |
+|------|--------|------|
 | `proposal-strategy.md` | `source/rfp_answer_output/` | Ph1/Ph2スコープ、提案範囲 |
 | `architecture-policy.md` | `source/rfp_answer_output/architecture-plan/` | 技術スタック、コンポーネント構成 |
 | `ph1-migration-requirements.md` | `source/rfp_answer_output/migration-plan/` | 移行対象の棚卸し結果 |
@@ -30,10 +30,10 @@
 
 ---
 
-## Output
+## アウトプット
 
-| Deliverable | Location | Description |
-|-------------|----------|-------------|
+| 成果物 | 出力先 | 説明 |
+|--------|--------|------|
 | `estimation-policy.md` | `source/rfp_answer_output/` | 見積方針書（前提条件、単価、算出ロジック） |
 | WBS | `source/rfp_answer_output/` | 工程別作業分解構造 |
 | コスト内訳シート | `source/rfp_answer_output/` or `output/` | フェーズ別・ロール別の詳細コスト表 |
@@ -41,7 +41,7 @@
 
 ---
 
-## Human Tasks
+## 人間の作業
 
 人間が判断・実行すべき作業:
 
@@ -55,7 +55,7 @@
 
 ---
 
-## Claude Code Instructions
+## Claude Codeへの指示
 
 以下の指示文をClaude Codeにコピペして使用する。
 
@@ -111,16 +111,16 @@ RFP参照資料の見積回答テンプレートを読み取り、estimation-pol
 
 ---
 
-## Skills Used
+## 使用スキル
 
-| Skill | Purpose |
-|-------|---------|
+| スキル | 用途 |
+|--------|------|
 | `estimation-advisor` | WBS生成、工数計算、見積整合性チェック |
 | `rfp-auditor` | 見積対象範囲がRFP要件を網羅しているか検証 |
 
 ---
 
-## Checklist
+## 完了チェックリスト
 
 Phase完了の判定基準:
 
@@ -137,7 +137,7 @@ Phase完了の判定基準:
 
 ---
 
-## Tips
+## ヒント
 
 - 見積は「戦略」の数値的表現。戦略（攻め/守り）と見積額が矛盾しないよう注意する
 - プラットフォーム利用料はベンダー公式の料金表・見積ツールを参照する。AI生成の概算は参考値として明記する
@@ -147,7 +147,7 @@ Phase完了の判定基準:
 
 ---
 
-## Next Step
+## 次のステップ
 
 Phase 4完了後:
 

@@ -137,7 +137,7 @@ export function ChartWrapper({
               cx="50%"
               cy="50%"
               outerRadius={height / 3}
-              label={({ label, percent }) => `${label}: ${(percent * 100).toFixed(0)}%`}
+              label={({ name, percent }: { name: string; percent: number }) => `${name}: ${(percent * 100).toFixed(0)}%`}
             >
               {data.map((_, index) => (
                 <Cell key={index} fill={CHART_COLORS[index % CHART_COLORS.length]} />

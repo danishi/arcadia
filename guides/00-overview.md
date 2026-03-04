@@ -1,10 +1,10 @@
-# ARCADIA Workflow Overview
+# ARCADIA ワークフロー概要
 
-The 7 phases of an ARCADIA-driven RFP response.
+ARCADIA によるRFP回答の7つのフェーズ。
 
 ---
 
-## Phase Flow
+## フェーズフロー
 
 ```
 [1. Research] --> [2. Strategy] --> [3. Design] --> [4. Estimation]
@@ -15,286 +15,286 @@ The 7 phases of an ARCADIA-driven RFP response.
                                         +-----> [7. Review] <----+
 ```
 
-Phases 1-2 are sequential. Phases 3-6 can overlap. Phase 7 runs continuously and intensifies at the end.
+Phase 1-2 は順次実行。Phase 3-6 は並行可能。Phase 7 は継続的に実施し、最終段階で集中的に行う。
 
 ---
 
-## Phase 1: Research
+## Phase 1: Research（調査）
 
-**RFP analysis, reference document cataloging, requirement extraction**
+**RFP分析、参照ドキュメントのカタログ化、要件抽出**
 
-| Attribute | Value |
-|-----------|-------|
-| Duration | 2-3 days |
-| Human/AI Split | 20% / 80% |
-| Primary Actor | AI (Claude Code) |
-| Human Role | Provide RFP documents, validate extraction accuracy |
+| 項目 | 値 |
+|------|-------|
+| 所要期間 | 2-3日 |
+| 人間/AI比率 | 20% / 80% |
+| 主担当 | AI（Claude Code） |
+| 人間の役割 | RFPドキュメントの提供、抽出結果の精度検証 |
 
-### Deliverables
+### 成果物
 
-| Deliverable | Description | Location |
-|-------------|-------------|----------|
-| `docs-catalog.md` | Catalog of all reference documents with metadata | `.claude/skills/rfp-auditor/references/` |
-| `rfp-requirements-checklist.md` | Structured list of all RFP requirements | `.claude/skills/rfp-auditor/references/` |
-| RFP summary | Executive summary of the RFP | `source/rfp_answer_output/` |
+| 成果物 | 説明 | 出力先 |
+|--------|------|--------|
+| `docs-catalog.md` | 全参照ドキュメントのカタログ（メタデータ付き） | `.claude/skills/rfp-auditor/references/` |
+| `rfp-requirements-checklist.md` | RFP要件の構造化チェックリスト | `.claude/skills/rfp-auditor/references/` |
+| RFPサマリー | RFPのエグゼクティブサマリー | `source/rfp_answer_output/` |
 
-### Skills Used
+### 使用スキル
 
-- `rfp-auditor` -- Extracts and catalogs requirements
-- MCP: `context7` -- Looks up technology documentation referenced in RFP
+- `rfp-auditor` -- 要件の抽出・カタログ化
+- MCP: `context7` -- RFPで言及されている技術ドキュメントの参照
 
-### Activities
+### 作業内容
 
-1. Claude Code reads and parses the RFP document
-2. Reference documents are cataloged (file path, type, page count, key contents)
-3. Requirements are extracted into a structured checklist
-4. Domain terminology is identified and added to CLAUDE.md
-5. Human reviews and corrects the extraction results
-
----
-
-## Phase 2: Strategy
-
-**Win strategy definition, scope confirmation, competitive positioning**
-
-| Attribute | Value |
-|-----------|-------|
-| Duration | 2-3 days |
-| Human/AI Split | 60% / 40% |
-| Primary Actor | Human (Strategy Lead) |
-| Human Role | Define win themes, approve scope, set pricing direction |
-
-### Deliverables
-
-| Deliverable | Description | Location |
-|-------------|-------------|----------|
-| `proposal-strategy.md` | Win strategy with themes, differentiators, risks | `source/rfp_answer_output/` |
-| `proposal-items-checklist.md` | Complete list of proposal deliverable items | `source/rfp_answer_output/` |
-| Scope matrix | Ph1/Ph2 scope breakdown | `source/rfp_answer_output/` |
-
-### Skills Used
-
-- `rfp-auditor` -- Cross-references strategy against requirements
-- `proposal-writer` -- Drafts strategy document structure
-
-### Activities
-
-1. Human defines win themes and differentiators
-2. Claude Code drafts proposal-strategy.md based on human input + RFP analysis
-3. Claude Code generates the proposal items checklist from RFP requirements
-4. Human reviews and approves scope boundaries (Ph1 vs Ph2)
-5. Strategy document is finalized as the reference for all subsequent phases
+1. Claude CodeがRFPドキュメントを読み取り・解析する
+2. 参照ドキュメントをカタログ化する（ファイルパス、種類、ページ数、主要内容）
+3. 要件を構造化チェックリストとして抽出する
+4. ドメイン用語を特定し、CLAUDE.mdに追加する
+5. 人間が抽出結果をレビュー・修正する
 
 ---
 
-## Phase 3: Design
+## Phase 2: Strategy（戦略策定）
 
-**Architecture design, migration planning, technical approach**
+**Win戦略の定義、スコープ確認、競合ポジショニング**
 
-| Attribute | Value |
-|-----------|-------|
-| Duration | 3-5 days |
-| Human/AI Split | 40% / 60% |
-| Primary Actor | AI (Claude Code) with architect review |
-| Human Role | Validate architecture decisions, approve migration approach |
+| 項目 | 値 |
+|------|-------|
+| 所要期間 | 2-3日 |
+| 人間/AI比率 | 60% / 40% |
+| 主担当 | 人間（戦略リード） |
+| 人間の役割 | Winテーマの定義、スコープ承認、価格方針の設定 |
 
-### Deliverables
+### 成果物
 
-| Deliverable | Description | Location |
-|-------------|-------------|----------|
-| `architecture-policy.md` | Design principles, ADRs, security, infrastructure | `source/rfp_answer_output/architecture-plan/` |
-| Logical architecture diagrams | Per-phase logical views | `source/rfp_answer_output/architecture-plan/` |
-| Physical architecture diagrams | Per-phase physical/infra views | `source/rfp_answer_output/architecture-plan/` |
-| `ph1-migration-requirements.md` | Migration requirements and approach | `source/rfp_answer_output/migration-plan/` |
-| Migration design diagrams | Current state, target state, data flow, schedule | `source/rfp_answer_output/migration-plan/` |
+| 成果物 | 説明 | 出力先 |
+|--------|------|--------|
+| `proposal-strategy.md` | Win戦略書（テーマ、差別化ポイント、リスク） | `source/rfp_answer_output/` |
+| `proposal-items-checklist.md` | 提案書提出物の完全なリスト | `source/rfp_answer_output/` |
+| スコープマトリクス | Ph1/Ph2のスコープ分割表 | `source/rfp_answer_output/` |
 
-### Skills Used
+### 使用スキル
 
-- `rfp-auditor` -- Validates design against RFP requirements
-- MCP: `drawio` -- Generates architecture and migration diagrams
-- MCP: `context7` -- Looks up platform documentation
-- Platform-specific skills -- Platform best practices
+- `rfp-auditor` -- 戦略と要件のクロスリファレンス
+- `proposal-writer` -- 戦略書の構造ドラフト生成
 
-### Activities
+### 作業内容
 
-1. Claude Code drafts architecture policy based on RFP requirements + strategy
-2. Logical and physical architecture diagrams are generated via DrawIO MCP
-3. Migration approach is designed (current state analysis, target state, data flow)
-4. ADRs are written for key decisions
-5. Architect reviews and provides feedback; Claude Code iterates
+1. 人間がWinテーマと差別化ポイントを定義する
+2. Claude Codeが人間のインプット+RFP分析に基づき `proposal-strategy.md` をドラフトする
+3. Claude CodeがRFP要件から提案書チェックリストを生成する
+4. 人間がスコープ境界（Ph1 vs Ph2）をレビュー・承認する
+5. 戦略書が以降の全フェーズの基準として確定する
 
 ---
 
-## Phase 4: Estimation
+## Phase 3: Design（設計）
 
-**Effort calculation, cost breakdown, pricing strategy**
+**アーキテクチャ設計、移行計画策定、技術的アプローチの定義**
 
-| Attribute | Value |
-|-----------|-------|
-| Duration | 2-3 days |
-| Human/AI Split | 50% / 50% |
-| Primary Actor | Shared (PM + Claude Code) |
-| Human Role | Set unit rates, validate effort estimates, approve pricing |
+| 項目 | 値 |
+|------|-------|
+| 所要期間 | 3-5日 |
+| 人間/AI比率 | 40% / 60% |
+| 主担当 | AI（Claude Code）+ アーキテクトレビュー |
+| 人間の役割 | アーキテクチャ判断の検証、移行方針の承認 |
 
-### Deliverables
+### 成果物
 
-| Deliverable | Description | Location |
-|-------------|-------------|----------|
-| `estimation-policy.md` | Estimation methodology, unit rates, assumptions | `source/rfp_answer_output/` |
-| Cost breakdown sheets | Detailed per-phase, per-role cost tables | `source/rfp_answer_output/` |
-| WBS | Work Breakdown Structure | `source/rfp_answer_output/` |
+| 成果物 | 説明 | 出力先 |
+|--------|------|--------|
+| `architecture-policy.md` | 設計原則、ADR、セキュリティ方針、インフラ方針 | `source/rfp_answer_output/architecture-plan/` |
+| 論理構成図 | フェーズ別の論理アーキテクチャ図 | `source/rfp_answer_output/architecture-plan/` |
+| 物理構成図 | フェーズ別の物理/インフラ構成図 | `source/rfp_answer_output/architecture-plan/` |
+| `ph1-migration-requirements.md` | 移行要件定義書 | `source/rfp_answer_output/migration-plan/` |
+| 移行設計図 | 現行構成、移行後構成、データフロー、スケジュール | `source/rfp_answer_output/migration-plan/` |
 
-### Skills Used
+### 使用スキル
 
-- `estimation-advisor` -- Calculates effort from scope items
-- `rfp-auditor` -- Ensures all required cost items are covered
+- `rfp-auditor` -- 設計内容とRFP要件の整合性検証
+- MCP: `drawio` -- アーキテクチャ図・移行設計図の生成
+- MCP: `context7` -- プラットフォームドキュメントの参照
+- プラットフォーム固有スキル -- プラットフォームのベストプラクティス
 
-### Activities
+### 作業内容
 
-1. Human provides unit rates and pricing constraints
-2. Claude Code generates WBS from scope matrix and architecture plan
-3. Effort is estimated per WBS item using historical ratios
-4. Platform licensing costs are calculated (referencing vendor pricing)
-5. Human reviews and adjusts estimates; final pricing is approved
-
----
-
-## Phase 5: Proposal
-
-**Multi-volume proposal document creation**
-
-| Attribute | Value |
-|-----------|-------|
-| Duration | 5-7 days |
-| Human/AI Split | 40% / 60% |
-| Primary Actor | AI (Claude Code) with editorial review |
-| Human Role | Review drafts, refine messaging, approve final content |
-
-### Deliverables
-
-| Deliverable | Description | Location |
-|-------------|-------------|----------|
-| Proposal volumes (PPTX) | Multi-volume presentation set | `output/` |
-| Answer sheets (XLSX) | RFP response spreadsheets | `output/` |
-| Speaker notes | Presentation talking points | Embedded in PPTX |
-
-### Skills Used
-
-- `proposal-writer` -- Drafts proposal sections
-- `rfp-auditor` -- Validates coverage of all requirements
-- Plugin: `document-skills` -- PPTX/XLSX generation
-- Plugin: `example-skills` -- Document co-authoring
-
-### Activities
-
-1. Claude Code generates proposal outline from checklist + strategy
-2. Each volume is drafted section by section
-3. Diagrams from Phase 3 are incorporated
-4. Cost tables from Phase 4 are formatted
-5. Human reviews each volume; Claude Code incorporates feedback
-6. Speaker notes are generated for presentation slides
-7. Final compliance check against the requirements checklist
+1. Claude CodeがRFP要件+戦略に基づきアーキテクチャ方針書をドラフトする
+2. DrawIO MCPで論理・物理構成図を生成する
+3. 移行方針を設計する（現行分析、目標状態、データフロー）
+4. 主要な意思決定についてADRを作成する
+5. アーキテクトがレビュー・フィードバックし、Claude Codeが修正を反復する
 
 ---
 
-## Phase 6: Demo
+## Phase 4: Estimation（見積）
 
-**Demo application development and data platform setup**
+**工数算出、コスト内訳、価格戦略の策定**
 
-| Attribute | Value |
-|-----------|-------|
-| Duration | 5-7 days (parallel with Phase 5) |
-| Human/AI Split | 20% / 80% |
-| Primary Actor | AI (Claude Code) |
-| Human Role | Define demo scenarios, review UX, test flows |
+| 項目 | 値 |
+|------|-------|
+| 所要期間 | 2-3日 |
+| 人間/AI比率 | 50% / 50% |
+| 主担当 | 共同作業（PM + Claude Code） |
+| 人間の役割 | 単価設定、工数見積の検証、価格の最終承認 |
 
-### Deliverables
+### 成果物
 
-| Deliverable | Description | Location |
-|-------------|-------------|----------|
-| Demo web app | Next.js application with demo screens | `demo-app/` |
-| Platform scripts | Data platform setup and sample data | `platform/` |
-| `demo-app-spec.md` | Detailed demo application specification | Project root |
+| 成果物 | 説明 | 出力先 |
+|--------|------|--------|
+| `estimation-policy.md` | 見積方針書（算出方式、単価、前提条件） | `source/rfp_answer_output/` |
+| コスト内訳シート | フェーズ別・ロール別の詳細コスト表 | `source/rfp_answer_output/` |
+| WBS | 作業分解構造 | `source/rfp_answer_output/` |
 
-### Skills Used
+### 使用スキル
 
-- `demo-builder` -- Scaffolds demo screens and API routes
-- Plugin: `example-skills` -- Frontend design, web app testing
-- MCP: `context7` -- Framework documentation (Next.js, React, etc.)
-- Platform-specific skills -- Platform API integration
+- `estimation-advisor` -- スコープ項目からの工数算出
+- `rfp-auditor` -- 必要なコスト項目の網羅性確認
 
-### Activities
+### 作業内容
 
-1. Demo concept and screen list are defined (from strategy)
-2. Claude Code scaffolds the Next.js application
-3. Mock data is generated matching the client's domain
-4. Each screen is implemented with mock data fallback
-5. Platform API connections are wired up
-6. Human tests demo scenarios and provides feedback
-7. Demo is polished for presentation day
+1. 人間が単価および価格制約を提供する
+2. Claude Codeがスコープマトリクスとアーキテクチャ計画からWBSを生成する
+3. WBS項目ごとに過去実績比率を用いて工数を見積もる
+4. プラットフォームライセンスコストを算出する（ベンダー料金表参照）
+5. 人間が見積をレビュー・調整し、最終的な価格を承認する
 
 ---
 
-## Phase 7: Review
+## Phase 5: Proposal（提案書作成）
 
-**RFP compliance verification, quality assurance, final checks**
+**マルチボリューム提案書の作成**
 
-| Attribute | Value |
-|-----------|-------|
-| Duration | Continuous; intensive 1-2 days before submission |
-| Human/AI Split | 10% / 90% |
-| Primary Actor | AI (Claude Code) |
-| Human Role | Review audit results, make final go/no-go decision |
+| 項目 | 値 |
+|------|-------|
+| 所要期間 | 5-7日 |
+| 人間/AI比率 | 40% / 60% |
+| 主担当 | AI（Claude Code）+ 編集レビュー |
+| 人間の役割 | ドラフトのレビュー、メッセージングの精緻化、最終コンテンツの承認 |
 
-### Deliverables
+### 成果物
 
-| Deliverable | Description | Location |
-|-------------|-------------|----------|
-| Audit report | Requirement-by-requirement compliance status | `source/rfp_answer_output/` |
-| Gap analysis | Missing or mismatched items with remediation plan | `source/rfp_answer_output/` |
-| Final checklist sign-off | All items confirmed as addressed | `source/rfp_answer_output/` |
+| 成果物 | 説明 | 出力先 |
+|--------|------|--------|
+| 提案書ボリューム (PPTX) | マルチボリュームのプレゼンテーションセット | `output/` |
+| 回答シート (XLSX) | RFP回答スプレッドシート | `output/` |
+| スピーカーノート | プレゼンテーション用の話者メモ | PPTX内に埋め込み |
 
-### Skills Used
+### 使用スキル
 
-- `rfp-auditor` -- Systematic compliance scan
-- `proposal-writer` -- Fixes identified gaps
+- `proposal-writer` -- 提案書セクションのドラフト生成
+- `rfp-auditor` -- 全要件のカバレッジ検証
+- Plugin: `document-skills` -- PPTX/XLSXの生成
+- Plugin: `example-skills` -- ドキュメント共著
 
-### Activities
+### 作業内容
 
-1. `rfp-auditor` skill runs a full compliance scan
-2. Each requirement is checked: MATCH / MISMATCH / MISSING
-3. Coverage percentage is calculated
-4. Gaps are flagged with specific remediation suggestions
-5. Claude Code fixes addressable gaps automatically
-6. Human reviews the audit report and approves submission
-
----
-
-## Phase Timing Summary
-
-| Phase | Days | Can Overlap With |
-|-------|------|-----------------|
-| 1. Research | 2-3 | -- |
-| 2. Strategy | 2-3 | -- |
-| 3. Design | 3-5 | 4, 6 |
-| 4. Estimation | 2-3 | 3, 5 |
-| 5. Proposal | 5-7 | 4, 6 |
-| 6. Demo | 5-7 | 3, 5 |
-| 7. Review | Continuous | All |
-| **Total (sequential)** | **20-31** | |
-| **Total (with overlap)** | **14-20** | |
+1. Claude Codeがチェックリスト+戦略から提案書アウトラインを生成する
+2. 各ボリュームをセクションごとにドラフトする
+3. Phase 3の図面を組み込む
+4. Phase 4のコスト表をフォーマットする
+5. 人間が各ボリュームをレビューし、Claude Codeがフィードバックを反映する
+6. プレゼンテーションスライド用のスピーカーノートを生成する
+7. 要件チェックリストに基づく最終コンプライアンスチェックを実施する
 
 ---
 
-## Agent Team Structure (Optional)
+## Phase 6: Demo（デモ開発）
 
-For larger proposals, ARCADIA supports Claude Code Agent Teams:
+**デモアプリケーションの開発とデータ基盤の構築**
 
-| Agent | Role | Phases |
-|-------|------|--------|
-| `team-lead` | Coordination, strategy, review | All |
-| `researcher` | RFP analysis, document cataloging | 1, 7 |
-| `architect` | Design, diagrams, migration planning | 3 |
-| `estimator` | Cost calculation, WBS | 4 |
-| `writer` | Proposal document drafting | 5 |
-| `developer` | Demo app, platform scripts | 6 |
+| 項目 | 値 |
+|------|-------|
+| 所要期間 | 5-7日（Phase 5と並行） |
+| 人間/AI比率 | 20% / 80% |
+| 主担当 | AI（Claude Code） |
+| 人間の役割 | デモシナリオの定義、UXレビュー、動作テスト |
+
+### 成果物
+
+| 成果物 | 説明 | 出力先 |
+|--------|------|--------|
+| デモWebアプリ | Next.jsアプリケーション（デモ画面付き） | `demo-app/` |
+| プラットフォームスクリプト | データ基盤セットアップとサンプルデータ | `platform/` |
+| `demo-app-spec.md` | デモアプリケーション詳細仕様書 | プロジェクトルート |
+
+### 使用スキル
+
+- `demo-builder` -- デモ画面とAPIルートのスキャフォールド
+- Plugin: `example-skills` -- フロントエンド設計、Webアプリテスト
+- MCP: `context7` -- フレームワークドキュメント（Next.js, React等）の参照
+- プラットフォーム固有スキル -- プラットフォームAPI連携
+
+### 作業内容
+
+1. デモコンセプトと画面一覧を定義する（戦略に基づく）
+2. Claude CodeがNext.jsアプリケーションをスキャフォールドする
+3. クライアントのドメインに合わせたモックデータを生成する
+4. 各画面をモックデータフォールバック付きで実装する
+5. プラットフォームAPI接続を構築する
+6. 人間がデモシナリオをテストしフィードバックを提供する
+7. プレゼンテーション日に向けてデモを仕上げる
+
+---
+
+## Phase 7: Review（品質チェック）
+
+**RFP適合性の検証、品質保証、最終チェック**
+
+| 項目 | 値 |
+|------|-------|
+| 所要期間 | 継続的に実施; 提出前1-2日で集中実施 |
+| 人間/AI比率 | 10% / 90% |
+| 主担当 | AI（Claude Code） |
+| 人間の役割 | 監査結果のレビュー、最終的なGo/No-Go判断 |
+
+### 成果物
+
+| 成果物 | 説明 | 出力先 |
+|--------|------|--------|
+| 監査レポート | 要件別の適合判定結果 | `source/rfp_answer_output/` |
+| ギャップ分析 | 未対応・不整合項目と是正方針 | `source/rfp_answer_output/` |
+| 最終チェックリストサインオフ | 全項目の対応確認結果 | `source/rfp_answer_output/` |
+
+### 使用スキル
+
+- `rfp-auditor` -- 体系的な適合性スキャン
+- `proposal-writer` -- 特定されたギャップの修正
+
+### 作業内容
+
+1. `rfp-auditor` スキルが全体の適合性スキャンを実行する
+2. 各要件を判定する: MATCH / MISMATCH / MISSING
+3. カバレッジ率を算出する
+4. ギャップを特定し、具体的な是正案を提示する
+5. Claude Codeが対応可能なギャップを自動修正する
+6. 人間が監査レポートをレビューし、提出を承認する
+
+---
+
+## フェーズ所要期間サマリー
+
+| フェーズ | 日数 | 並行可能なフェーズ |
+|----------|------|--------------------|
+| 1. Research（調査） | 2-3 | -- |
+| 2. Strategy（戦略策定） | 2-3 | -- |
+| 3. Design（設計） | 3-5 | 4, 6 |
+| 4. Estimation（見積） | 2-3 | 3, 5 |
+| 5. Proposal（提案書作成） | 5-7 | 4, 6 |
+| 6. Demo（デモ開発） | 5-7 | 3, 5 |
+| 7. Review（品質チェック） | 継続的 | 全フェーズ |
+| **合計（順次実行）** | **20-31** | |
+| **合計（並行実行）** | **14-20** | |
+
+---
+
+## エージェントチーム構成（オプション）
+
+大規模な提案では、ARCADIA は Claude Code Agent Teams をサポートする:
+
+| エージェント | 役割 | 担当フェーズ |
+|-------------|------|-------------|
+| `team-lead` | 全体調整、戦略策定、レビュー | 全フェーズ |
+| `researcher` | RFP分析、ドキュメントカタログ化 | 1, 7 |
+| `architect` | 設計、図面作成、移行計画策定 | 3 |
+| `estimator` | コスト算出、WBS作成 | 4 |
+| `writer` | 提案書ドラフト作成 | 5 |
+| `developer` | デモアプリ開発、プラットフォームスクリプト | 6 |
