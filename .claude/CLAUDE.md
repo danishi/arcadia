@@ -11,6 +11,7 @@
   - Similarly, prefer matching Skills over generic approaches when available
 - MUST use subagents for complex problem verification
 - Optimize tool usage with parallel calling for maximum efficiency
+- **Auto-register tasks:** When you discover items requiring further discussion, unresolved ambiguities, or pending decisions during any conversation, register them to `tasks.md` using the task-tracker skill procedure. Always notify the user when auto-registering.
 
 ## Language
 
@@ -68,6 +69,7 @@ output/                                 # Final deliverables
 demo-app/                               # Demo app (Next.js App Router + TypeScript)
 platform/                               # Platform setup scripts
 .claude/skills/                         # Project-local skills
+tasks.md                                # Task/issue tracker (auto-maintained by task-tracker/task-process skills)
 demo-app-spec.md                        # Demo app specification
 arcadia/org-data/                       # Organization-specific data (rate cards, services, etc.)
 ```
@@ -83,6 +85,8 @@ arcadia/org-data/                       # Organization-specific data (rate cards
 | **estimation-advisor** | Cost estimation and WBS generation (references `arcadia/org-data/rate-card.md`) |
 | **demo-builder** | Demo app scaffolding and mock data |
 | **data-import** | Incremental data import from `input/` to `source/` or `org-data/` with auto-categorization & catalog update (`.claude/skills/data-import/`) |
+| **task-tracker** | Task/issue registration during proposal work (`/task-add`). Claude also auto-registers discussion items (`.claude/skills/task-tracker/`) |
+| **task-process** | Triage, review, and interactively resolve accumulated tasks (`/task-process`) (`.claude/skills/task-process/`) |
 | **nanobanana** | AI image generation/editing for diagrams & slides (auto-selects Pro / Flash based on complexity) (`.claude/skills/nanobanana/`) |
 | **example-skills** | Frontend design, document co-authoring, web app testing, PDF/PPTX/DOCX/XLSX generation |
 | **document-skills** | Document generation skills (same family as example-skills) |
