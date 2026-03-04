@@ -166,6 +166,20 @@ Phase完了の判定基準:
 
 ---
 
+## phase-state.md の更新
+
+Phase 6の作業に伴い `phase-state.md` を更新する:
+
+| タイミング | 更新内容 |
+|-----------|---------|
+| 開始時 | Phase Summary → Status: `in_progress`, Started に日付記入 |
+| 成果物完成時 | Deliverables の該当チェックボックスを `[x]` に変更（各画面完了ごと） |
+| 意思決定時 | Key Decisions に判断内容と理由を追記（画面構成、デモシナリオ等） |
+| セッション終了前 | Checkpoint に進捗メモ、Last Checkpoint の Next Action を更新 |
+| 完了時 | Status: `completed`, Completed に日付記入、Session Log に記録 |
+
+---
+
 ## 次のステップ
 
 Phase 6のデモが動作確認できたら:

@@ -282,11 +282,14 @@ output/
 
 | テンプレート | 出力先 |
 |------------|--------|
+| `templates/docs/phase-state.md.tmpl` | `phase-state.md` |
 | `templates/docs/rfp-analysis.md.tmpl` | `output/plan/rfp-analysis.md` |
 | `templates/docs/proposal-strategy.md.tmpl` | `output/plan/proposal-strategy.md` |
 | `templates/docs/proposal-items-checklist.md.tmpl` | `output/plan/proposal-items-checklist.md` |
 | `templates/docs/estimation-policy.md.tmpl` | `output/plan/estimation-policy.md` |
 | `templates/docs/architecture-plan/architecture-policy.md.tmpl` | `output/plan/architecture-plan/architecture-policy.md` |
+
+`phase-state.md` の `__TODAY__` はセットアップ実行日の日付（YYYY-MM-DD）で置換してください。Phase 0 (Setup) は `completed` として記録してください。
 
 ### Step 9: 完了レポート
 
