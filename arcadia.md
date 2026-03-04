@@ -100,7 +100,7 @@ proposal-strategy.md          -- WHY: Win themes, differentiators, risk mitigati
 proposal-items-checklist.md   -- WHAT: Every required deliverable item, status-tracked
   |
   v
-Vol1.pptx ... Vol6.pptx       -- HOW: Actual proposal documents
+Vol{N}-{topic}.pptx            -- HOW: Actual proposal documents (N defined in proposal-strategy.md)
 estimation-policy.md           -- HOW: Cost breakdown with rationale
 ```
 
