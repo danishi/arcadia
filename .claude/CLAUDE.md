@@ -15,6 +15,7 @@
 - Optimize tool usage with parallel calling for maximum efficiency
 - **Auto-register tasks:** When you discover items requiring further discussion, unresolved ambiguities, or pending decisions during any conversation, register them to `tasks.md` using the task-tracker skill procedure. Always notify the user when auto-registering.
 - **Session resume:** At the start of every new session, read `phase-state.md` to restore context. Follow the protocol in `guides/09-resume.md`. Update `phase-state.md` at phase transitions, deliverable completions, key decisions, and before session end.
+- **Write-Ahead Log:** Before modifying any deliverable, append a `PLAN` entry to `change-log.md`. After completion, append a `DONE` entry. **Do NOT read** `change-log.md` during normal operation — only read it when recovering from an interrupted session or when the user explicitly requests history.
 
 ## Language
 
@@ -49,6 +50,7 @@ Responsible for (1) RFP analysis, (2) demo web app development, and (3) RFP resp
 | Path | Purpose |
 |------|---------|
 | `phase-state.md` | Phase state tracking — single source of truth for phase progress, checkpoints, and session resume |
+| `change-log.md` | Write-Ahead Log — append-only change history from setup to submission (do NOT read unless recovering) |
 | `input/` | Universal intake — all documents go here; `data-import` skill auto-classifies to `source/` or `org-data/` |
 | `source/rfp.md` | RFP main document |
 | `source/rfp_reference/` | Original reference documents |

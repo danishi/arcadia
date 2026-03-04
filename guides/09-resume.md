@@ -86,7 +86,7 @@ phase-state.md を読む
 | 成果物完成 | 該当フェーズの Deliverables チェックボックスを `[x]` に変更 |
 | 重要な意思決定 | 該当フェーズの Key Decisions に追記 |
 | セッション終了前 | Last Checkpoint テーブルを更新（Active Phase, Next Action, Blocked By） |
-| フェーズ完了 | Phase Summary テーブルの Status を `completed` に変更、Completed 日付を記入、Session Log に記録 |
+| フェーズ完了 | Phase Summary テーブルの Status を `completed` に変更、Completed 日付を記入 |
 | ブロッカー発生 | Status を `blocked` に変更、Blocked By を Last Checkpoint に記載 |
 
 ### チェックポイントの書き方
@@ -109,6 +109,41 @@ Checkpoint セクションには、セッション間で失われるコンテキ
 
 - 作業中
 ```
+
+---
+
+## Write-Ahead Log（change-log.md）
+
+`change-log.md` は append-only の変更ログ。セットアップから提出まで、全成果物への変更を Git や Claude Code のコンテキストに依存せず記録する。
+
+### WAL プロトコル
+
+```
+1. 変更を実行する前に PLAN エントリを追記する
+2. 変更を実行する
+3. 変更完了後に DONE エントリを追記する
+```
+
+**エントリ形式:**
+```markdown
+- `YYYY-MM-DD` **PLAN** Phase N: 変更内容の説明 → `対象ファイルパス`
+- `YYYY-MM-DD` **DONE** Phase N: 変更内容の説明
+```
+
+### 通常時の運用
+
+- `change-log.md` は**書き込みのみ**。読まない
+- 書き込みは常にファイル末尾に追記（append）
+- 既存のエントリは変更しない
+
+### 復帰時の WAL リカバリ
+
+セッション復帰時に `phase-state.md` の Last Checkpoint で中断が検出された場合のみ、`change-log.md` の**末尾数行**を確認する:
+
+1. 末尾の `PLAN` エントリに対応する `DONE` があるか確認
+2. `DONE` がない `PLAN` がある場合 → その変更は中断された
+3. 対象ファイルの状態を確認し、変更が完了しているか判定
+4. 完了していれば `DONE` を追記、未完了であれば再実行またはユーザーに確認
 
 ---
 
