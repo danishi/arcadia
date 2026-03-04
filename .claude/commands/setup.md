@@ -164,8 +164,8 @@ $ARGUMENTS
 
 ```
 source/rfp_reference/
-source/rfp_answer_output/architecture-plan/
-source/rfp_answer_output/migration-plan/
+output/plan/architecture-plan/
+output/plan/migration-plan/
 source/minutes/
 output/
 ```
@@ -282,11 +282,11 @@ output/
 
 | テンプレート | 出力先 |
 |------------|--------|
-| `templates/docs/rfp-analysis.md.tmpl` | `source/rfp_answer_output/rfp-analysis.md` |
-| `templates/docs/proposal-strategy.md.tmpl` | `source/rfp_answer_output/proposal-strategy.md` |
-| `templates/docs/proposal-items-checklist.md.tmpl` | `source/rfp_answer_output/proposal-items-checklist.md` |
-| `templates/docs/estimation-policy.md.tmpl` | `source/rfp_answer_output/estimation-policy.md` |
-| `templates/docs/architecture-plan/architecture-policy.md.tmpl` | `source/rfp_answer_output/architecture-plan/architecture-policy.md` |
+| `templates/docs/rfp-analysis.md.tmpl` | `output/plan/rfp-analysis.md` |
+| `templates/docs/proposal-strategy.md.tmpl` | `output/plan/proposal-strategy.md` |
+| `templates/docs/proposal-items-checklist.md.tmpl` | `output/plan/proposal-items-checklist.md` |
+| `templates/docs/estimation-policy.md.tmpl` | `output/plan/estimation-policy.md` |
+| `templates/docs/architecture-plan/architecture-policy.md.tmpl` | `output/plan/architecture-plan/architecture-policy.md` |
 
 ### Step 9: 完了レポート
 

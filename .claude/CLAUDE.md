@@ -41,7 +41,7 @@ Responsible for (1) RFP analysis, (2) demo web app development, and (3) RFP resp
 | Submission Deadline | __DEADLINE__ |
 | Presentation Date | __PRESENTATION_DATE__ |
 | Slide Method | __SLIDE_METHOD__ |
-| Proposal Strategy | `source/rfp_answer_output/proposal-strategy.md` |
+| Proposal Strategy | `output/plan/proposal-strategy.md` |
 
 ## Key Paths
 
@@ -50,9 +50,9 @@ Responsible for (1) RFP analysis, (2) demo web app development, and (3) RFP resp
 | `input/` | Universal intake — all documents go here; `data-import` skill auto-classifies to `source/` or `org-data/` |
 | `source/rfp.md` | RFP main document |
 | `source/rfp_reference/` | Original reference documents |
-| `source/rfp_answer_output/` | Intermediate deliverables (strategy, checklist, estimation, architecture, migration) |
 | `source/minutes/` | Meeting notes, hearing memos |
 | `output/` | Final deliverables (PPTX, XLSX) |
+| `output/plan/` | Intermediate deliverables (strategy, checklist, estimation, architecture, migration) |
 | `demo-app/` | Demo app (Next.js App Router + TypeScript) |
 | `org-data/` | Organization-specific data (rate cards, services, whitepapers, etc.) |
 | `tmp/` | AI working directory for temporary files (Git-ignored except `.gitkeep`) |
@@ -79,7 +79,7 @@ CLAUDE.md is included in every conversation's system prompt. Keep it current and
 
 ### DrawIO Diagrams
 
-Architecture diagrams (`architecture-plan/*.drawio`) and migration diagrams (`migration-plan/*.drawio`) are key deliverables. When creating or editing `.drawio` files:
+Architecture diagrams (`output/plan/architecture-plan/*.drawio`) and migration diagrams (`output/plan/migration-plan/*.drawio`) are key deliverables. When creating or editing `.drawio` files:
 - Use MCP tools for diagram creation, but always save as actual `.drawio` files (do NOT open in browser)
 - Use only DrawIO's built-in official icon sets (shape libraries). Do not embed external image URLs or custom images.
 
