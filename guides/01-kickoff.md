@@ -57,15 +57,35 @@ __PROJECT_SLUG__/
 ## Step 1.5: Prepare Organization Data
 
 ARCADIA の提案・見積スキルは、RFP（顧客側の情報）に加えて**自社固有の情報**も参照する。
-`arcadia/org-data/` 配下のファイルを自社の情報で整備する。
+`org-data/` 配下のファイルを自社の情報で整備する。
+
+#### 方法 A: 直接編集（初回セットアップ時に推奨）
 
 ```bash
 # org-data の各ファイルを自社情報で編集
-vi arcadia/org-data/rate-card.md          # 人月単価（ロール別・値引基準）
-vi arcadia/org-data/service-catalog.md    # 自社サービスカタログ
-vi arcadia/org-data/company-profile.md    # 会社概要・導入実績
-vi arcadia/org-data/whitepapers/index.md  # ホワイトペーパー索引
+vi org-data/rate-card.md          # 人月単価（ロール別・値引基準）
+vi org-data/service-catalog.md    # 自社サービスカタログ
+vi org-data/company-profile.md    # 会社概要・導入実績
+vi org-data/whitepapers/index.md  # ホワイトペーパー索引
 ```
+
+#### 方法 B: `input/` 経由で取り込み（既存資料がある場合に推奨）
+
+既に単価表やサービスカタログなどのファイルがある場合は `input/` に配置して `data-import` スキルで自動分類・取り込みができる。
+
+```bash
+# 既存の組織資料を input/ に配置
+cp 単価表_2026Q1.xlsx input/
+cp サービスカタログ_v3.pdf input/
+cp ホワイトペーパー_AI活用.pdf input/
+```
+
+```
+# Claude Code で data-import を実行
+/data-import org-data
+```
+
+> ファイル名のキーワード（「単価」「サービス」「会社概要」「ホワイトペーパー」等）から自動的に `org-data/` 配下の適切な場所に振り分けられる。詳細は `.claude/skills/data-import/SKILL.md` を参照。
 
 | ファイル | 内容 | 必須 | 参照先スキル |
 |---------|------|:---:|-------------|
@@ -76,7 +96,7 @@ vi arcadia/org-data/whitepapers/index.md  # ホワイトペーパー索引
 
 > **初回のみ**: org-data は組織で一度整備すれば、以降のプロジェクトで再利用できる。
 > 四半期ごとに単価・実績を更新することを推奨する。
-> 詳細は `arcadia/org-data/README.md` を参照。
+> 詳細は `org-data/README.md` を参照。
 
 ---
 
@@ -134,16 +154,40 @@ Claude Code will:
 
 ---
 
-## Step 3: Place RFP Documents
+## Step 3: Place Documents
 
-Copy all RFP-related documents into the reference directory:
+RFP・参考資料・議事録など、案件に関するすべての資料を取り込む。
+
+#### 方法 A: `input/` + `data-import`（推奨）
+
+すべての資料を `input/` に配置し、`data-import` スキルで自動分類する。RFP 本体、別紙、議事録、技術仕様書などファイル種別を問わず投入できる。
 
 ```bash
-# Copy RFP main document
+# すべての資料を input/ に配置
+cp /path/to/rfp-document.pdf input/
+cp /path/to/reference-docs/* input/
+cp /path/to/議事録_0301.md input/
+cp /path/to/現行システム設計書.pdf input/
+```
+
+```
+# Claude Code で data-import を実行（自動分類）
+/data-import
+```
+
+#### 方法 B: 直接配置
+
+ファイルの配置先が明確な場合は、直接コピーしてもよい。
+
+```bash
+# RFP 本体
 cp /path/to/rfp-document.pdf source/
 
-# Copy reference documents (maintain original folder structure if possible)
+# 参考資料（既存のフォルダ構成を維持）
 cp -r /path/to/reference-docs/* source/rfp_reference/
+
+# 議事録
+cp /path/to/議事録_0301.md source/minutes/
 ```
 
 ### Supported Document Types
