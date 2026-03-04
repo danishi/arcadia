@@ -43,7 +43,6 @@ __PROJECT_SLUG__/
       architecture-plan/
       migration-plan/
   demo-app/                             # デモアプリ（Next.js）
-  platform/                             # プラットフォーム構築スクリプト
   .claude/
     CLAUDE.md                           # プロジェクト指示書（.tmpl から生成）
     settings.json                       # Claude Code設定（.tmpl から生成）
@@ -248,75 +247,6 @@ Claude Codeは以下を実行する:
 2. 各ドキュメントを読み取り・要約する
 3. メタデータ付きのカタログを生成する
 4. `.claude/skills/rfp-auditor/references/docs-catalog.md` に保存する
-
----
-
-## プラットフォーム選定ガイド
-
-プラットフォームは **クラウドインフラ** と **データ基盤** の2軸で選定する。
-
-### Step A: クラウドプロバイダーの選定
-
-```
-platform/cloud/ を参照して、クラウドプロバイダーを選定して
-```
-
-| 選択肢 | ガイド | テンプレート変数 |
-|--------|--------|-----------------|
-| **AWS** | `platform/cloud/aws/README.md` | `__CLOUD_PROVIDER__` = `AWS` |
-| **GCP** | `platform/cloud/gcp/README.md` | `__CLOUD_PROVIDER__` = `GCP` |
-| **その他** | `platform/cloud/other/README.md` | `__CLOUD_PROVIDER__` = (プロバイダー名) |
-
-### Step B: データプラットフォームの選定
-
-#### 選択肢 B-1: Databricks
-
-```
-platform/data/databricks/ の設定をプロジェクトに適用して
-```
-
-| 設定項目 | 値 |
-|----------|-----|
-| `PLATFORM_NAME` | Databricks |
-| `PLATFORM_TYPE` | Lakehouse |
-| スキル | databricks-*, spark-*, mlflow-* |
-| MCP | aws-knowledge（AWS上の場合） |
-| デモ用環境変数 | DATABRICKS_HOST, DATABRICKS_TOKEN, DATABRICKS_WAREHOUSE_ID |
-
-#### 選択肢 B-2: Snowflake
-
-```
-platform/data/snowflake/ の設定をプロジェクトに適用して
-```
-
-| 設定項目 | 値 |
-|----------|-----|
-| `PLATFORM_NAME` | Snowflake |
-| `PLATFORM_TYPE` | Cloud Data Warehouse |
-| スキル | （Snowflake固有スキルを追加） |
-| デモ用環境変数 | SNOWFLAKE_ACCOUNT, SNOWFLAKE_USER, SNOWFLAKE_WAREHOUSE |
-
-#### 選択肢 B-3: BigQuery
-
-```
-platform/data/bigquery/ の設定をプロジェクトに適用して
-```
-
-| 設定項目 | 値 |
-|----------|-----|
-| `PLATFORM_NAME` | BigQuery |
-| `PLATFORM_TYPE` | Cloud Data Warehouse |
-| スキル | （BigQuery固有スキルを追加） |
-| MCP | google-developer-knowledge |
-| デモ用環境変数 | GCP_PROJECT_ID, BQ_DATASET |
-
-#### 選択肢 B-4: その他 / 汎用
-
-```
-platform/data/common/ の設定をプロジェクトに適用して
-```
-
-汎用のベースライン設定を使用し、プラットフォーム固有の設定は手動で追加する。
 
 ---
 

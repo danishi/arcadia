@@ -170,7 +170,7 @@ source/minutes/
 output/
 ```
 
-> **Note**: `demo-app/` と `platform/` はテンプレートリポジトリに同梱済みのため、作成不要です。
+> **Note**: `demo-app/` はテンプレートリポジトリに同梱済みのため、作成不要です。
 
 ### Step 2: インプット資料の整理
 
