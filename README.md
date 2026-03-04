@@ -305,9 +305,3 @@ estimation-policy.md          -- HOW: Cost breakdown with rationale
 | `ph{n}-{seq}-{topic}.drawio` | `ph1-01-current-system.drawio` | フェーズ別設計図 |
 | `Vol{N}-{topic}.pptx` | `Vol1-overview.pptx` | 提案書（PPTX 方式） |
 | `Vol{N}-{topic}/slide-{NN}.png` | `Vol1-overview/slide-01.png` | 提案書（NanoBanana 方式） |
-
----
-
-## License
-
-社内利用。組織の RFP 対応ワークフローに合わせて自由にカスタマイズしてください。
