@@ -22,8 +22,8 @@
 
 | 項目 | ソース | 説明 |
 |------|--------|------|
-| `proposal-strategy.md` | `source/rfp_answer_output/` | デモで訴求すべきポイント（Winテーマ） |
-| `architecture-policy.md` | `source/rfp_answer_output/architecture-plan/` | 技術スタック、API構成 |
+| `proposal-strategy.md` | `output/plan/` | デモで訴求すべきポイント（Winテーマ） |
+| `architecture-policy.md` | `output/plan/architecture-plan/` | 技術スタック、API構成 |
 | `demo-app-spec.md` | プロジェクトルート | デモアプリ詳細仕様書（存在する場合） |
 | RFP参照資料 | `source/rfp_reference/` | ドメインデータの構造（テーブル定義、IF定義等） |
 

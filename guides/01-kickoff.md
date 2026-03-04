@@ -34,14 +34,14 @@ __PROJECT_SLUG__/
   source/
     rfp.md                              # RFP本紙（Markdownに変換済み）
     rfp_reference/                      # 参照資料群
-    rfp_answer_output/                  # 中間成果物
+    minutes/                            # 議事録
+  output/                               # 提案成果物（PPTX, XLSX, 中間成果物）
+    plan/                               # 中間成果物
       proposal-strategy.md
       proposal-items-checklist.md
       estimation-policy.md
       architecture-plan/
       migration-plan/
-    minutes/                            # 議事録
-  output/                               # 最終成果物（PPTX, XLSX）
   demo-app/                             # デモアプリ（Next.js）
   platform/                             # プラットフォーム構築スクリプト
   .claude/
@@ -132,7 +132,7 @@ Claude Codeは以下を実行する:
 2. `.claude/CLAUDE.md.tmpl` からテンプレートを読み取り `.claude/CLAUDE.md` を生成する
 3. `.claude/settings.json.tmpl` から `.claude/settings.json` を生成する
 4. `.mcp.json`, `.env.example` を生成する
-5. プロジェクト変数を適用したドキュメントテンプレートを `source/rfp_answer_output/` に配置する
+5. プロジェクト変数を適用したドキュメントテンプレートを `output/plan/` に配置する
 
 ### 変数クイックリファレンス
 
