@@ -52,6 +52,7 @@ Responsible for (1) RFP analysis, (2) demo web app development, and (3) RFP resp
 | `source/rfp_reference/` | Original reference documents |
 | `source/minutes/` | Meeting notes, hearing memos |
 | `output/` | Final deliverables (PPTX, XLSX) |
+| `output/slides/` | Slide deliverables — per-volume subfolders with outline MD, design MD, and final images |
 | `output/plan/` | Intermediate deliverables (strategy, checklist, estimation, architecture, migration) |
 | `demo-app/` | Demo app (Next.js App Router + TypeScript) |
 | `org-data/` | Organization-specific data (rate cards, services, whitepapers, etc.) |
@@ -82,6 +83,8 @@ CLAUDE.md is included in every conversation's system prompt. Keep it current and
 Architecture diagrams (`output/plan/architecture-plan/*.drawio`) and migration diagrams (`output/plan/migration-plan/*.drawio`) are key deliverables. When creating or editing `.drawio` files:
 - Use MCP tools for diagram creation, but always save as actual `.drawio` files (do NOT open in browser)
 - Use only DrawIO's built-in official icon sets (shape libraries). Do not embed external image URLs or custom images.
+- **Required**: Logical architecture diagrams (`logical-architecture-ph{N}.drawio`) — always create these
+- **Optional**: Physical, network, data-flow diagrams — create only when explicitly required by the RFP
 
 ---
 

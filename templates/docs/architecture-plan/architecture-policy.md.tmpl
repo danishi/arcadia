@@ -2,7 +2,9 @@
 
 > **関連文書**: [提案戦略書](../proposal-strategy.md) | [見積方針書](../estimation-policy.md)
 >
-> **図面一覧**: [__PHASE_1_NAME__論理構成図](./logical-architecture-ph1.drawio) | [__PHASE_1_NAME__物理構成図](./physical-architecture-ph1.drawio) | [__PHASE_2_NAME__論理構成図](./logical-architecture-ph2.drawio) | [__PHASE_2_NAME__物理構成図](./physical-architecture-ph2.drawio)
+> **図面一覧**: [__PHASE_1_NAME__論理構成図](./logical-architecture-ph1.drawio) | [__PHASE_2_NAME__論理構成図](./logical-architecture-ph2.drawio)
+>
+> **オプション図面**（RFP要求時のみ）: [物理構成図](./physical-architecture-ph1.drawio) | [データフロー図](./data-flow.drawio) | [ネットワーク構成図](./network-architecture.drawio)
 
 ---
 
@@ -224,13 +226,21 @@ __CLOUD_PROVIDER__ __DR_REGION__（DR/バックアップ）
 ## 6. 図面一覧
 
 <!-- DrawIO MCPで作成する図面の一覧。
-     各図面は templates/docs/architecture-plan/ 配下に格納 -->
+     各図面は output/plan/architecture-plan/ 配下に格納。
+     「必須」は常に作成、「オプション」はRFPで明示的に要求された場合のみ作成 -->
+
+### 必須図面
 
 | # | 図面名 | ファイル | ステータス | 概要 |
 |---|--------|---------|-----------|------|
 | 1 | __PHASE_1_NAME__論理構成図 | `logical-architecture-ph1.drawio` | 未作成/作成済 | 論理的なシステム構成（コンポーネント間の関係） |
-| 2 | __PHASE_1_NAME__物理構成図 | `physical-architecture-ph1.drawio` | | 物理的なインフラ配置（リージョン、VPC、サブネット） |
-| 3 | __PHASE_2_NAME__論理構成図 | `logical-architecture-ph2.drawio` | | __PHASE_2_NAME__拡張後の論理構成 |
+| 2 | __PHASE_2_NAME__論理構成図 | `logical-architecture-ph2.drawio` | | __PHASE_2_NAME__拡張後の論理構成 |
+
+### オプション図面（RFP要求時のみ作成）
+
+| # | 図面名 | ファイル | ステータス | 概要 |
+|---|--------|---------|-----------|------|
+| 3 | __PHASE_1_NAME__物理構成図 | `physical-architecture-ph1.drawio` | | 物理的なインフラ配置（リージョン、VPC、サブネット） |
 | 4 | __PHASE_2_NAME__物理構成図 | `physical-architecture-ph2.drawio` | | __PHASE_2_NAME__拡張後の物理構成 |
 | 5 | 現行基盤構成図 | `current-system.drawio` | | 移行元の現行システム構成 |
 | 6 | データフロー図 | `data-flow.drawio` | | エンドツーエンドのデータフロー |
