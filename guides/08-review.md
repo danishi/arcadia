@@ -189,16 +189,48 @@ output/ の提出物一覧をRFP要件と照合して、最終チェックリス
 
 ---
 
+## phase-state.md の更新
+
+Phase 7の作業に伴い `phase-state.md` を更新する:
+
+| タイミング | 更新内容 |
+|-----------|---------|
+| 開始時 | Phase Summary → Status: `in_progress`, Started に日付記入 |
+| 成果物変更前 | `change-log.md` に `PLAN` エントリを追記（WAL 先書き） |
+| 成果物変更後 | `change-log.md` に `DONE` エントリを追記 |
+| 成果物完成時 | Deliverables の該当チェックボックスを `[x]` に変更 |
+| 意思決定時 | Key Decisions に判断内容と理由を追記（Go/No-Go判断、MISSING対応方針等） |
+| セッション終了前 | Checkpoint に進捗メモ、Last Checkpoint の Next Action を更新 |
+| 完了時 | Status: `completed`, Completed に日付記入 |
+
+---
+
 ## 次のステップ
 
-Phase 7完了後:
+Phase 7 の初回完了後は **Refinement（叩き上げ）モード**に移行する。ここから提出までは、人間と AI が対話しながら成果物を修正・改善する反復ループとなる。
+
+### Refinement モードでの作業例
 
 ```
-全チェックが完了しました。提出準備に進みます。
-output/ の最終ファイル一覧を確認して。
+# 追加資料の取り込み
+input/ にQ&A回答書を入れたので取り込んで
+
+# 特定の成果物を修正
+提案書Vol2のスライド5のメッセージをもっと攻めた表現に変えて
+
+# 見積の微修正
+Phase4の見積でバッファ率を15%から20%に変更して、全成果物に反映して
+
+# 再チェック
+修正した提案書のRFP適合性を再チェックして
+
+# 最終確認
+output/ の提出物一覧をRFP要件と照合して、最終チェックリストを生成して
 ```
 
-提出後（振り返り）:
+Refinement 中は `phase-state.md` の Session Log に修正記録を追記し、Refinement セクションの修正履歴テーブルに変更内容を記録する。
+
+### 提出後（振り返り）
 
 ```
 今回のプロジェクトの振り返り（KPT）を作成して。

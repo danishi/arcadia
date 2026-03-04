@@ -1,0 +1,251 @@
+# Phase State
+
+> フェーズの進行状態を一元管理するファイル。セッション中断・復帰時のコンテキスト復元に使用する。
+> Claude Code はセッション開始時にこのファイルを読み取り、現在の状態を把握して作業を継続する。
+
+---
+
+## Last Checkpoint
+
+| Item | Value |
+|------|-------|
+| Updated | _(セッション終了時に更新)_ |
+| Active Phase(s) | _(作業中のフェーズ)_ |
+| Next Action | _(次に実行すべきアクション)_ |
+| Blocked By | _(ブロッカーがあれば記載)_ |
+
+---
+
+## Phase Summary
+
+| # | Phase | Status | Started | Completed |
+|---|-------|--------|---------|-----------|
+| 0 | Setup | completed | __TODAY__ | __TODAY__ |
+| 1 | Research | not_started | - | - |
+| 2 | Strategy | not_started | - | - |
+| 3 | Design | not_started | - | - |
+| 4 | Estimation | not_started | - | - |
+| 5 | Proposal | not_started | - | - |
+| 6 | Demo | not_started | - | - |
+| 7 | Review | not_started | - | - |
+
+**Status values:** `not_started` | `in_progress` | `completed` | `blocked`
+
+---
+
+## Phase 0: Setup
+
+**Status:** completed
+**Date:** __TODAY__
+
+### Deliverables
+
+- [x] `.claude/CLAUDE.md` -- プロジェクト指示書
+- [x] Directory structure (`source/`, `output/`, `output/plan/`)
+- [x] `.mcp.json` -- MCP設定
+- [x] `.env.example` -- 環境変数テンプレート
+- [x] Document templates in `output/plan/`
+- [x] `phase-state.md` -- 本ファイル
+
+### Key Decisions
+
+- Client: __CLIENT_NAME__
+- Platform: __PLATFORM_NAME__
+- Slide Method: __SLIDE_METHOD__
+
+---
+
+## Phase 1: Research（調査）
+
+**Status:** not_started
+
+### Deliverables
+
+- [ ] `docs-catalog.md` -- `.claude/skills/rfp-auditor/references/`
+- [ ] `rfp-requirements-checklist.md` -- `.claude/skills/rfp-auditor/references/`
+- [ ] `rfp-analysis.md` -- `output/plan/`
+- [ ] CLAUDE.md ドメイン用語テーブル更新
+
+### Entry Criteria
+
+- Phase 0 (Setup) completed
+- RFP documents placed in `source/`
+
+### Key Decisions
+
+_(Phase開始後に記録)_
+
+### Checkpoint
+
+_(作業中の進捗メモ)_
+
+---
+
+## Phase 2: Strategy（戦略策定）
+
+**Status:** not_started
+
+### Deliverables
+
+- [ ] `proposal-strategy.md` -- `output/plan/`
+- [ ] `proposal-items-checklist.md` -- `output/plan/`
+- [ ] Platform capability mapping -- `output/plan/`
+
+### Entry Criteria
+
+- Phase 1 (Research) completed
+
+### Key Decisions
+
+_(Phase開始後に記録)_
+
+### Checkpoint
+
+_(作業中の進捗メモ)_
+
+---
+
+## Phase 3: Design（設計）
+
+**Status:** not_started
+
+### Deliverables
+
+- [ ] `architecture-policy.md` -- `output/plan/architecture-plan/`
+- [ ] Logical architecture diagram (`.drawio`) -- `output/plan/architecture-plan/`
+- [ ] Physical architecture diagram (`.drawio`, optional) -- `output/plan/architecture-plan/`
+- [ ] `ph1-migration-requirements.md` -- `output/plan/migration-plan/`
+- [ ] Migration diagrams (`.drawio`) -- `output/plan/migration-plan/`
+
+### Entry Criteria
+
+- Phase 2 (Strategy) completed
+
+### Key Decisions
+
+_(Phase開始後に記録)_
+
+### Checkpoint
+
+_(作業中の進捗メモ)_
+
+---
+
+## Phase 4: Estimation（見積）
+
+**Status:** not_started
+
+### Deliverables
+
+- [ ] `estimation-policy.md` -- `output/plan/`
+- [ ] WBS -- `output/plan/`
+- [ ] Cost breakdown -- `output/plan/`
+- [ ] TCO calculation -- `output/plan/`
+
+### Entry Criteria
+
+- Phase 2 (Strategy) completed
+- Phase 3 (Design) in_progress or completed (recommended)
+
+### Key Decisions
+
+_(Phase開始後に記録)_
+
+### Checkpoint
+
+_(作業中の進捗メモ)_
+
+---
+
+## Phase 5: Proposal（提案書作成）
+
+**Status:** not_started
+
+### Deliverables
+
+- [ ] Slide outlines (MD) -- `output/slides/vol{N}-{topic}/slides.md`
+- [ ] Slides (PPTX or PNG) -- `output/slides/` or `output/`
+- [ ] Response sheet (XLSX) -- `output/`
+- [ ] Speaker notes -- within slides.md
+
+### Entry Criteria
+
+- Phase 2 (Strategy) completed
+- Phase 3 (Design) completed or near completion
+- Phase 4 (Estimation) completed or near completion
+
+### Key Decisions
+
+_(Phase開始後に記録)_
+
+### Checkpoint
+
+_(作業中の進捗メモ)_
+
+---
+
+## Phase 6: Demo（デモ開発）
+
+**Status:** not_started
+
+### Deliverables
+
+- [ ] `demo-app-spec.md` -- project root
+- [ ] Demo screens implemented -- `demo-app/src/app/`
+- [ ] Mock data -- `demo-app/`
+- [ ] Platform API connection -- `demo-app/src/lib/`
+- [ ] `npm run build` passes
+- [ ] Data pipeline scripts -- `demo-app/scripts/`
+
+### Entry Criteria
+
+- Phase 2 (Strategy) completed
+
+### Key Decisions
+
+_(Phase開始後に記録)_
+
+### Checkpoint
+
+_(作業中の進捗メモ)_
+
+---
+
+## Phase 7: Review（品質チェック）
+
+**Status:** not_started
+
+### Deliverables
+
+- [ ] Audit report -- `output/plan/`
+- [ ] Gap analysis -- `output/plan/`
+- [ ] Final checklist sign-off -- `output/plan/`
+
+### Entry Criteria
+
+- Phase 5 (Proposal) completed
+- Phase 6 (Demo) completed
+
+### Key Decisions
+
+_(Phase開始後に記録)_
+
+### Checkpoint
+
+_(作業中の進捗メモ)_
+
+---
+
+## Refinement（叩き上げ）
+
+Phase 7 の初回完了後に移行する反復ループ。人間と AI が対話しながら成果物を修正・改善する。
+
+**Status:** not_started
+
+### 追加取込資料
+
+_(Refinement 中に取り込んだ追加資料)_
+
+---
+
+> **変更履歴**: セットアップからの全変更ログは `change-log.md` に記録される（append-only WAL）。通常時は読まない。

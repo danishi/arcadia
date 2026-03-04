@@ -132,6 +132,22 @@ Phase完了の判定基準:
 
 ---
 
+## phase-state.md の更新
+
+Phase 1の作業に伴い `phase-state.md` を更新する:
+
+| タイミング | 更新内容 |
+|-----------|---------|
+| 開始時 | Phase Summary → Status: `in_progress`, Started に日付記入 |
+| 成果物変更前 | `change-log.md` に `PLAN` エントリを追記（WAL 先書き） |
+| 成果物変更後 | `change-log.md` に `DONE` エントリを追記 |
+| 成果物完成時 | Deliverables の該当チェックボックスを `[x]` に変更 |
+| 意思決定時 | Key Decisions に判断内容と理由を追記 |
+| セッション終了前 | Checkpoint に進捗メモ、Last Checkpoint の Next Action を更新 |
+| 完了時 | Status: `completed`, Completed に日付記入 |
+
+---
+
 ## 次のステップ
 
 Phase 1完了後、`guides/03-strategy.md` に進む:
