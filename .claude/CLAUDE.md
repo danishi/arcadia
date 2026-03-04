@@ -1,6 +1,6 @@
 # Project Instructions
 
-> **Project context:** リポジトリ全体の構成・設計思想・ワークフロー・スキル一覧・命名規則は **`README.md`** を参照。本ファイルは Claude Code 固有の動作指示とプロジェクト固有パラメータのみを記載する。
+> **Project context:** See **`README.md`** for repository structure, design philosophy, workflow, skill list, and naming conventions. This file contains only Claude Code behavior directives and project-specific parameters.
 
 ## Principles of Action
 
