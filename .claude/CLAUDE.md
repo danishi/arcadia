@@ -61,7 +61,7 @@ source/
       ph1-{01..04}-*.drawio
   minutes/                              # Meeting notes
 output/                                 # Final deliverables
-  Vol{N}-{topic}.pptx                   #   Proposal volumes (PPTX method)
+  Vol{N}-{topic}.pptx                   #   Proposal volumes (PPTX method, N is per proposal-strategy.md)
   Vol{N}-{topic}/slide-{NN}.png         #   Proposal volumes (NanoBanana method)
   *.xlsx                                #   Answer sheets
 demo-app/                               # Demo app (Next.js App Router + TypeScript)
