@@ -2,69 +2,23 @@
 // mock-data.ts — 汎用モックデータレイヤー
 // ============================================================================
 // プラットフォーム未接続時のフォールバックデータを提供する。
-// 型定義はプラットフォーム非依存で、任意のデモシナリオに適用可能。
+// 型定義は types.ts から re-export し、プラットフォーム非依存で任意のデモシナリオに適用可能。
 // ============================================================================
 
-// ─── 型定義 ─────────────────────────────────────────────────────────────────
+export type { Pipeline, ChatMessage, KpiMetric, TableRecord } from "./types";
+import type { Pipeline, ChatMessage, KpiMetric } from "./types";
 
-/** データ連携パイプライン */
-export type Pipeline = {
-  id: string;
-  /** データソース名 */
-  source: string;
-  /** データ送信先名 */
-  destination: string;
-  /** パイプライン状態 */
-  status: "healthy" | "delayed" | "error";
-  /** 最終同期日時（ISO 8601） */
-  lastSync: string;
-  /** 1日あたりの処理レコード数 */
-  recordsPerDay: number;
-  /** データ品質スコア（0-100） */
-  qualityScore: number;
-};
+// ─── 相対日付ヘルパー ───────────────────────────────────────────────────────
 
-/** AI 対話メッセージ */
-export type ChatMessage = {
-  id: string;
-  /** メッセージの送信元 */
-  role: "user" | "assistant" | "system";
-  /** メッセージ本文（Markdown 対応） */
-  content: string;
-  /** 送信日時（ISO 8601） */
-  timestamp: string;
-  /** 分析結果テーブル（任意） */
-  table?: { columns: string[]; rows: string[][] };
-  /** 分析結果チャート（任意） */
-  chart?: {
-    type: "bar" | "line" | "pie";
-    data: { label: string; value: number; value2?: number }[];
-    label?: string;
-    label2?: string;
-  };
-};
+/** 現在時刻から hours 時間前の ISO 文字列を返す */
+function hoursAgo(hours: number): string {
+  return new Date(Date.now() - hours * 60 * 60 * 1000).toISOString();
+}
 
-/** KPI メトリクス */
-export type KpiMetric = {
-  id: string;
-  /** KPI ラベル */
-  label: string;
-  /** 現在値 */
-  value: number;
-  /** 表示用の単位・サフィックス */
-  suffix?: string;
-  /** 前期比（%） */
-  changePercent: number;
-  /** 変化の方向 */
-  trend: "up" | "down" | "flat";
-  /** 表示アイコン */
-  icon?: string;
-};
-
-/** 汎用テーブルレコード */
-export type TableRecord = {
-  [key: string]: string | number | boolean | null;
-};
+/** 現在時刻から minutes 分前の ISO 文字列を返す */
+function minutesAgo(minutes: number): string {
+  return new Date(Date.now() - minutes * 60 * 1000).toISOString();
+}
 
 // ─── サンプルデータ ─────────────────────────────────────────────────────────
 
@@ -75,7 +29,7 @@ export const pipelines: Pipeline[] = [
     source: "基幹システム",
     destination: "データレイク",
     status: "healthy",
-    lastSync: "2025-01-15T08:00:00Z",
+    lastSync: hoursAgo(1),
     recordsPerDay: 1_200_000,
     qualityScore: 98.5,
   },
@@ -84,7 +38,7 @@ export const pipelines: Pipeline[] = [
     source: "CRM",
     destination: "データレイク",
     status: "healthy",
-    lastSync: "2025-01-15T07:45:00Z",
+    lastSync: hoursAgo(1.25),
     recordsPerDay: 450_000,
     qualityScore: 97.2,
   },
@@ -93,7 +47,7 @@ export const pipelines: Pipeline[] = [
     source: "Web ログ",
     destination: "データレイク",
     status: "delayed",
-    lastSync: "2025-01-15T06:30:00Z",
+    lastSync: hoursAgo(2.5),
     recordsPerDay: 3_500_000,
     qualityScore: 94.1,
   },
@@ -102,7 +56,7 @@ export const pipelines: Pipeline[] = [
     source: "外部 API",
     destination: "データレイク",
     status: "healthy",
-    lastSync: "2025-01-15T08:05:00Z",
+    lastSync: minutesAgo(55),
     recordsPerDay: 80_000,
     qualityScore: 99.0,
   },
@@ -111,7 +65,7 @@ export const pipelines: Pipeline[] = [
     source: "IoT デバイス",
     destination: "ストリーム処理",
     status: "error",
-    lastSync: "2025-01-15T05:00:00Z",
+    lastSync: hoursAgo(4),
     recordsPerDay: 8_000_000,
     qualityScore: 88.3,
   },
@@ -123,19 +77,19 @@ export const chatHistory: ChatMessage[] = [
     id: "msg-001",
     role: "system",
     content: "AI アシスタントに接続しました。自然言語でデータを分析できます。",
-    timestamp: "2025-01-15T09:00:00Z",
+    timestamp: minutesAgo(10),
   },
   {
     id: "msg-002",
     role: "user",
     content: "先月の売上トップ5を教えてください",
-    timestamp: "2025-01-15T09:01:00Z",
+    timestamp: minutesAgo(9),
   },
   {
     id: "msg-003",
     role: "assistant",
     content: "先月の売上トップ5をお調べしました。以下の通りです。",
-    timestamp: "2025-01-15T09:01:05Z",
+    timestamp: minutesAgo(8),
     table: {
       columns: ["順位", "商品名", "売上金額", "前月比"],
       rows: [

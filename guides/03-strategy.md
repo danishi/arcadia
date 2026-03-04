@@ -1,27 +1,27 @@
-# Phase 2: Strategy Guide
+# Phase 2: 戦略策定ガイド
 
 提案戦略の策定、差別化ポイントの定義、スコープ（Ph1/Ph2）の確定を行うフェーズ。
 
 ---
 
-## Overview
+## 概要
 
-| Attribute | Value |
-|-----------|-------|
-| Phase | 2. Strategy |
-| Duration | 2-3 days |
-| Human/AI Split | 60% / 40% |
-| Primary Actor | Human (Strategy Lead) |
-| Parallelizable | No (Phase 1完了が前提; Phase 3-6の起点) |
+| 項目 | 値 |
+|------|-------|
+| フェーズ | 2. Strategy（戦略策定） |
+| 所要期間 | 2-3日 |
+| 人間/AI比率 | 60% / 40% |
+| 主担当 | 人間（戦略リード） |
+| 並行可否 | 不可（Phase 1完了が前提; Phase 3-6の起点） |
 
 人間が主導して「なぜ我々が勝つのか」を定義する。AIはAs-Is/To-Be分析、課題マッピング、ドラフト生成を担う。ここで確定した戦略が、以降すべてのフェーズの方針となる。
 
 ---
 
-## Input
+## インプット
 
-| Item | Source | Description |
-|------|--------|-------------|
+| 項目 | ソース | 説明 |
+|------|--------|------|
 | `rfp-analysis.md` | `source/rfp_answer_output/` | Phase 1で生成したRFP解析サマリー |
 | `rfp-requirements-checklist.md` | `.claude/skills/rfp-auditor/references/` | Phase 1で生成した要件チェックリスト |
 | `docs-catalog.md` | `.claude/skills/rfp-auditor/references/` | Phase 1で生成したドキュメントカタログ |
@@ -29,17 +29,17 @@
 
 ---
 
-## Output
+## アウトプット
 
-| Deliverable | Location | Description |
-|-------------|----------|-------------|
+| 成果物 | 出力先 | 説明 |
+|--------|--------|------|
 | `proposal-strategy.md` | `source/rfp_answer_output/` | 提案戦略書（Winテーマ、差別化、リスク対策） |
 | `proposal-items-checklist.md` | `source/rfp_answer_output/` | 提案書作成チェックリスト（全提出物の一覧とステータス） |
 | スコープマトリクス | `source/rfp_answer_output/` | Ph1/Ph2のスコープ分割表 |
 
 ---
 
-## Human Tasks
+## 人間の作業
 
 人間が判断・実行すべき作業:
 
@@ -53,7 +53,7 @@
 
 ---
 
-## Claude Code Instructions
+## Claude Codeへの指示
 
 以下の指示文をClaude Codeにコピペして使用する。
 
@@ -105,16 +105,16 @@ RFP参照資料から現行システム構成を読み取り、As-Is/To-Be比較
 
 ---
 
-## Skills Used
+## 使用スキル
 
-| Skill | Purpose |
-|-------|---------|
+| スキル | 用途 |
+|--------|------|
 | `rfp-auditor` | 要件と戦略の整合性チェック |
 | `proposal-writer` | 戦略書ドラフト生成、チェックリスト構造化 |
 
 ---
 
-## Checklist
+## 完了チェックリスト
 
 Phase完了の判定基準:
 
@@ -128,7 +128,7 @@ Phase完了の判定基準:
 
 ---
 
-## Tips
+## ヒント
 
 - 戦略策定は最も「人間依存度」が高いフェーズ。AIのドラフトはあくまで叩き台であり、最終判断は必ず人間が行う
 - 競合情報が不足している場合、AIに一般的な競合製品の強み/弱みの調査を依頼できる
@@ -137,7 +137,7 @@ Phase完了の判定基準:
 
 ---
 
-## Next Step
+## 次のステップ
 
 Phase 2完了後、以下のフェーズに分岐して進行可能:
 

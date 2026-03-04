@@ -121,7 +121,7 @@ export function DataTable({
           ) : (
             sortedRows.map((row, ri) => (
               <tr
-                key={ri}
+                key={columns.map((col) => String(row[col.key] ?? "")).join("|") || ri}
                 className="border-b border-border/50 hover:bg-surface-alt/50 transition-colors"
               >
                 {columns.map((col) => (

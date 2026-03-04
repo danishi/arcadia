@@ -64,20 +64,22 @@ export function isPlatformConfigured(): boolean {
  */
 export async function platformFetch(
   path: string,
-  options: RequestInit = {}
+  options: RequestInit & { timeoutMs?: number } = {}
 ): Promise<Response> {
   const config = getPlatformConfig();
   if (!config.host || !config.token) {
     throw new Error("プラットフォームが設定されていません。環境変数を確認してください。");
   }
 
+  const { timeoutMs = 30_000, ...fetchOptions } = options;
   const url = `${config.host}${path}`;
   return fetch(url, {
-    ...options,
+    ...fetchOptions,
+    signal: fetchOptions.signal ?? AbortSignal.timeout(timeoutMs),
     headers: {
       Authorization: `Bearer ${config.token}`,
       "Content-Type": "application/json",
-      ...options.headers,
+      ...fetchOptions.headers,
     },
   });
 }

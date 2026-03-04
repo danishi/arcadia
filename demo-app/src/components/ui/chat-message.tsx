@@ -8,7 +8,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import type { ChatMessage as ChatMessageType } from "@/lib/mock-data";
+import type { ChatMessage as ChatMessageType } from "@/lib/types";
 
 export type ChatMessageProps = {
   message: ChatMessageType;

@@ -1,17 +1,17 @@
-# Project Kickoff Guide
+# プロジェクトキックオフガイド
 
-This guide walks you through initializing a new RFP response project using the ARCADIA テンプレートリポジトリ and Claude Code.
+ARCADIAテンプレートリポジトリとClaude Codeを使用して、新しいRFP回答プロジェクトを初期化する手順を説明する。
 
 ---
 
-## Prerequisites
+## 前提条件
 
-- [ ] [Claude Code](https://docs.anthropic.com/en/docs/claude-code) installed and authenticated
-- [ ] MCP servers configured: `context7`, `drawio` (minimum)
-- [ ] Git installed
-- [ ] RFP documents available (PDF/Word/Excel/Markdown)
-- [ ] Client and project information ready
-- [ ] Organization data prepared (`arcadia/org-data/` -- see Step 1.5)
+- [ ] [Claude Code](https://docs.anthropic.com/en/docs/claude-code) がインストール・認証済みであること
+- [ ] MCPサーバーが設定済みであること: `context7`, `drawio`（最低限）
+- [ ] Git がインストール済みであること
+- [ ] RFPドキュメントが入手済みであること（PDF/Word/Excel/Markdown）
+- [ ] クライアント・案件情報が整理済みであること
+- [ ] 組織データが準備済みであること（`arcadia/org-data/` -- Step 1.5 参照）
 
 ---
 
@@ -27,34 +27,34 @@ cd __PROJECT_SLUG__
 
 > **Note**: ディレクトリ構造の作成は Step 2 の `/setup` コマンド（Step 1）が自動で行います。手動で作成する必要はありません。
 
-### Standard Directory Structure
+### 標準ディレクトリ構造
 
 ```
 __PROJECT_SLUG__/
   source/
-    rfp.md                              # RFP main document (converted to Markdown)
-    rfp_reference/                      # Original reference documents
-    rfp_answer_output/                  # Intermediate deliverables
+    rfp.md                              # RFP本紙（Markdownに変換済み）
+    rfp_reference/                      # 参照資料群
+    rfp_answer_output/                  # 中間成果物
       proposal-strategy.md
       proposal-items-checklist.md
       estimation-policy.md
       architecture-plan/
       migration-plan/
-    minutes/                            # Meeting notes
-  output/                               # Final deliverables (PPTX, XLSX)
-  demo-app/                             # Demo app (Next.js)
-  platform/                             # Platform setup scripts
+    minutes/                            # 議事録
+  output/                               # 最終成果物（PPTX, XLSX）
+  demo-app/                             # デモアプリ（Next.js）
+  platform/                             # プラットフォーム構築スクリプト
   .claude/
-    CLAUDE.md                           # Project instructions (generated from .tmpl)
-    settings.json                       # Claude Code settings (generated from .tmpl)
-    skills/                             # Skills (included from template)
-  guides/                               # ARCADIA phase guides (included from template)
-  demo-app-spec.md                      # Demo app specification
+    CLAUDE.md                           # プロジェクト指示書（.tmpl から生成）
+    settings.json                       # Claude Code設定（.tmpl から生成）
+    skills/                             # スキル（テンプレートから同梱）
+  guides/                               # ARCADIAフェーズガイド（テンプレートから同梱）
+  demo-app-spec.md                      # デモアプリ仕様書
 ```
 
 ---
 
-## Step 1.5: Prepare Organization Data
+## Step 1.5: 組織データの準備
 
 ARCADIA の提案・見積スキルは、RFP（顧客側の情報）に加えて**自社固有の情報**も参照する。
 `org-data/` 配下のファイルを自社の情報で整備する。
@@ -100,15 +100,15 @@ cp ホワイトペーパー_AI活用.pdf input/
 
 ---
 
-## Step 2: Interactive Variable Setup with Claude Code
+## Step 2: Claude Codeによる対話型セットアップ
 
-Start Claude Code and run the setup command:
+Claude Codeを起動し、setupコマンドを実行する:
 
 ```
 claude
 ```
 
-Then run the `/setup` command with project information:
+次に `/setup` コマンドをプロジェクト情報とともに実行する:
 
 ```
 /setup
@@ -127,34 +127,34 @@ Then run the `/setup` command with project information:
 
 > **Note**: 引数なしで `/setup` を実行すると、対話的に各項目を確認します。
 
-Claude Code will:
-1. Create the standard directory structure (`source/`, `output/`, `demo-app/`, etc.)
-2. Read the template from `.claude/CLAUDE.md.tmpl` and generate `.claude/CLAUDE.md`
-3. Generate `.claude/settings.json` from `.claude/settings.json.tmpl`
-4. Generate `.mcp.json`, `.env.example`
-5. Place document templates in `source/rfp_answer_output/` with project variables applied
+Claude Codeは以下を実行する:
+1. 標準ディレクトリ構造を作成する（`source/`, `output/`, `demo-app/` 等）
+2. `.claude/CLAUDE.md.tmpl` からテンプレートを読み取り `.claude/CLAUDE.md` を生成する
+3. `.claude/settings.json.tmpl` から `.claude/settings.json` を生成する
+4. `.mcp.json`, `.env.example` を生成する
+5. プロジェクト変数を適用したドキュメントテンプレートを `source/rfp_answer_output/` に配置する
 
-### Variable Quick Reference
+### 変数クイックリファレンス
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `__CLIENT_NAME__` | Yes | Client organization name |
-| `__PROPOSER_NAME__` | Yes | Your company name |
-| `__PARTNER_NAMES__` | No | Comma-separated partner names |
-| `__PROJECT_DESCRIPTION__` | Yes | One-line project scope |
-| `__PROPOSED_PRODUCTS__` | Yes | Product/platform being proposed |
-| `__PLATFORM_NAME__` | Yes | Technical platform name |
+| 変数 | 必須 | 説明 |
+|------|------|------|
+| `__CLIENT_NAME__` | Yes | クライアント組織名 |
+| `__PROPOSER_NAME__` | Yes | 自社名（提案主体） |
+| `__PARTNER_NAMES__` | No | パートナー名（カンマ区切り） |
+| `__PROJECT_DESCRIPTION__` | Yes | 案件概要（1行） |
+| `__PROPOSED_PRODUCTS__` | Yes | 提案する製品/プラットフォーム |
+| `__PLATFORM_NAME__` | Yes | 技術プラットフォーム名 |
 | `__PLATFORM_TYPE__` | Yes | "Cloud Data Warehouse" / "Lakehouse" / "Data Platform" |
 | `__CLOUD_PROVIDER__` | Yes | "AWS" / "Azure" / "GCP" |
-| `__DEADLINE__` | Yes | Submission deadline (YYYY-MM-DD) |
-| `__PRESENTATION_DATE__` | No | Presentation date (YYYY-MM-DD) |
-| `__PROJECT_SLUG__` | Auto | Directory-safe project ID |
-| `__DEMO_CONCEPT__` | No | Demo app one-liner |
-| `__CURRENT_SYSTEM__` | No | Systems being replaced |
+| `__DEADLINE__` | Yes | 提出期限（YYYY-MM-DD） |
+| `__PRESENTATION_DATE__` | No | プレゼンテーション日（YYYY-MM-DD） |
+| `__PROJECT_SLUG__` | 自動 | ディレクトリ名に使えるプロジェクトID |
+| `__DEMO_CONCEPT__` | No | デモアプリのワンライナー |
+| `__CURRENT_SYSTEM__` | No | 置き換え対象の現行システム |
 
 ---
 
-## Step 3: Place Documents
+## Step 3: ドキュメントの配置
 
 RFP・参考資料・議事録など、案件に関するすべての資料を取り込む。
 
@@ -190,18 +190,18 @@ cp -r /path/to/reference-docs/* source/rfp_reference/
 cp /path/to/議事録_0301.md source/minutes/
 ```
 
-### Supported Document Types
+### 対応ドキュメント形式
 
-| Type | Handling |
+| 形式 | 取り扱い |
 |------|----------|
-| PDF | Claude Code reads directly |
-| Word (.docx) | Convert to Markdown for best results |
-| Excel (.xlsx/.xlsm) | Claude Code reads directly; consider CSV export for large files |
-| PowerPoint (.pptx) | Convert to Markdown or extract key content |
-| Markdown (.md) | Native format, no conversion needed |
-| Images (.png/.jpg) | Claude Code reads directly (diagrams, screenshots) |
+| PDF | Claude Codeで直接読み取り可能 |
+| Word (.docx) | Markdownに変換するとベスト |
+| Excel (.xlsx/.xlsm) | Claude Codeで直接読み取り可能; 大容量ファイルはCSVエクスポートを検討 |
+| PowerPoint (.pptx) | Markdownに変換するか、主要コンテンツを抽出 |
+| Markdown (.md) | ネイティブ形式、変換不要 |
+| 画像 (.png/.jpg) | Claude Codeで直接読み取り可能（図面、スクリーンショット） |
 
-### Recommended: Convert RFP to Markdown
+### 推奨: RFPのMarkdown変換
 
 ```
 RFPのPDFをMarkdownに変換して source/rfp.md に保存して
@@ -209,133 +209,133 @@ RFPのPDFをMarkdownに変換して source/rfp.md に保存して
 
 ---
 
-## Step 4: Generate Requirements Checklist
+## Step 4: 要件チェックリストの生成
 
-Instruct Claude Code to analyze the RFP and generate the initial checklist:
+Claude CodeにRFPの分析と初期チェックリストの生成を指示する:
 
 ```
 source/rfp.md を読んで、RFP要件チェックリストを生成して。
 出力先: .claude/skills/rfp-auditor/references/rfp-requirements-checklist.md
 ```
 
-Claude Code will:
-1. Parse the RFP document
-2. Extract all explicit and implicit requirements
-3. Categorize them (functional, non-functional, compliance, etc.)
-4. Generate a structured checklist with requirement IDs
-5. Save to the rfp-auditor skill's references directory
+Claude Codeは以下を実行する:
+1. RFPドキュメントを解析する
+2. 明示的・暗黙的な要件をすべて抽出する
+3. カテゴリ別に分類する（機能、非機能、コンプライアンス等）
+4. 要件IDを付与した構造化チェックリストを生成する
+5. `rfp-auditor` スキルの references ディレクトリに保存する
 
-### Checklist Format
+### チェックリスト形式
 
 ```markdown
-| ID | Category | Requirement | Priority | Status |
-|----|----------|-------------|----------|--------|
-| R-001 | Functional | ... | Must | Pending |
-| R-002 | Non-functional | ... | Must | Pending |
+| ID | カテゴリ | 要件 | 優先度 | ステータス |
+|----|----------|------|--------|-----------|
+| R-001 | 機能 | ... | 必須 | 未対応 |
+| R-002 | 非機能 | ... | 必須 | 未対応 |
 ```
 
 ---
 
-## Step 5: Generate Document Catalog
+## Step 5: ドキュメントカタログの生成
 
 ```
 source/rfp_reference/ 配下の全ファイルを解析して docs-catalog.md を生成して。
 各ファイルについて: パス、種類、ページ数/行数、主要な内容を記録して。
 ```
 
-Claude Code will:
-1. Scan all files in `source/rfp_reference/`
-2. Read and summarize each document
-3. Generate a catalog with metadata
-4. Save to `.claude/skills/rfp-auditor/references/docs-catalog.md`
+Claude Codeは以下を実行する:
+1. `source/rfp_reference/` 内の全ファイルをスキャンする
+2. 各ドキュメントを読み取り・要約する
+3. メタデータ付きのカタログを生成する
+4. `.claude/skills/rfp-auditor/references/docs-catalog.md` に保存する
 
 ---
 
-## Platform Selection Guide
+## プラットフォーム選定ガイド
 
 プラットフォームは **クラウドインフラ** と **データ基盤** の2軸で選定する。
 
-### Step A: Cloud Provider Selection
+### Step A: クラウドプロバイダーの選定
 
 ```
 platform/cloud/ を参照して、クラウドプロバイダーを選定して
 ```
 
-| Option | Guide | Template Variable |
-|--------|-------|------------------|
+| 選択肢 | ガイド | テンプレート変数 |
+|--------|--------|-----------------|
 | **AWS** | `platform/cloud/aws/README.md` | `__CLOUD_PROVIDER__` = `AWS` |
 | **GCP** | `platform/cloud/gcp/README.md` | `__CLOUD_PROVIDER__` = `GCP` |
-| **Other** | `platform/cloud/other/README.md` | `__CLOUD_PROVIDER__` = (provider name) |
+| **その他** | `platform/cloud/other/README.md` | `__CLOUD_PROVIDER__` = (プロバイダー名) |
 
-### Step B: Data Platform Selection
+### Step B: データプラットフォームの選定
 
-#### Option B-1: Databricks
+#### 選択肢 B-1: Databricks
 
 ```
 platform/data/databricks/ の設定をプロジェクトに適用して
 ```
 
-| Setting | Value |
-|---------|-------|
+| 設定項目 | 値 |
+|----------|-----|
 | `PLATFORM_NAME` | Databricks |
 | `PLATFORM_TYPE` | Lakehouse |
-| Skills | databricks-*, spark-*, mlflow-* |
-| MCP | aws-knowledge (if on AWS) |
-| Demo env vars | DATABRICKS_HOST, DATABRICKS_TOKEN, DATABRICKS_WAREHOUSE_ID |
+| スキル | databricks-*, spark-*, mlflow-* |
+| MCP | aws-knowledge（AWS上の場合） |
+| デモ用環境変数 | DATABRICKS_HOST, DATABRICKS_TOKEN, DATABRICKS_WAREHOUSE_ID |
 
-#### Option B-2: Snowflake
+#### 選択肢 B-2: Snowflake
 
 ```
 platform/data/snowflake/ の設定をプロジェクトに適用して
 ```
 
-| Setting | Value |
-|---------|-------|
+| 設定項目 | 値 |
+|----------|-----|
 | `PLATFORM_NAME` | Snowflake |
 | `PLATFORM_TYPE` | Cloud Data Warehouse |
-| Skills | (add Snowflake-specific skills) |
-| Demo env vars | SNOWFLAKE_ACCOUNT, SNOWFLAKE_USER, SNOWFLAKE_WAREHOUSE |
+| スキル | （Snowflake固有スキルを追加） |
+| デモ用環境変数 | SNOWFLAKE_ACCOUNT, SNOWFLAKE_USER, SNOWFLAKE_WAREHOUSE |
 
-#### Option B-3: BigQuery
+#### 選択肢 B-3: BigQuery
 
 ```
 platform/data/bigquery/ の設定をプロジェクトに適用して
 ```
 
-| Setting | Value |
-|---------|-------|
+| 設定項目 | 値 |
+|----------|-----|
 | `PLATFORM_NAME` | BigQuery |
 | `PLATFORM_TYPE` | Cloud Data Warehouse |
-| Skills | (add BigQuery-specific skills) |
+| スキル | （BigQuery固有スキルを追加） |
 | MCP | google-developer-knowledge |
-| Demo env vars | GCP_PROJECT_ID, BQ_DATASET |
+| デモ用環境変数 | GCP_PROJECT_ID, BQ_DATASET |
 
-#### Option B-4: Other / Generic
+#### 選択肢 B-4: その他 / 汎用
 
 ```
 platform/data/common/ の設定をプロジェクトに適用して
 ```
 
-Use the generic baseline and add platform-specific configurations manually.
+汎用のベースライン設定を使用し、プラットフォーム固有の設定は手動で追加する。
 
 ---
 
-## Next Steps
+## 次のステップ
 
-After completing kickoff (`/setup`):
+キックオフ（`/setup`）完了後:
 
-1. **Review generated files:** `/setup` が生成したファイル一覧を確認する
-2. **Place RFP documents:** Step 3 に従い RFP ドキュメントを配置する
-3. **Start Phase 1 (Research):** `guides/02-research.md を読んでRFP解析を開始して`
-4. **Configure MCP:** 必要に応じて `.mcp.json` にAPIキーやプラットフォーム固有のMCPサーバーを追加する
+1. **生成ファイルの確認:** `/setup` が生成したファイル一覧を確認する
+2. **RFPドキュメントの配置:** Step 3 に従い RFP ドキュメントを配置する
+3. **Phase 1（調査）の開始:** `guides/02-research.md を読んでRFP解析を開始して`
+4. **MCPの設定:** 必要に応じて `.mcp.json` にAPIキーやプラットフォーム固有のMCPサーバーを追加する
 
 ---
 
-## Troubleshooting
+## トラブルシューティング
 
-| Issue | Solution |
-|-------|---------|
-| Claude Code cannot read PDF | Install PDF support or convert to Markdown |
-| MCP server not available | Check `claude mcp list` and reconfigure |
-| Template variables not replaced | Re-run Step 2; check `.claude/CLAUDE.md` for remaining `__` placeholders |
-| Skills not loading | Verify `.claude/skills/{name}/SKILL.md` exists |
+| 問題 | 解決策 |
+|------|--------|
+| Claude CodeでPDFが読めない | PDFサポートをインストールするか、Markdownに変換する |
+| MCPサーバーが利用できない | `claude mcp list` を確認して再設定する |
+| テンプレート変数が置換されていない | Step 2を再実行する; `.claude/CLAUDE.md` に `__` プレースホルダーが残っていないか確認する |
+| スキルが読み込まれない | `.claude/skills/{name}/SKILL.md` が存在するか確認する |
