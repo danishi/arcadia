@@ -1,5 +1,7 @@
 # Project Instructions
 
+> **Project context:** リポジトリ全体の構成・設計思想・ワークフロー・スキル一覧・命名規則は **`README.md`** を参照。本ファイルは Claude Code 固有の動作指示とプロジェクト固有パラメータのみを記載する。
+
 ## Principles of Action
 
 - **Completely align with users:** For any ambiguity, break it down into smaller parts and conduct interviews using the AskUserQuestion Tool.
@@ -41,55 +43,18 @@ Responsible for (1) RFP analysis, (2) demo web app development, and (3) RFP resp
 | Slide Method | __SLIDE_METHOD__ |
 | Proposal Strategy | `source/rfp_answer_output/proposal-strategy.md` |
 
-## Repository Structure
+## Key Paths
 
-```
-input/                                  # Raw input files (drop RFP docs, references, memos here first)
-source/
-  rfp.md                                # RFP main document
-  rfp_reference/                        # Original reference documents
-    (organized by source category)
-  import-log.md                         # Data import history (auto-maintained by data-import skill)
-  rfp_answer_output/                    # Intermediate deliverables
-    proposal-strategy.md                #   Win strategy
-    proposal-items-checklist.md         #   Deliverable item checklist
-    estimation-policy.md                #   Estimation methodology & rates
-    architecture-plan/                  #   Architecture design
-      architecture-policy.md            #     Principles, ADRs, security, infra
-      logical-architecture-ph{1,2}.drawio
-      physical-architecture-ph{1,2}.drawio
-    migration-plan/                     #   Migration design
-      ph1-migration-requirements.md
-      ph1-{01..04}-*.drawio
-  minutes/                              # Meeting notes
-output/                                 # Final deliverables
-  Vol{N}-{topic}.pptx                   #   Proposal volumes (PPTX method, N is per proposal-strategy.md)
-  Vol{N}-{topic}/slide-{NN}.png         #   Proposal volumes (NanoBanana method)
-  *.xlsx                                #   Answer sheets
-demo-app/                               # Demo app (Next.js App Router + TypeScript)
-platform/                               # Platform setup scripts
-.claude/skills/                         # Project-local skills
-tasks.md                                # Task/issue tracker (auto-maintained by task-tracker/task-process skills)
-demo-app-spec.md                        # Demo app specification
-arcadia/org-data/                       # Organization-specific data (rate cards, services, etc.)
-```
-
----
-
-## Active Skills & Plugins
-
-| Name | Purpose |
+| Path | Purpose |
 |------|---------|
-| **rfp-auditor** | RFP requirement compliance checking (`.claude/skills/rfp-auditor/`) |
-| **proposal-writer** | Proposal document drafting assistance (references `arcadia/org-data/`) |
-| **estimation-advisor** | Cost estimation and WBS generation (references `arcadia/org-data/rate-card.md`) |
-| **demo-builder** | Demo app scaffolding and mock data |
-| **data-import** | Incremental data import from `input/` to `source/` or `org-data/` with auto-categorization & catalog update (`.claude/skills/data-import/`) |
-| **task-tracker** | Task/issue registration during proposal work (`/task-add`). Claude also auto-registers discussion items (`.claude/skills/task-tracker/`) |
-| **task-process** | Triage, review, and interactively resolve accumulated tasks (`/task-process`) (`.claude/skills/task-process/`) |
-| **nanobanana** | AI image generation/editing for diagrams & slides (auto-selects Pro / Flash based on complexity) (`.claude/skills/nanobanana/`) |
-| **example-skills** | Frontend design, document co-authoring, web app testing, PDF/PPTX/DOCX/XLSX generation |
-| **document-skills** | Document generation skills (same family as example-skills) |
+| `source/rfp.md` | RFP main document |
+| `source/rfp_reference/` | Original reference documents |
+| `source/rfp_answer_output/` | Intermediate deliverables (strategy, checklist, estimation, architecture, migration) |
+| `output/` | Final deliverables (PPTX, XLSX) |
+| `demo-app/` | Demo app (Next.js App Router + TypeScript) |
+| `org-data/` | Organization-specific data (rate cards, services, etc.) |
+
+> Full directory structure & skill list: see `README.md`
 
 ---
 
@@ -97,10 +62,9 @@ arcadia/org-data/                       # Organization-specific data (rate cards
 
 CLAUDE.md is included in every conversation's system prompt. Keep it current and concise. Execute autonomously:
 
-1. **On skill/plugin changes**: Update the "Active Skills & Plugins" table immediately
-2. **On repository structure changes**: Update the structure diagram when new directories or key files are added
-3. **Prevent bloat**: Delegate details to sub-files (source/, references/, etc.); keep only summaries here
-4. **Token efficiency**: Prefer tables over prose, eliminate duplication
+1. **On skill/plugin or structure changes**: Update `README.md` (Directory Structure, Skills table)
+2. **Prevent bloat**: Delegate details to README.md, guides/, references/; keep only project-specific parameters here
+3. **Token efficiency**: Prefer tables over prose, eliminate duplication with README.md
 
 ---
 

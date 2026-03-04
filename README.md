@@ -207,6 +207,8 @@ ARCADIA は Claude Code の**カスタムコマンド**、**Skills**、**MCP サ
 | `task-tracker` | タスク・検討事項の起票（`/task-add`） | 全フェーズ |
 | `task-process` | 蓄積タスクのトリアージ・対話的処理（`/task-process`） | 全フェーズ |
 | `nanobanana` | AI 画像生成・編集（Gemini、図表・スライド向け） | 5, 6 |
+| `example-skills` | フロントエンドデザイン、ドキュメント共著、Web アプリテスト、PDF/PPTX/DOCX/XLSX 生成 | 5, 6 |
+| `document-skills` | ドキュメント生成（example-skills ファミリー） | 5 |
 
 ### MCP Servers
 
