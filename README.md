@@ -240,9 +240,3 @@ ARCADIA は Claude Code の**カスタムコマンド**、**Skills**、**MCP サ
 3. **Platform Independence** -- テンプレート変数でプラットフォーム固有の詳細を抽象化
 4. **Claude Code-native** -- Claude Code のツールエコシステム（MCP、Skills、Agents）を前提に設計
 5. **Evidence-based** -- 提案書のすべての記述は RFP 要件または参考資料に紐づく
-
----
-
-## License
-
-社内利用。組織の RFP 対応ワークフローに合わせて自由にカスタマイズしてください。
