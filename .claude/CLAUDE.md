@@ -83,7 +83,7 @@ CLAUDE.md is included in every conversation's system prompt. Keep it current and
 Architecture diagrams (`output/plan/architecture-plan/*.drawio`) and migration diagrams (`output/plan/migration-plan/*.drawio`) are key deliverables. When creating or editing `.drawio` files:
 - Use MCP tools for diagram creation, but always save as actual `.drawio` files (do NOT open in browser)
 - Use only DrawIO's built-in official icon sets (shape libraries). Do not embed external image URLs or custom images.
-- **Required**: Logical architecture diagrams (`logical-architecture-ph{N}.drawio`) — always create these
+- **Required**: Logical architecture diagrams (`logical-architecture-ph{N}.drawio`) — always create these. フェーズ分けしない場合は `logical-architecture.drawio` とする
 - **Optional**: Physical, network, data-flow diagrams — create only when explicitly required by the RFP
 
 ---
@@ -128,12 +128,14 @@ Next.js 15 (App Router) / React 19 / TypeScript (strict) / Tailwind CSS 4 / Rech
 
 ### Demo Screens
 
-**Ph1 Core:**
+<!-- フェーズ分けする場合は Core / Extension 等に分類。フェーズ分けしない場合は全画面を初期開発スコープとする -->
+
+**Core:**
 1. `/dashboard` **Data Pipeline** -- Pipeline visualization, data flow diagrams
 2. `/analysis` **Data Analysis (AI-powered)** -- Chat UI, natural language queries, table/chart display
 3. `/scenario` **Scenario Generation** -- Segment -> message/timing auto-suggestion, A/B test design
 
-**Ph2 Customer Experience:**
+**Extension (フェーズ分けする場合のみ後続フェーズへ):**
 4. `/journey` **Journey Builder** -- Customer journey visualization & editing
 5. `/engagement` **Engagement** -- Web/app engagement analytics
 6. `/realtime` **Real-time Monitor** -- Live data display

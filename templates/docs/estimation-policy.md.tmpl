@@ -12,9 +12,12 @@
 <!-- RFPの見積指定に従い、見積の構成を定義する。
      RFPにより構成は異なるため、指定に合わせて調整すること -->
 
-| 区分 | 内訳 | 対象フェーズ |
-|------|------|------------|
-| **イニシャル（構築費）** | __INITIAL_COST_BREAKDOWN__ | __PHASE_1_NAME__: 詳細見積、__PHASE_2_NAME__: 参考価格 |
+<!-- フェーズ分けする場合は対象フェーズ列にフェーズ別の区分を記載する。
+     フェーズ分けしない場合は「初期開発: 詳細見積」のみ -->
+
+| 区分 | 内訳 | 対象 |
+|------|------|------|
+| **イニシャル（構築費）** | __INITIAL_COST_BREAKDOWN__ | 初期開発: 詳細見積 |
 | **ランニング（運用費）** | __RUNNING_COST_BREAKDOWN__ | __RUNNING_COST_PERIOD__ |
 
 ---
@@ -121,7 +124,7 @@
 
 ### 5.1 イニシャル費用（構築費）
 
-#### __PHASE_1_NAME__（〜__PHASE_1_DEADLINE__）-- 詳細見積
+#### 初期開発（〜__PHASE_1_DEADLINE__）-- 詳細見積
 
 | 工程 | 期間 | 見積方法 |
 |------|------|---------|
@@ -141,7 +144,10 @@
 - **__ESTIMATE_SCOPE_3__**: __ESTIMATE_SCOPE_3_DETAIL__
 - **__ESTIMATE_SCOPE_4__**: __ESTIMATE_SCOPE_4_DETAIL__
 
-#### __PHASE_2_NAME__（__PHASE_2_START__以降）-- 参考価格
+#### 後続フェーズ -- 参考価格（フェーズ分けする場合のみ）
+
+<!-- フェーズ分けしない場合はこのセクションごと削除する。
+     フェーズ名はRFP要件に従い設定する -->
 
 | 機能 | 見積方法 | 備考 |
 |------|---------|------|
@@ -164,12 +170,12 @@
 
 <!-- 最終的な見積結果を集約。見積回答シートとの整合性を確認すること -->
 
+<!-- フェーズ分けする場合はフェーズ別の行を追加する。しない場合は初期開発の行のみ -->
+
 | 区分 | 人月 | 労務費 | ライセンス等 | 小計 | 備考 |
 |------|------|--------|------------|------|------|
-| **__DOMAIN_A_NAME__ __PHASE_1_NAME__** | __DOMAIN_A_PH1_MM__ | __DOMAIN_A_PH1_LABOR__ | __DOMAIN_A_PH1_LICENSE__ | **__DOMAIN_A_PH1_TOTAL__** | |
-| **__DOMAIN_B_NAME__ __PHASE_1_NAME__** | __DOMAIN_B_PH1_MM__ | __DOMAIN_B_PH1_LABOR__ | __DOMAIN_B_PH1_LICENSE__ | **__DOMAIN_B_PH1_TOTAL__** | |
-| __DOMAIN_A_NAME__ __PHASE_2_NAME__（参考） | __DOMAIN_A_PH2_MM__ | __DOMAIN_A_PH2_LABOR__ | -- | __DOMAIN_A_PH2_TOTAL__ | |
-| __DOMAIN_B_NAME__ __PHASE_2_NAME__（参考） | __DOMAIN_B_PH2_MM__ | __DOMAIN_B_PH2_LABOR__ | -- | __DOMAIN_B_PH2_TOTAL__ | |
+| **__DOMAIN_A_NAME__ 初期開発** | __DOMAIN_A_PH1_MM__ | __DOMAIN_A_PH1_LABOR__ | __DOMAIN_A_PH1_LICENSE__ | **__DOMAIN_A_PH1_TOTAL__** | |
+| **__DOMAIN_B_NAME__ 初期開発** | __DOMAIN_B_PH1_MM__ | __DOMAIN_B_PH1_LABOR__ | __DOMAIN_B_PH1_LICENSE__ | **__DOMAIN_B_PH1_TOTAL__** | |
 | **イニシャル合計** | **__INITIAL_TOTAL_MM__** | **__INITIAL_TOTAL_LABOR__** | **__INITIAL_TOTAL_LICENSE__** | **__INITIAL_TOTAL__** | |
 
 ---
