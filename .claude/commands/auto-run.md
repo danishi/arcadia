@@ -274,13 +274,9 @@ Phase 1 開始前に、自社および提案先の公開情報をWebから取得
    - `nanobanana`: NanoBanana スキルでスライド画像を生成 → `output/slides/vol{N}-{topic}/slide-{NN}.png`
    - **NanoBanana 未設定の場合**: スライド設計書（MD）の完成をもって Phase 5 の成果とし、画像生成はスキップ。`[AUTO]` で「NanoBanana 未設定のためスライド画像生成をスキップ」を記録
 
-6. **PDF結合（NanoBanana モード時のみ）**: スライド画像生成完了後、全ボリュームの画像を結合した PDF を生成する:
-   ```bash
-   python scripts/combine_pdf.py --per-volume --merged
-   ```
-   - ボリューム別 PDF: `output/slides/vol{N}-{topic}/vol{N}-{topic}.pdf`
-   - 全体結合 PDF: `output/proposal-all.pdf`
-   - Pillow 未インストールの場合は `pip install Pillow` を実行してからリトライする
+6. **PDF結合（NanoBanana モード時のみ）**: スライド画像生成完了後、`document-skills` プラグインを使用して全ボリュームのスライド画像を結合した PDF を生成する:
+   - 各ボリュームの `output/slides/vol{N}-{topic}/slide-*.png` を自然順（slide-01, slide-02, ...）で読み取る
+   - 全ボリュームの画像を結合した PDF を `output/proposal-all.pdf` に出力する
    - PDF 生成に失敗した場合は `[AUTO][要確認]` で記録して次に進む
 
 7. `phase-state.md` を更新:
