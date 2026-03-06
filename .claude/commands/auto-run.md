@@ -274,7 +274,16 @@ Phase 1 開始前に、自社および提案先の公開情報をWebから取得
    - `nanobanana`: NanoBanana スキルでスライド画像を生成 → `output/slides/vol{N}-{topic}/slide-{NN}.png`
    - **NanoBanana 未設定の場合**: スライド設計書（MD）の完成をもって Phase 5 の成果とし、画像生成はスキップ。`[AUTO]` で「NanoBanana 未設定のためスライド画像生成をスキップ」を記録
 
-6. `phase-state.md` を更新:
+6. **PDF結合（NanoBanana モード時のみ）**: スライド画像生成完了後、全ボリュームの画像を結合した PDF を生成する:
+   ```bash
+   python scripts/combine_pdf.py --per-volume --merged
+   ```
+   - ボリューム別 PDF: `output/slides/vol{N}-{topic}/vol{N}-{topic}.pdf`
+   - 全体結合 PDF: `output/proposal-all.pdf`
+   - Pillow 未インストールの場合は `pip install Pillow` を実行してからリトライする
+   - PDF 生成に失敗した場合は `[AUTO][要確認]` で記録して次に進む
+
+7. `phase-state.md` を更新:
    - Phase 5 Status: `completed`
    - Key Decisions に `[AUTO]` マーク付きで分冊構成を記録
 
@@ -283,6 +292,7 @@ Phase 1 開始前に、自社および提案先の公開情報をWebから取得
 - 全ボリュームのスライド設計書（MD）が完成している
 - スピーカーノートが全スライドに付与されている
 - PPTX またはスライド画像が生成されている（環境が整っている場合）
+- NanoBanana モード時: 結合 PDF（`output/proposal-all.pdf`）が生成されている
 
 ---
 
@@ -375,7 +385,7 @@ Phase 1 開始前に、自社および提案先の公開情報をWebから取得
 | 2. Strategy | ✅ / ❌ | proposal-strategy.md, proposal-items-checklist.md | N | N |
 | 3. Design | ✅ / ❌ | architecture-policy.md, 論理構成図 | N | N |
 | 4. Estimation | ✅ / ❌ | estimation-policy.md, wbs.md, cost-breakdown.md | N | N |
-| 5. Proposal | ✅ / ❌ | スライド設計書（MD）、PPTX/PNG | N | N |
+| 5. Proposal | ✅ / ❌ | スライド設計書（MD）、PPTX/PNG、PDF（NanoBanana時） | N | N |
 | 6. Demo | ✅ / ❌ | demo-app, demo-app-spec.md | N | N |
 | 7. Review | ✅ / ❌ | audit-report.md | N | N |
 
