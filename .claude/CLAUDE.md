@@ -55,6 +55,7 @@ Responsible for (1) RFP analysis, (2) demo web app development, and (3) RFP resp
 | `source/rfp.md` | RFP main document |
 | `source/rfp_reference/` | Original reference documents |
 | `source/minutes/` | Meeting notes, hearing memos |
+| `source/client-profile.md` | Client company profile (auto-fetched from web by `company-research` skill) |
 | `output/` | Final deliverables (PPTX, XLSX) |
 | `output/slides/` | Slide deliverables — per-volume subfolders with outline MD, design MD, and final images |
 | `output/plan/` | Intermediate deliverables (strategy, checklist, estimation, architecture, migration) |
