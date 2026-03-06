@@ -11,6 +11,7 @@
   2. Use the matching MCP tool if found
   3. Fall back to WebSearch/WebFetch only when MCP tools return insufficient results
   - Similarly, prefer matching Skills over generic approaches when available
+- **Document-skills First:** For generating, combining, or editing rich documents (PDF / PPTX / DOCX / XLSX), always prefer the `document-skills` plugin over custom scripts
 - MUST use subagents for complex problem verification
 - Optimize tool usage with parallel calling for maximum efficiency
 - **Auto-register tasks:** When you discover items requiring further discussion, unresolved ambiguities, or pending decisions during any conversation, register them to `tasks.md` using the task-tracker skill procedure. Always notify the user when auto-registering.
