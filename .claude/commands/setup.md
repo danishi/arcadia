@@ -231,6 +231,33 @@ output/
 
 > Phase 1（Research）開始前に `input/` フォルダに資料を配置し、手動で `source/` 以下に整理してください。
 
+### Step 2.5: 会社情報の自動取得
+
+自社（提案主体）と提案先（クライアント）の公開情報をWebから取得し、`org-data/company-profile.md` と `source/client-profile.md` を充実させる。
+
+#### フルオートモードの場合（`EXECUTION_MODE=auto`）:
+- ユーザー確認なしで自動実行する（必須ステップ）
+- `company-research` スキルの手順に従い、`both`（自社＋提案先の両方）を対象に実行する
+- 取得結果は `[AUTO]` マーク付きで記録する
+
+#### スタンダードモードの場合:
+- ユーザーに以下を確認する:
+
+> **自社・提案先の会社情報をWebから自動取得しますか？**
+>
+> 1. **両方取得**（推奨）-- 自社と提案先の公開情報をWebから収集し、`org-data/company-profile.md` と `source/client-profile.md` に反映します
+> 2. **提案先のみ取得** -- 提案先の公開情報のみ取得します（自社情報は手動で整備済みの場合）
+> 3. **スキップ** -- 後で手動で整備します
+
+- 「1」の場合 → `company-research` スキルを `both` で実行
+- 「2」の場合 → `company-research` スキルを `client` で実行
+- 「3」の場合 → スキップし、Step 3 に進む
+
+#### テンプレート配置:
+- `source/client-profile.md` が存在しない場合、`templates/docs/client-profile.md.tmpl` から生成する（`__CLIENT_NAME__` と `__TODAY__` を置換）
+
+---
+
 ### Step 3: スライド作成方法の選択
 
 ユーザーに提案スライドの作成方法を確認してください:
@@ -318,6 +345,7 @@ output/
 | `templates/docs/proposal-items-checklist.md.tmpl` | `output/plan/proposal-items-checklist.md` |
 | `templates/docs/estimation-policy.md.tmpl` | `output/plan/estimation-policy.md` |
 | `templates/docs/architecture-plan/architecture-policy.md.tmpl` | `output/plan/architecture-plan/architecture-policy.md` |
+| `templates/docs/client-profile.md.tmpl` | `source/client-profile.md` |
 
 `phase-state.md` および `change-log.md` の `__TODAY__` はセットアップ実行日の日付（YYYY-MM-DD）で置換してください。Phase 0 (Setup) は `completed` として記録してください。
 

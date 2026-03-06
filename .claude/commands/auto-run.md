@@ -49,10 +49,44 @@ $ARGUMENTS
 ### フェーズ実行順序
 
 ```
-Phase 1 (Research) → Phase 2 (Strategy) → Phase 3 (Design) → Phase 4 (Estimation) → Phase 5 (Proposal) → Phase 6 (Demo) → Phase 7 (Review) → 完了レポート
+Pre-Phase (Company Research) → Phase 1 (Research) → Phase 2 (Strategy) → Phase 3 (Design) → Phase 4 (Estimation) → Phase 5 (Proposal) → Phase 6 (Demo) → Phase 7 (Review) → 完了レポート
 ```
 
 > **Note**: 通常モードでは Phase 3-6 は並行可能だが、フルオートモードでは依存関係を確実に解決するため**順次実行**する。
+
+---
+
+## Pre-Phase: 会社情報の自動取得（必須）
+
+Phase 1 開始前に、自社および提案先の公開情報をWebから取得し、提案書作成に必要な企業コンテキストを整備する。
+
+### 実行条件
+
+- `org-data/company-profile.md` がテンプレート状態（主要項目が空欄）の場合 → 自社情報を取得
+- `source/client-profile.md` が存在しない場合 → 提案先情報を取得
+- 両方とも既にデータが充実している場合 → スキップ
+
+### 実行手順
+
+1. `org-data/company-profile.md` を読み込み、会社名・設立・資本金・従業員数の各セルが空欄かどうかを判定する
+
+2. `source/client-profile.md` の存在を確認する。存在しない場合は `templates/docs/client-profile.md.tmpl` から生成する（`__CLIENT_NAME__` と `__TODAY__` を置換）
+
+3. `company-research` スキルの手順に従い、自社・提案先の情報を WebSearch / WebFetch で取得する
+   - 対象: `both`（自社 + 提案先）
+   - ユーザー確認: スキップ（フルオートのため）
+
+4. 取得した情報を構造化してファイルに反映する:
+   - 自社 → `org-data/company-profile.md` のテンプレート空欄を埋める
+   - 提案先 → `source/client-profile.md` に書き込む
+
+5. `phase-state.md` に記録:
+   - `[AUTO] Pre-Phase: 会社情報をWebから自動取得（自社: {N}項目、提案先: {N}項目）`
+
+### 完了条件
+
+- `org-data/company-profile.md` の会社概要セクションに基本情報が記入されている
+- `source/client-profile.md` が存在し、企業概要が記入されている
 
 ---
 
