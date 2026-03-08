@@ -134,21 +134,19 @@ Next.js 15 (App Router) / React 19 / TypeScript (strict) / Tailwind CSS 4 / Rech
 
 ### Demo Screens
 
-<!-- フェーズ分けする場合は Core / Extension 等に分類。フェーズ分けしない場合は全画面を初期開発スコープとする -->
+<!-- /setup の Phase D ヒアリングで以下のテーブルが自動生成される -->
 
-**Core:**
-1. `/dashboard` **Data Pipeline** -- Pipeline visualization, data flow diagrams
-2. `/analysis` **Data Analysis (AI-powered)** -- Chat UI, natural language queries, table/chart display
-3. `/scenario` **Scenario Generation** -- Segment -> message/timing auto-suggestion, A/B test design
+| Path | Name | Type | Description |
+|------|------|------|-------------|
+| __DEMO_SCREENS__ |
 
-**Extension (フェーズ分けする場合のみ後続フェーズへ):**
-4. `/journey` **Journey Builder** -- Customer journey visualization & editing
-5. `/engagement` **Engagement** -- Web/app engagement analytics
-6. `/realtime` **Real-time Monitor** -- Live data display
+### Sample Data Domain
 
-### Sample Data (6 tables)
+__DEMO_DATA_DOMAIN__
 
-customers, transactions, web_logs, applications, campaign_history, partner_data
+### Theme Color
+
+__DEMO_THEME_COLOR__
 
 ### Environment Variables
 
