@@ -48,34 +48,14 @@ npm run lint    # ESLint 実行
 ```
 src/
 ├── app/                   # Next.js App Router ページ
-│   ├── _screen-templates/ # 画面パターンテンプレート
 │   ├── api/               # API Routes
 │   ├── globals.css        # デザイントークン & グローバルスタイル
-│   ├── layout.tsx.tmpl    # ルートレイアウト（テンプレート）
-│   └── page.tsx.tmpl      # ホームページ（テンプレート）
-├── components/
-│   ├── ui/                # 共通 UI コンポーネント
-│   └── sidebar.tsx.tmpl   # サイドバー（テンプレート）
+│   ├── layout.tsx         # ルートレイアウト
+│   └── page.tsx           # ホームページ（プレースホルダー）
 └── lib/
-    ├── types.ts           # 共有型定義
-    ├── utils.ts           # ユーティリティ関数
-    ├── mock-data.ts.tmpl  # モックデータ（テンプレート）
-    └── platform-client.ts.tmpl  # プラットフォーム接続（テンプレート）
+    └── utils.ts           # ユーティリティ関数
 ```
 
-### `.tmpl` ファイルについて
+## 画面生成
 
-`*.tmpl` ファイルは `/setup` コマンド実行時にプロジェクト固有の値（`__CLIENT_NAME__` 等）が置換され、正規の `.tsx` / `.ts` ファイルとして生成されます。
-
-## 画面一覧
-
-| パス | 画面名 | フェーズ |
-|------|--------|---------|
-| `/dashboard` | データパイプライン | Ph1 |
-| `/analysis` | データ分析 (AI) | Ph1 |
-| `/scenario` | シナリオ生成 | Ph1 |
-| `/journey` | ジャーニービルダー | Ph2 |
-| `/engagement` | エンゲージメント | Ph2 |
-| `/realtime` | リアルタイムモニター | Ph2 |
-
-画面の追加・更新は `demo-builder` スキルで自動生成できます。
+画面・コンポーネント・モックデータは `/setup` 時のヒアリング結果に基づき `demo-builder` スキルが自動生成します。テンプレートに縛られず、プロジェクトの要件に最適な構成が構築されます。
