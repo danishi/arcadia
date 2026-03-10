@@ -46,13 +46,88 @@ $ARGUMENTS
 - **エラー発生時**: 当該フェーズを `blocked` にし、ブロッカーを記録して次のフェーズに進む（可能な場合）
 - **コンテキスト圧縮対策**: 各フェーズ完了時に `phase-state.md` の Checkpoint を詳細に書く（次のフェーズ開始時の復帰用）
 
-### フェーズ実行順序
+### サブエージェント実行戦略（コンテキスト最適化）
+
+各フェーズの実行は `.claude/agents/` に定義された**ロール特化サブエージェント**に委譲する。これにより親コンテキストの消費を最小化し、全 7 フェーズを 1 セッションで完走できる確率を大幅に高める。
+
+#### ロール別エージェント定義
+
+`.claude/agents/` に以下のエージェントが定義されている。各エージェントは担当スキル・ガイドへの参照と戻り値フォーマットが組み込み済み:
+
+| エージェント | 担当 Phase | 主な責務 |
+|-------------|-----------|---------|
+| `researcher` | Pre-Phase, 1, 7 | RFP分析、ドキュメントカタログ化、会社情報取得、品質レビュー |
+| `strategist` | 2 | Win戦略定義、スコープ確認、チェックリスト生成 |
+| `architect` | 3 | アーキテクチャ設計、論理構成図、移行要件定義 |
+| `estimator` | 4 | 見積方針書、WBS、コスト内訳算出 |
+| `writer` | 5 | スライド設計書、PPTX/画像生成、PDF結合 |
+| `developer` | 6 | デモアプリ画面実装、モックデータ、ビルド検証 |
+
+#### 親エージェントの役割（オーケストレーター）
+
+親エージェントは**フェーズ実行そのものを行わず**、以下のオーケストレーションに専念する:
+
+1. `phase-state.md` を読み、現在のフェーズ状態を把握する
+2. 次に実行すべきフェーズの **サブエージェントプロンプト** を構築する
+3. Agent ツールでロール別エージェントを起動する
+4. サブエージェントの結果サマリーを受け取る
+5. 結果に基づき `phase-state.md` の Phase Summary / Key Decisions / Checkpoint を更新する
+6. `change-log.md` に DONE エントリを追記する
+7. 次のフェーズへ進む（またはブロッカーをスキップ）
+
+> **重要**: 親エージェントは成果物ファイルの直接読み込み・生成を行わない。ファイル操作はすべてサブエージェント内で完結させる。
+
+#### サブエージェントプロンプトの構築ルール
+
+各エージェントにはスキル参照・戻り値フォーマット・制約が組み込み済みだが、プロンプトで以下を渡す必要がある:
+
+| 項目 | 内容 | 例 |
+|------|------|-----|
+| **フェーズ指示** | 本ファイル内の該当フェーズセクション全文をコピー | `## Phase 1: Research` 全体 |
+| **プロジェクトコンテキスト** | `.claude/CLAUDE.md` の Project Overview + Key Paths テーブル | — |
+| **前フェーズの成果サマリー** | `phase-state.md` から前フェーズの Key Decisions + Checkpoint | 直近2フェーズ分で十分 |
+
+> **ファイル内容の渡し方**: 大量のファイル内容をプロンプトに直接埋め込まない。ファイルパスを指定し、サブエージェント内で Read ツールで読み取らせる。スキル・ガイドの参照パスはエージェント定義に組み込み済み。
+
+#### Agent ツール起動パラメータ
+
+| パラメータ | 値 | 備考 |
+|-----------|-----|------|
+| `name` | ロール名（`researcher`, `strategist` 等） | `.claude/agents/{name}.md` を使用 |
+| `mode` | `"bypassPermissions"` | 各エージェント定義の permissionMode と一致 |
+| `model` | 省略（親を継承） | フェーズ処理は親と同等の推論力が必要 |
+| `run_in_background` | `false` / `true` | 順次実行時は `false`、並列実行時は `true` |
+
+> **注意**: サブエージェントは他のサブエージェントを起動できない（ネスト不可）。各エージェントは自己完結する必要がある。
+
+#### 実行フロー: 順次モード（デフォルト）
 
 ```
-Pre-Phase (Company Research) → Phase 1 (Research) → Phase 2 (Strategy) → Phase 3 (Design) → Phase 4 (Estimation) → Phase 5 (Proposal) → Phase 6 (Demo) → Phase 7 (Review) → 完了レポート
+researcher (Pre-Phase) → researcher (Phase 1) → strategist (Phase 2) →
+architect (Phase 3) → estimator (Phase 4) → writer (Phase 5) →
+developer (Phase 6) → researcher (Phase 7) → 完了レポート
 ```
 
-> **Note**: 通常モードでは Phase 3-6 は並行可能だが、フルオートモードでは依存関係を確実に解決するため**順次実行**する。
+各フェーズは前のフェーズのサブエージェント完了後に開始する。依存関係の確実な解決を保証する。
+
+#### 実行フロー: 並列モード（`--parallel` 指定時）
+
+Phase 2 完了後、依存関係に基づいたウェーブ実行で並列化する:
+
+```
+Wave 0: researcher (Pre-Phase → Phase 1) [sequential]
+Wave 1: strategist (Phase 2) [sequential]
+Wave 2: architect (Phase 3) + developer (Phase 6) [parallel, run_in_background]
+Wave 3: estimator (Phase 4) [after Phase 3 completed]
+Wave 4: writer (Phase 5) [after Phase 4 completed]
+Wave 5: researcher (Phase 7) [after all completed]
+```
+
+**並列実行の手順:**
+1. Phase 2 完了後、`architect` と `developer` を同時に Agent ツールで起動する（`developer` は `run_in_background: true`）
+2. `architect` の結果を待ち、`phase-state.md` を更新する
+3. `developer` のバックグラウンド完了通知を受け取る
+4. 両方完了後、`estimator` → `writer` → `researcher`(Phase 7) を順次実行する
 
 ---
 
@@ -254,7 +329,7 @@ Phase 1 開始前に、自社および提案先の公開情報をWebから取得
 
 | 判断項目 | AI仮決定の方針 |
 |---------|--------------|
-| 分冊構成 | RFP 要件 + チェックリストの内容量から自動判定。一般的にはVol1: 概要、Vol2: 技術提案、Vol3: 移行計画、Vol4: 体制・スケジュール、Vol5: 見積 |
+| 提案書構成 | 原則として単冊（Single Volume）で構成する。RFPが分冊を明示的に指定している場合、または40スライドを超えてコンテキスト品質が維持困難な場合に限り、ユーザーに確認の上で分冊する。エグゼクティブ・サマリー以外の重複記述は排除しMECEを徹底 |
 | トーン | 信頼感のある落ち着いたトーン、技術的な正確性を保ちつつ平易な表現 |
 | メッセージ構造 | 課題（As-Is）→ 解決策（To-Be）→ 差別化（Why Us）→ 実現計画（How）→ コスト（Investment） |
 
@@ -262,7 +337,7 @@ Phase 1 開始前に、自社および提案先の公開情報をWebから取得
 
 1. 全中間成果物（戦略書、設計書、見積書、チェックリスト）を読み込む
 
-2. 分冊構成を決定し、`proposal-strategy.md` に反映する
+2. 提案書構成を決定し（原則単冊）、`proposal-strategy.md` に反映する。40スライド超でコンテキスト品質維持が困難な場合、またはRFPが分冊を指定している場合のみ分冊を検討
 
 3. 各ボリュームのスライド設計書（MD）を `proposal-writer` スキルの手順に従って生成する
    - 出力先: `output/slides/vol{N}-{topic}/slides.md`
@@ -281,7 +356,7 @@ Phase 1 開始前に、自社および提案先の公開情報をWebから取得
 
 7. `phase-state.md` を更新:
    - Phase 5 Status: `completed`
-   - Key Decisions に `[AUTO]` マーク付きで分冊構成を記録
+   - Key Decisions に `[AUTO]` マーク付きで提案書構成（単冊 or 分冊理由）を記録
 
 ### 完了条件
 

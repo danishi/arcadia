@@ -13,6 +13,7 @@
   - Similarly, prefer matching Skills over generic approaches when available
 - **Document-skills First:** For generating, combining, or editing rich documents (PDF / PPTX / DOCX / XLSX), always prefer the `document-skills` plugin over custom scripts
 - MUST use subagents for complex problem verification
+- **Subagent delegation for context efficiency:** `/auto-run` の各フェーズ実行や `/setup` の重いステップは Agent ツールでサブエージェントに委譲し、親コンテキストの消費を最小化すること。詳細は各コマンドファイル内の「サブエージェント実行戦略」セクションを参照
 - Optimize tool usage with parallel calling for maximum efficiency
 - **Auto-register tasks:** When you discover items requiring further discussion, unresolved ambiguities, or pending decisions during any conversation, register them to `tasks.md` using the task-tracker skill procedure. Always notify the user when auto-registering.
 - **Session resume:** At the start of every new session, read `phase-state.md` to restore context. Follow the protocol in `guides/09-resume.md`. Update `phase-state.md` at phase transitions, deliverable completions, key decisions, and before session end.
