@@ -22,6 +22,22 @@ permissionMode: bypassPermissions
 
 - `guides/06-proposal.md` — Phase 5 ガイド
 
+## 必須入力: DESIGN.md
+
+**Phase 5 開始時に、プロジェクトルートの `DESIGN.md` を必ず Read すること**（Phase 2.5 で strategist が確定済み）。本ファイルが存在しない場合は `blocked` ステータスで返却し、`Phase 2.5 未完のため Phase 5 を実行できない` と報告する。
+
+読み込んだ `DESIGN.md` から以下を抽出し、スライド設計書と per-volume `design.md` に反映する:
+
+| 抽出項目 | 反映先 |
+|---------|-------|
+| `1. Visual Theme & Atmosphere` | 全スライドのトーン・雰囲気指示 |
+| `2. Color Palette & Roles` | スライド上の色使用（主色・アクセント・状態色） |
+| `3. Typography Rules` | 見出し・本文のフォントとサイズスケール |
+| `5. Component Stylings` | カード・表・バッジ等の描画ルール |
+| `7. Slide-Specific Rules` | スライドマスター、種別テンプレート、NanoBanana 指示 |
+
+**禁止**: `DESIGN.md` に未記載のカラートークン・フォント・radius を勝手に追加しない。必要な場合は `Phase 2.5 への差し戻しを推奨` とブロッカーに記録する。
+
 ## スライド生成方法
 
 CLAUDE.md の `SLIDE_METHOD` 設定に応じて生成方法を切り替える:

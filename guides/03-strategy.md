@@ -186,7 +186,20 @@ Phase 2の作業に伴い `phase-state.md` を更新する:
 
 ## 次のステップ
 
-Phase 2完了後、以下のフェーズに分岐して進行可能:
+Phase 2 完了後、**まず Phase 2.5（Design System）を実施**する。`DESIGN.md` の
+トーン・色・タイポを確定してから Phase 3 以降に進むこと（Phase 5/6 の前提条件）。
+
+```
+guides/04-design.md を読んでPhase 2.5（Design System）を実施し、続けてPhase 3（アーキテクチャ設計）を開始して
+```
+
+フルオート実行の場合:
+
+```
+/auto-run 2.5
+```
+
+Phase 2.5 完了後、以下のフェーズに分岐して進行可能:
 
 ```
 guides/04-design.md を読んでPhase 3（アーキテクチャ設計）を開始して

@@ -1,0 +1,304 @@
+# Design System — __CLIENT_NAME__ 提案
+
+> 本ファイルは ARCADIA プロジェクトの **単一デザイン真実ソース** である。
+> スライド（Phase 5）とデモアプリ（Phase 6）で共通のトーン・色・タイポ・
+> コンポーネント規約を定義し、生成成果物の統率感を担保する。
+>
+> **Google Stitch DESIGN.md 仕様準拠**: LLM/エージェントが消費する前提で
+> 値は必ず具体化（hex、px）し、意味名（Semantic Role）で命名する。
+>
+> **更新者**: Phase 2.5 (Design System) サブエージェント（`strategist`）。
+> Phase 5/6 のエージェントは本ファイルを **必ず読み込み**、逸脱せずに適用すること。
+
+---
+
+## Meta
+
+| 項目 | 値 |
+|------|-----|
+| Client | __CLIENT_NAME__ |
+| Proposer | __PROPOSER_NAME__ |
+| Project | __PROJECT_DESCRIPTION__ |
+| Design Preset | __DESIGN_PRESET__ <!-- arcadia-neutral / client-brand / custom --> |
+| Last Updated | __TODAY__ |
+
+---
+
+## 1. Visual Theme & Atmosphere
+
+**トーン**: 信頼感・実直・先進性を両立したビジネスカジュアル。過剰な装飾を避け、
+情報の可読性と誠実さを優先する。グレースケールを基調とし、差し色で
+アクセントを添えるニュートラルな表現。
+
+**Density**: やや広めの余白（8pt グリッド、セクション間 32–48px）。
+
+**Aesthetic**: ミニマル・モダン。装飾のための装飾を排し、
+コンテンツ階層を明確にする。
+
+**Guardrails（逸脱禁止事項）**:
+- **Never** 原色（彩度100%）を大面積に使用しない。アクセント色は面積 5% 以下
+- **Never** ドロップシャドウを多用しない。階層は 1px ボーダー + 背景差で表現
+- **Never** 3 種類以上の書体を 1 画面で混在させない（和文+欧文+等幅の最大 3）
+- **Never** 角丸を画面内で不揃いにしない。同一レベルの要素は同じ radius を使用
+- **Never** タイポグラフィを px 直打ちしない。必ず Type Scale のトークンを参照
+- **Always** UI テキストは日本語（句読点は `、` `。`）。英語は固有名詞・略語に限定
+
+---
+
+## 2. Color Palette & Roles
+
+### Primary（主系統・ニュートラルダークスレート）
+
+| Token | Hex | Role |
+|-------|-----|------|
+| `primary-900` | `#1A202C` | 見出し文字、重要操作のテキスト |
+| `primary-800` | `#2D3748` | **Primary**: ヘッダー背景、主要CTA |
+| `primary-700` | `#4A5568` | Secondary text, sub-heading |
+| `primary-500` | `#718096` | Muted text, placeholder, icon default |
+| `primary-300` | `#CBD5E0` | Divider, disabled border |
+| `primary-100` | `#EDF2F7` | Subtle surface tint |
+| `primary-50`  | `#F7FAFC` | **Surface**: ページ背景 |
+| `surface-raised` | `#FFFFFF` | **Surface Raised**: カード、モーダル |
+
+### Accent（差し色・ティール）
+
+| Token | Hex | Role |
+|-------|-----|------|
+| `accent-600` | `#2C7A7B` | Link hover, active tab underline |
+| `accent-500` | `#319795` | **Accent**: リンク、小アイコン、主グラフ色 |
+| `accent-100` | `#E6FFFA` | Highlight background（注目ブロック） |
+
+### Semantic（状態表現）
+
+| Token | Hex | Role |
+|-------|-----|------|
+| `success-500` | `#38A169` | 成功、正常、達成 |
+| `warning-500` | `#D69E2E` | 注意、要確認 |
+| `danger-500`  | `#E53E3E` | エラー、失敗、重大リスク |
+| `info-500`    | `#3182CE` | 情報通知、サブグラフ色 |
+
+### Chart Palette（グラフ既定 5 系統）
+
+順序は `accent-500` → `info-500` → `primary-700` → `warning-500` → `success-500`。
+同一チャート内での使用色は 5 色以内。
+
+---
+
+## 3. Typography Rules
+
+### Font Family
+
+| Stack | 用途 |
+|-------|------|
+| `"Inter", "Noto Sans JP", system-ui, sans-serif` | UI 全般（見出し・本文） |
+| `"JetBrains Mono", "Menlo", ui-monospace` | コード、数値データ |
+
+### Type Scale（8pt ベース、1.25 比率）
+
+| Token | Size / Line-height | Weight | 用途 |
+|-------|-------------------|--------|------|
+| `display` | 40px / 48px | 700 | 表紙・セクション扉 |
+| `h1` | 32px / 40px | 700 | スライドタイトル、画面タイトル |
+| `h2` | 24px / 32px | 600 | セクション見出し |
+| `h3` | 20px / 28px | 600 | サブセクション |
+| `body-lg` | 18px / 28px | 400 | 強調本文、リードパラグラフ |
+| `body`    | 16px / 24px | 400 | 標準本文 |
+| `body-sm` | 14px / 20px | 400 | 補足、キャプション |
+| `mono`    | 14px / 20px | 500 | コード、数値列 |
+
+### Rules
+
+- **和文優先**: 和文含有時は行間を欧文より **+4px** 確保する
+- **Letter-spacing**: 和文 `0.02em`、欧文 `0em`、英数値 `0.02em`
+- **強調**: `font-weight: 600` を基本。斜体は使わない（和文で不自然なため）
+- **禁則**: 長文中央揃えは禁止。見出しは左揃え or 中央揃え許容
+- **行長**: 本文 1 行 40–70 字（和文） / 60–90 字（欧文）
+
+---
+
+## 4. Spacing & Layout
+
+### Base Unit: 8px
+
+| Token | Value | 用途 |
+|-------|-------|------|
+| `space-0.5` | 4px  | アイコン内余白、タグ内 padding |
+| `space-1`   | 8px  | 要素間最小余白 |
+| `space-2`   | 16px | コンポーネント内 padding（標準） |
+| `space-3`   | 24px | カード内 padding、小セクション間 |
+| `space-4`   | 32px | セクション間、ページ余白 |
+| `space-6`   | 48px | 大セクション間 |
+| `space-8`   | 64px | ページヘッダー余白 |
+
+### Grid
+
+- **スライド**: 16:9 (1920×1080 想定) / 外周マージン 80px / 12 カラム / ガター 24px
+- **Web（デモアプリ）**: 最大 1440px / コンテンツ max-width 1200px / サイドバー 240px
+
+### Breakpoints（デモアプリ）
+
+デスクトップ優先。`md: 768px` / `lg: 1024px` / `xl: 1280px` / `2xl: 1536px`。
+
+---
+
+## 5. Component Stylings
+
+### Buttons
+
+| 種別 | 背景 | 文字 | 枠線 | Radius | 備考 |
+|------|-----|------|------|--------|------|
+| Primary | `primary-800` | `#FFFFFF` | なし | 8px | 主CTA、1画面1個 |
+| Secondary | `surface-raised` | `primary-800` | `1px primary-300` | 8px | 副アクション |
+| Ghost | `transparent` | `primary-700` | なし | 8px | ナビ、リスト内アクション |
+| Danger | `danger-500` | `#FFFFFF` | なし | 8px | 削除・破壊的操作 |
+
+**Padding**: `10px 20px`（標準）、`8px 16px`（small）。
+**Hover**: 背景を `-100` step 暗くする or 透明度 8% オーバーレイ。
+**Focus**: `2px outline accent-500` を 2px offset で表示。
+
+### Cards / Containers
+
+- **Background**: `surface-raised`（`#FFFFFF`）
+- **Border**: `1px solid primary-300`（影は使わない）
+- **Radius**: 12px（カード）、8px（小ブロック）
+- **Padding**: `space-3`（24px）標準
+- **影禁止**: 階層表現は border + background tint で行う
+
+### Inputs / Forms
+
+- **Border**: `1px solid primary-300`
+- **Background**: `surface-raised`
+- **Focus**: Border を `accent-500` に変更、影無し
+- **Radius**: 8px
+- **Padding**: `10px 12px`
+- **Label**: `body-sm`, `primary-700`, 入力の上に配置（左寄せ）
+
+### Tables
+
+- **Header**: `primary-100` 背景、`primary-900` 文字、`body-sm` weight 600
+- **Row Divider**: `1px primary-300`（horizontal only）
+- **Stripe**: 禁止（ノイズになるため）
+- **Hover Row**: `primary-50` 背景
+
+### Badges / Tags
+
+- **Radius**: 4px
+- **Padding**: `2px 8px`
+- **Font**: `body-sm` weight 500
+- **Color mapping**: semantic role に対応（success/warning/danger/info/neutral）
+
+### Icons
+
+- Lucide または Material Symbols（Outlined）のいずれかに統一
+- サイズ: 16 / 20 / 24px
+- 色: `primary-500`（default）/ `accent-500`（active）
+- 単一線アイコンのみ。塗りアイコンは禁止
+
+---
+
+## 6. Motion
+
+| 用途 | Duration | Easing |
+|------|----------|--------|
+| マイクロインタラクション（hover, focus） | 150ms | `ease-out` |
+| 状態遷移（toggle, expand） | 200ms | `ease-in-out` |
+| ページ遷移、モーダル表示 | 300ms | `cubic-bezier(0.4, 0, 0.2, 1)` |
+
+**禁止**: 連続的な反復アニメーション（パルス、バウンス）、スクロール連動の
+大きな視差効果。ローディングのみ `1500ms linear` のスピナーを許容。
+
+---
+
+## 7. Slide-Specific Rules（Phase 5 専用）
+
+### スライドマスター
+
+- **比率**: 16:9
+- **背景**: `surface-raised`（`#FFFFFF`）基本。表紙・章扉のみ `primary-800` 反転
+- **ヘッダー**: 上部 48px 帯、左: ロゴ / 右: ページ番号（`body-sm primary-500`）
+- **フッター**: 下部 32px 帯、中央にクライアント名（`body-sm primary-500`）
+
+### スライド種別テンプレート
+
+| 種別 | 構成 |
+|------|------|
+| **表紙** | Display タイトル + サブタイトル + クライアント名・日付 |
+| **セクション扉** | `primary-800` 背景、中央に `display` タイトル（白抜き） |
+| **本文（1 メッセージ）** | H1 タイトル + 大型の図 or 3–4 bullet |
+| **比較（2 カラム）** | 左右に対比構造（As-Is / To-Be 等） |
+| **図解** | H1 + 全面図 + 短いキャプション |
+| **数値訴求** | KPI 3 点を大型数字で横並び、下に出典 |
+
+### NanoBanana への指示（design.md 生成時）
+
+Phase 5 の per-volume `output/slides/vol{N}-{topic}/design.md` を
+生成する際は、本ファイルのトークン（色・タイポ・コンポーネント）を
+**参照値として必ず注入**する。ボリューム固有のビジュアルモチーフのみを
+per-volume `design.md` に追加する。
+
+---
+
+## 8. Demo App Rules（Phase 6 専用）
+
+### Tailwind CSS 変数マッピング
+
+`demo-app/src/app/globals.css` の `@theme inline` に以下を適用する:
+
+```css
+@theme inline {
+  --color-primary-50:  #F7FAFC;
+  --color-primary-100: #EDF2F7;
+  --color-primary-300: #CBD5E0;
+  --color-primary-500: #718096;
+  --color-primary-700: #4A5568;
+  --color-primary-800: #2D3748;
+  --color-primary-900: #1A202C;
+
+  --color-accent-100:  #E6FFFA;
+  --color-accent-500:  #319795;
+  --color-accent-600:  #2C7A7B;
+
+  --color-success-500: #38A169;
+  --color-warning-500: #D69E2E;
+  --color-danger-500:  #E53E3E;
+  --color-info-500:    #3182CE;
+
+  --color-surface:         #F7FAFC;
+  --color-surface-raised:  #FFFFFF;
+
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+
+  --font-sans:  "Inter", "Noto Sans JP", system-ui, sans-serif;
+  --font-mono:  "JetBrains Mono", ui-monospace;
+}
+```
+
+### 遵守事項
+
+- Tailwind クラスで色を指定する際は必ず上記変数（`bg-primary-800` 等）を参照。
+  素の `bg-slate-800`, `bg-blue-500` 等は**禁止**
+- Recharts の色は Chart Palette セクションの順序で `stroke` / `fill` に適用
+- Framer Motion の `transition` は Motion セクションの duration / easing を使用
+
+---
+
+## 9. Change Log
+
+| Date | Phase | 変更内容 | 担当 |
+|------|-------|---------|------|
+| __TODAY__ | 0 (Setup) | 初版（`__DESIGN_PRESET__` プリセット） | setup |
+
+<!--
+Phase 2.5 で strategist が本ファイルを再評価・更新する際は、
+Win テーマ・クライアントブランド・業界の雰囲気を踏まえて
+以下の優先順位でトーンを決定する:
+
+1. RFP or source/client-profile.md にブランドカラー・トーン指定があれば採用
+2. クライアント業界の慣例（金融=保守的、IT=先進的、公共=実直）に合わせ
+   グレースケールの濃度・アクセント色を微調整
+3. いずれも情報がない場合は本テンプレートのデフォルト（ニュートラル）を維持
+
+更新時は必ず Change Log に行を追加すること。
+-->

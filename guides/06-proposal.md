@@ -24,6 +24,7 @@
 |------|--------|------|
 | `proposal-strategy.md` | `output/plan/` | Winテーマ、差別化ポイント、スコープ |
 | `proposal-items-checklist.md` | `output/plan/` | 提出物一覧とステータス |
+| `DESIGN.md` **必須** | プロジェクトルート | 色・タイポ・コンポーネント・Slide-Specific Rules（Phase 2.5 確定） |
 | `architecture-policy.md` | `output/plan/architecture-plan/` | 設計方針、ADR |
 | 構成図 (`.drawio`) | `output/plan/architecture-plan/` | 論理/物理構成図 |
 | 移行設計図 (`.drawio`) | `output/plan/migration-plan/` | 移行関連図面 |
@@ -45,6 +46,15 @@
 | スピーカーノート | slides.md 内 | プレゼンテーション用の話者ノート |
 
 > **Note:** スライド作成方法は `/setup` 実行時に選択した `SLIDE_METHOD`（`pptx` or `nanobanana`）に従う。CLAUDE.md の Project Overview テーブルを確認すること。
+
+### DESIGN.md の適用（必須）
+
+Phase 5 のスライド設計書・per-volume `design.md` 生成時は、プロジェクトルートの
+`DESIGN.md` を**必ず参照**する。`DESIGN.md` が存在しない場合は Phase 2.5 を先に
+実行すること（`/auto-run 2.5` または `guides/04-design.md` 冒頭の手順参照）。
+
+- 全ボリューム共通の色・タイポ・コンポーネント規約 → `DESIGN.md` に集約
+- ボリューム固有のビジュアル指示（各スライドの構図・図解スタイル） → per-volume `design.md` に記述し、冒頭で `DESIGN.md` を継承する旨を宣言
 
 ---
 

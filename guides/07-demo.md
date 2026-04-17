@@ -24,6 +24,7 @@
 |------|--------|------|
 | `proposal-strategy.md` | `output/plan/` | デモで訴求すべきポイント（Winテーマ） |
 | `architecture-policy.md` | `output/plan/architecture-plan/` | 技術スタック、API構成 |
+| `DESIGN.md` **必須** | プロジェクトルート | 色・タイポ・コンポーネント・Tailwind 変数（Phase 2.5 確定） |
 | `demo-app-spec.md` | プロジェクトルート | デモアプリ詳細仕様書（存在する場合） |
 | RFP参照資料 | `source/rfp_reference/` | ドメインデータの構造（テーブル定義、IF定義等） |
 
@@ -37,6 +38,17 @@
 | `demo-app-spec.md` | プロジェクトルート | デモアプリ詳細仕様書（未作成の場合は生成） |
 | データ基盤スクリプト | `demo-app/scripts/` | サンプルデータ投入・環境構築スクリプト |
 | モックデータ | `demo-app/` 内 | プラットフォーム未接続時のフォールバックデータ |
+
+### DESIGN.md の適用（必須）
+
+Phase 6 では `DESIGN.md §8 Demo App Rules` の Tailwind 変数ブロックを
+`demo-app/src/app/globals.css` の `@theme inline` に適用する。Tailwind 素の
+カラートークン（`bg-slate-*`, `bg-blue-*`, `text-gray-*` 等）は使用禁止。
+必ず `DESIGN.md` で定義した意味名トークン（`bg-primary-800`, `text-accent-500` 等）
+を使用する。
+
+`DESIGN.md` が未確定の場合は Phase 2.5 を先に実行すること
+（`/auto-run 2.5` または `guides/04-design.md` 冒頭の手順参照）。
 
 ---
 

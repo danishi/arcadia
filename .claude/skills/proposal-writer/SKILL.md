@@ -28,7 +28,17 @@ allowed-tools: Read, Grep, Glob, Write, Task
 
 ## スライド設計書生成手順（5ステップ）
 
-### Step 0: 組織固有データの読込
+### Step 0: デザインシステム + 組織固有データの読込
+
+#### Step 0-a: DESIGN.md（必須）
+
+プロジェクトルートの **`DESIGN.md`** を読み込む。Phase 2.5 で確定されたデザイン規約（色・タイポ・コンポーネント・Slide-Specific Rules）を抽出し、以降のスライド設計書・per-volume `design.md` 生成時に必ず反映する。
+
+- `DESIGN.md` が存在しない場合はエラーを返し、**`/auto-run 2.5` または Phase 2.5 (Design System) の実行を促す**
+- `2. Color Palette & Roles` の意味名トークンのみを使用し、独自の色を追加しない
+- `7. Slide-Specific Rules` のスライドマスター仕様（ヘッダー/フッター、表紙・章扉）を全ボリュームで統一する
+
+#### Step 0-b: 組織固有データ（推奨）
 
 `arcadia/org-data/` 配下の自社固有データを読み込み、提案書に活用可能な自社情報を把握する:
 
@@ -186,9 +196,16 @@ AIがスライド設計書を一貫性を保って生成・レビューできる
 | 成果物 | パス | 説明 |
 |--------|------|------|
 | スライド骨子 MD | `output/slides/slides.md`（分冊時: `vol{N}-{topic}/slides.md`） | 本スキルの主出力 |
-| デザイン指示 MD | `output/slides/design.md`（分冊時: `vol{N}-{topic}/design.md`） | NanoBanana用のビジュアルデザイン指示 |
+| デザイン指示 MD | `output/slides/design.md`（分冊時: `vol{N}-{topic}/design.md`） | NanoBanana用のビジュアルデザイン指示（**`DESIGN.md` を継承**） |
 | スライド画像 | `output/slides/slide-{NN}.png`（分冊時: `vol{N}-{topic}/slide-{NN}.png`） | NanoBananaスキルが生成 |
 | 全体結合 PDF | `output/proposal-all.pdf` | `document-skills` プラグインが画像を結合して生成 |
+
+### per-volume `design.md` と `DESIGN.md` の関係
+
+- **`DESIGN.md`（プロジェクトルート）**: 全ボリューム横断の規約（色・タイポ・コンポーネント・スライドマスター）
+- **`output/slides/vol{N}-{topic}/design.md`（ボリューム別）**: ボリューム固有のビジュアル指示（各スライドの構図・アイコン・図解スタイル等）
+
+per-volume `design.md` 生成時は冒頭で `DESIGN.md` を明示的に参照し、「本書は `DESIGN.md` を継承する。以下は本ボリューム固有の指示のみ記載する」と宣言する。色・フォント・radius 等の基本トークンを重複記述しない。
 
 > **デフォルト（単冊）**: `output/slides/` 直下に骨子・デザイン・画像を配置する。
 > **分冊時**: Volume別サブフォルダ（`vol{N}-{topic}/`）に集約。`{topic}` は kebab-case。
