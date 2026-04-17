@@ -4,6 +4,35 @@
 
 ---
 
+## 事前: Phase 2.5（Design System）の完了確認
+
+Phase 3 に入る前に、**Phase 2.5（Design System）が完了していること**を確認する。
+Phase 2.5 は Phase 2 の直後に実施される独立フェーズで、プロジェクトルートの
+`DESIGN.md` に色・タイポ・コンポーネント規約を確定する。
+
+### Phase 2.5 の実施手順
+
+| ステップ | 実施内容 |
+|---------|---------|
+| 1 | `DESIGN.md`（`/setup` で配置済み）、`proposal-strategy.md`、`source/client-profile.md` を読み込む |
+| 2 | `strategist` エージェント（または手動）が Design Preset を判断: クライアントブランド指定 → `client-brand` / 業界トーン調整 → `custom` / 情報なし → `arcadia-neutral`（デフォルト） |
+| 3 | 必要セクションのみ更新（色・Slide-Specific Rules・Tailwind 変数）。Change Log に 1 行追加 |
+| 4 | `phase-state.md` の Phase 2.5 Status を `completed` にし、判断根拠を Key Decisions に記録 |
+
+### 実行コマンド（フルオートの場合）
+
+```
+/auto-run 2.5
+```
+
+### なぜ Phase 2.5 が必要か
+
+- **Phase 5（提案書）と Phase 6（デモアプリ）の前提条件**。両フェーズのエージェントは `DESIGN.md` を必ず Read し、色・タイポ・コンポーネントのトークンを厳密に適用する
+- 提案戦略（Win テーマ、クライアント像）が固まった時点で決めることで、トーンと戦略の整合性を担保する
+- Phase 3（アーキテクチャ設計）の図面（DrawIO）は任意の色規約に従ってよいが、提案書・デモとトーンを合わせるため `DESIGN.md` のカラートークンを参照することを推奨
+
+---
+
 ## 概要
 
 | 項目 | 値 |

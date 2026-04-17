@@ -481,8 +481,17 @@ output/
 | `templates/docs/estimation-policy.md.tmpl` | `output/plan/estimation-policy.md` |
 | `templates/docs/architecture-plan/architecture-policy.md.tmpl` | `output/plan/architecture-plan/architecture-policy.md` |
 | `templates/docs/client-profile.md.tmpl` | `source/client-profile.md` |
+| `templates/docs/DESIGN.md.tmpl` | `DESIGN.md` （プロジェクトルート） |
 
 `phase-state.md` および `change-log.md` の `__TODAY__` はセットアップ実行日の日付（YYYY-MM-DD）で置換してください。Phase 0 (Setup) は `completed` として記録してください。
+
+`DESIGN.md` の `__DESIGN_PRESET__` には以下の値を設定してください:
+
+- Phase D の `DEMO_THEME_COLOR` が **"クライアントのブランドカラー"** → `client-brand`
+- `DEMO_THEME_COLOR` が **"おまかせ"** → `custom`
+- `DEMO_THEME_COLOR` が **"デフォルト（ブルー）"** または未指定 → `arcadia-neutral`
+
+> `DESIGN.md` の詳細確定（色トークンの上書き・業界トーン反映）は Phase 2.5 (Design System) で strategist サブエージェントが実施します。セットアップ時点ではデフォルトの骨格のみを配置します。
 
 ### Step 9: 完了レポート
 
@@ -499,6 +508,7 @@ output/
    - `guides/02-research.md を読んでRFP解析を開始して` でPhase 1を開始する
    - 必要に応じて `.mcp.json` のAPIキーを設定する
    - org-data が未整備の場合は `arcadia/org-data/README.md` を参照する
+   - Phase 2 完了後は `guides/04-design.md` の冒頭に従い **Phase 2.5 (Design System)** を実行し、`DESIGN.md` を確定する（Phase 5/6 の前提条件）
 
 #### フルオートモードの場合（`EXECUTION_MODE=auto`）:
 

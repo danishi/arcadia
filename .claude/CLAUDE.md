@@ -53,6 +53,7 @@ Responsible for (1) RFP analysis, (2) demo web app development, and (3) RFP resp
 |------|---------|
 | `phase-state.md` | Phase state tracking — single source of truth for phase progress, checkpoints, and session resume |
 | `change-log.md` | Write-Ahead Log — append-only change history from setup to submission (do NOT read unless recovering) |
+| `DESIGN.md` | Design system single source of truth — colors, typography, components, slide/demo rules (confirmed in Phase 2.5; Phase 5/6 read this as required input) |
 | `input/` | Universal intake — all documents go here; `data-import` skill auto-classifies to `source/` or `org-data/` |
 | `source/rfp.md` | RFP main document |
 | `source/rfp_reference/` | Original reference documents |

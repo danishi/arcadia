@@ -57,11 +57,11 @@ $ARGUMENTS
 | エージェント | 担当 Phase | 主な責務 |
 |-------------|-----------|---------|
 | `researcher` | Pre-Phase, 1, 7 | RFP分析、ドキュメントカタログ化、会社情報取得、品質レビュー |
-| `strategist` | 2 | Win戦略定義、スコープ確認、チェックリスト生成 |
+| `strategist` | 2, 2.5 | Win戦略定義、スコープ確認、チェックリスト生成、デザインシステム確定 |
 | `architect` | 3 | アーキテクチャ設計、論理構成図、移行要件定義 |
 | `estimator` | 4 | 見積方針書、WBS、コスト内訳算出 |
-| `writer` | 5 | スライド設計書、PPTX/画像生成、PDF結合 |
-| `developer` | 6 | デモアプリ画面実装、モックデータ、ビルド検証 |
+| `writer` | 5 | スライド設計書、PPTX/画像生成、PDF結合（DESIGN.md 強制参照） |
+| `developer` | 6 | デモアプリ画面実装、モックデータ、ビルド検証（DESIGN.md 強制参照） |
 
 #### 親エージェントの役割（オーケストレーター）
 
@@ -104,30 +104,34 @@ $ARGUMENTS
 
 ```
 researcher (Pre-Phase) → researcher (Phase 1) → strategist (Phase 2) →
-architect (Phase 3) → estimator (Phase 4) → writer (Phase 5) →
-developer (Phase 6) → researcher (Phase 7) → 完了レポート
+strategist (Phase 2.5 / DESIGN.md) → architect (Phase 3) → estimator (Phase 4) →
+writer (Phase 5) → developer (Phase 6) → researcher (Phase 7) → 完了レポート
 ```
 
 各フェーズは前のフェーズのサブエージェント完了後に開始する。依存関係の確実な解決を保証する。
 
 #### 実行フロー: 並列モード（`--parallel` 指定時）
 
-Phase 2 完了後、依存関係に基づいたウェーブ実行で並列化する:
+Phase 2.5 完了後、依存関係に基づいたウェーブ実行で並列化する:
 
 ```
 Wave 0: researcher (Pre-Phase → Phase 1) [sequential]
 Wave 1: strategist (Phase 2) [sequential]
-Wave 2: architect (Phase 3) + developer (Phase 6) [parallel, run_in_background]
-Wave 3: estimator (Phase 4) [after Phase 3 completed]
-Wave 4: writer (Phase 5) [after Phase 4 completed]
-Wave 5: researcher (Phase 7) [after all completed]
+Wave 2: strategist (Phase 2.5 / DESIGN.md) [sequential, must complete before Phase 5/6]
+Wave 3: architect (Phase 3) + developer (Phase 6) [parallel, run_in_background]
+Wave 4: estimator (Phase 4) [after Phase 3 completed]
+Wave 5: writer (Phase 5) [after Phase 4 completed]
+Wave 6: researcher (Phase 7) [after all completed]
 ```
 
 **並列実行の手順:**
-1. Phase 2 完了後、`architect` と `developer` を同時に Agent ツールで起動する（`developer` は `run_in_background: true`）
-2. `architect` の結果を待ち、`phase-state.md` を更新する
-3. `developer` のバックグラウンド完了通知を受け取る
-4. 両方完了後、`estimator` → `writer` → `researcher`(Phase 7) を順次実行する
+1. Phase 2 完了後、`strategist` を Phase 2.5 モードで再度起動し `DESIGN.md` を確定する
+2. `architect` と `developer` を同時に Agent ツールで起動する（`developer` は `run_in_background: true`）
+3. `architect` の結果を待ち、`phase-state.md` を更新する
+4. `developer` のバックグラウンド完了通知を受け取る
+5. 両方完了後、`estimator` → `writer` → `researcher`(Phase 7) を順次実行する
+
+> **Phase 2.5 は Phase 5/6 の前提条件**: `DESIGN.md` が未確定のまま Phase 5/6 を実行することは禁止。writer/developer は `DESIGN.md` を必ず Read してから画面・スライド生成を行う。
 
 ---
 
@@ -237,6 +241,55 @@ Phase 1 開始前に、自社および提案先の公開情報をWebから取得
 
 ---
 
+## Phase 2.5: Design System（デザインシステム確定）— AI比率: 100%
+
+Phase 2 で固まった Win テーマ・クライアント像・業界トーンに基づき、プロジェクトルートの `DESIGN.md` を確定する。Phase 5（提案書）と Phase 6（デモ）で共通の色・タイポ・コンポーネント規約を定義し、生成成果物の統率感を担保する独立フェーズ。
+
+### 前提
+
+- `/setup` により `templates/docs/DESIGN.md.tmpl` から `DESIGN.md` の初期骨格が配置済み（デフォルトは ARCADIA ニュートラルプリセット）
+- Phase 2 の `proposal-strategy.md`、`source/client-profile.md` が生成済み
+
+### AI仮決定ルール（Phase 2.5固有）
+
+| 判断項目 | AI仮決定の方針 |
+|---------|--------------|
+| Design Preset | 以下の優先順位で決定: (1) クライアントブランドカラーが `source/client-profile.md` or RFPに明記 → `client-brand`、(2) 業界慣例（金融/公共=保守、IT/エンタメ=先進、製造/物流=実直）を踏まえ調整 → `custom`、(3) いずれもなし → `arcadia-neutral` を維持 |
+| Primary Color | クライアントブランド色があれば採用。HSL で明度 20-35% / 彩度 30-60% の範囲に正規化 |
+| Accent Color | Primary の補色または類似色相差 ±150° を目安に、業界トーンに合わせ選定 |
+| トーンの強度 | 業界別に `density` と余白を調整（保守的業界=余白広め、先進的業界=密度高め） |
+| Guardrails | 業界・クライアント固有の NG 表現があれば `Never ...` として追記 |
+
+### 実行手順
+
+1. `DESIGN.md` を Read する（`/setup` で配置済みの骨格）
+2. `output/plan/proposal-strategy.md`、`source/client-profile.md`、`org-data/company-profile.md` を Read する
+3. 上記の AI 仮決定ルールに従い、`DESIGN.md` の以下セクションを更新する:
+   - `Meta.Design Preset`
+   - `1. Visual Theme & Atmosphere`（業界・Win テーマに応じた調整）
+   - `2. Color Palette & Roles`（ブランド反映時のみ色トークンを更新）
+   - `7. Slide-Specific Rules`（クライアント固有の装飾指示があれば追記）
+   - `8. Demo App Rules` の Tailwind 変数ブロック（色トークン変更時のみ）
+   - `9. Change Log` に 1 行追加（`Phase 2.5 / [AUTO] ...`）
+4. `change-log.md` に `PLAN` → `DONE` エントリを追記する（WAL）
+5. `phase-state.md` を更新:
+   - Phase 2.5 Status: `completed`
+   - Key Decisions に `[AUTO]` マーク付きで Design Preset とトーン判断根拠を記録
+
+### 完了条件
+
+- `DESIGN.md` の `Meta.Design Preset` が `__DESIGN_PRESET__` から確定値に更新されている
+- `Change Log` に Phase 2.5 の更新エントリが追加されている
+- ブランド色採用時: `2. Color Palette` と `8. Demo App Rules` の変数値が整合している
+
+### 重要
+
+- **Phase 2.5 は Phase 5 と Phase 6 の前提条件**。writer / developer は `DESIGN.md` を **必ず Read** してから成果物生成を行う
+- トーン判断に迷う場合は `arcadia-neutral`（デフォルト）を維持し `[AUTO][要確認]` マークを付与する
+- スライドの per-volume `design.md` は本ファイルを継承し、ボリューム固有の装飾のみを追加する
+
+---
+
 ## Phase 3: Design（設計）— AI比率: 100%
 
 通常 AI 60% のフェーズ。フルオートでは技術選定も AI が仮決定する。
@@ -330,7 +383,7 @@ Phase 1 開始前に、自社および提案先の公開情報をWebから取得
 | 判断項目 | AI仮決定の方針 |
 |---------|--------------|
 | 提案書構成 | 原則として単冊（Single Volume）で構成する。RFPが分冊を明示的に指定している場合、または40スライドを超えてコンテキスト品質が維持困難な場合に限り、ユーザーに確認の上で分冊する。エグゼクティブ・サマリー以外の重複記述は排除しMECEを徹底 |
-| トーン | 信頼感のある落ち着いたトーン、技術的な正確性を保ちつつ平易な表現 |
+| トーン・色・タイポ | **Phase 2.5 で確定した `DESIGN.md` に厳密に従う**（独自判断禁止）。writer は `DESIGN.md` を必ず Read してから設計書を作成する |
 | メッセージ構造 | 課題（As-Is）→ 解決策（To-Be）→ 差別化（Why Us）→ 実現計画（How）→ コスト（Investment） |
 
 ### 実行手順
@@ -378,6 +431,7 @@ Phase 1 開始前に、自社および提案先の公開情報をWebから取得
 | 画面構成 | CLAUDE.md の Demo Screens セクションに定義されている Core 画面を優先実装 |
 | デモシナリオ | Winテーマに沿って「課題 → 解決 → 効果」のストーリーを構成 |
 | モックデータ | RFP のドメインに合わせたリアリティのあるデータ（各テーブル 50-100 レコード） |
+| カラー・タイポ・コンポーネント | **Phase 2.5 で確定した `DESIGN.md` の Tailwind 変数マッピング（§8）に厳密に従う**。Tailwind 素のカラートークン（`bg-slate-*`, `bg-blue-*` 等）は使用禁止 |
 
 ### 実行手順
 

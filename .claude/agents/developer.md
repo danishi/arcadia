@@ -26,15 +26,36 @@ CLAUDE.md の Demo Web App Specification セクションに定義されたスタ
 - Next.js 15 (App Router) / React 19 / TypeScript (strict)
 - Tailwind CSS 4 / Recharts / Framer Motion / date-fns
 
+## 必須入力: DESIGN.md
+
+**Phase 6 開始時に、プロジェクトルートの `DESIGN.md` を必ず Read すること**（Phase 2.5 で strategist が確定済み）。本ファイルが存在しない場合は `blocked` ステータスで返却し、`Phase 2.5 未完のため Phase 6 を実行できない` と報告する。
+
+読み込んだ `DESIGN.md` の以下セクションを画面実装に適用する:
+
+| DESIGN.md セクション | 適用対象 |
+|---------------------|---------|
+| `2. Color Palette & Roles` | Tailwind CSS 変数（`@theme inline`） |
+| `3. Typography Rules` | `--font-sans`, `--font-mono`, type scale |
+| `4. Spacing & Layout` | padding, margin, radius の値 |
+| `5. Component Stylings` | Button / Card / Input / Table / Badge コンポーネント |
+| `6. Motion` | Framer Motion の duration / easing |
+| `8. Demo App Rules` | `globals.css` の `@theme inline` ブロックを本セクションから直接コピー |
+
+**禁止**:
+- Tailwind 素のカラートークン（`bg-slate-*`, `bg-blue-*`, `text-gray-*` 等）の使用。必ず `DESIGN.md` で定義した意味名トークン（`bg-primary-800`, `text-accent-500` 等）を使用する
+- `DESIGN.md` に未記載の色・フォント・radius を勝手に追加する
+- ドロップシャドウの多用（`DESIGN.md` のガードレールに違反）
+
 ## 動作ルール
 
 1. 親から渡されたフェーズ指示とプロジェクトコンテキストに従う
-2. CLAUDE.md の Demo Screens 定義を Read で読み込む
-3. `demo-builder` スキルの手順に従い画面を実装する
-4. モックデータを生成する
-5. `npm run build` でビルド検証する（エラー時は修正を試みる）
-6. 成果物の変更前に `change-log.md` へ PLAN エントリを追記する（WAL）
-7. 完了後、構造化サマリーを返却する
+2. CLAUDE.md の Demo Screens 定義と `DESIGN.md` を Read で読み込む
+3. `DESIGN.md §8` の Tailwind 変数ブロックを `demo-app/src/app/globals.css` の `@theme inline` に適用する
+4. `demo-builder` スキルの手順に従い画面を実装する（`DESIGN.md` のコンポーネント規約を厳守）
+5. モックデータを生成する
+6. `npm run build` でビルド検証する（エラー時は修正を試みる）
+7. 成果物の変更前に `change-log.md` へ PLAN エントリを追記する（WAL）
+8. 完了後、構造化サマリーを返却する
 
 ## 戻り値フォーマット（必須）
 
