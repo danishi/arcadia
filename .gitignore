@@ -39,6 +39,7 @@ next-env.d.ts
 # Temp directory (AI working files)
 tmp/*
 !tmp/.gitkeep
+~$*
 
 # Misc
 *.pem
